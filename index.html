@@ -6,145 +6,145 @@
 <style>
 :root{
   color-scheme:light;
-  /* default palette: ink and coral */
-  --bg:#FAF7F5;
-  --surface:#FFFFFF;
-  --surface-2:#F2EDEA;
-  --line:#E5DCD7;
-  --line-strong:#D2C4BD;
-  --ink:#1A2233;
-  --ink-2:#414C61;
-  --muted:#7A8296;
-  --accent:#BE4630;
-  --accent-ink:#9C3826;
-  --accent-soft:#F9E6E1;
-  --on-accent:#FFFFFF;
-  --t-flight:#2C74AC;      --t-flight-bg:#E3EDF6;
-  --t-transport:#4F6E7A;   --t-transport-bg:#E5ECEE;
-  --t-stay:#6E56A0;        --t-stay-bg:#EBE6F5;
-  --t-food:#A5651C;        --t-food-bg:#F6EBDC;
-  --t-activity:#14847A;    --t-activity-bg:#E2EFED;
-  --t-free:#5F7370;        --t-free-bg:#E9EDEC;
-  --t-other:#5F7370;       --t-other-bg:#E9EDEC;
-  --shadow:0 1px 2px rgba(20,29,28,.06),0 8px 24px -12px rgba(20,29,28,.18);
+  /* default palette: sorbet */
+  --bg:#FFF7F3; --surface:#FFFFFF; --surface-2:#F4ECE8;
+  --line:#E6DCDA; --line-strong:#CCC2C1;
+  --ink:#3B2A33; --ink-2:#6E5F65; --muted:#897C80;
+  --accent:#D12258; --accent-ink:#AF1D4A; --accent-soft:#FFDAE0; --on-accent:#FFFFFF;
+  --t-flight:#276B84;    --t-flight-bg:#D8E5E9;
+  --t-transport:#2A7262; --t-transport-bg:#DEEBE3;
+  --t-stay:#C6003D;      --t-stay-bg:#FFD7DE;
+  --t-food:#A05100;      --t-food-bg:#FFE3C9;
+  --t-activity:#886700;  --t-activity-bg:#FFEFCD;
+  --t-free:#76686D;      --t-free-bg:#F1E9E6;
+  --t-other:#76686D;     --t-other-bg:#F1E9E6;
+  --shadow:0 1px 2px rgba(30,21,26,.06),0 8px 24px -12px rgba(30,21,26,.18);
   --radius:10px;
   --f-display:"Instrument Serif",Georgia,"Times New Roman",serif;
   --f-body:"Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    color-scheme:dark;
-    --bg:#10151F;
-    --surface:#171E2B;
-    --surface-2:#1F2837;
-    --line:#2B3547;
-    --line-strong:#3E4A5E;
-    --ink:#E9EDF4;
-    --ink-2:#BFC8D8;
-    --muted:#8994A8;
-    --accent:#F0876E;
-    --accent-ink:#F4A491;
-    --accent-soft:#331E1A;
-    --on-accent:#1A1210;
-    --t-flight:#7CB8E4;      --t-flight-bg:#152A38;
-    --t-transport:#9AB4BD;   --t-transport-bg:#1B2A2E;
-    --t-stay:#B7A0E2;        --t-stay-bg:#241E36;
-    --t-food:#DFA764;        --t-food-bg:#33260F;
-    --t-activity:#57C4B8;    --t-activity-bg:#123330;
-    --t-free:#8B9C9A;        --t-free-bg:#1D2726;
-    --t-other:#8B9C9A;       --t-other-bg:#1D2726;
-    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.7);
-  }
-}
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --bg:#10151F;
-  --surface:#171E2B;
-  --surface-2:#1F2837;
-  --line:#2B3547;
-  --line-strong:#3E4A5E;
-  --ink:#E9EDF4;
-  --ink-2:#BFC8D8;
-  --muted:#8994A8;
-  --accent:#F0876E;
-  --accent-ink:#F4A491;
-  --accent-soft:#331E1A;
-  --on-accent:#1A1210;
-  --t-flight:#7CB8E4;      --t-flight-bg:#152A38;
-  --t-transport:#9AB4BD;   --t-transport-bg:#1B2A2E;
-  --t-stay:#B7A0E2;        --t-stay-bg:#241E36;
-  --t-food:#DFA764;        --t-food-bg:#33260F;
-  --t-activity:#57C4B8;    --t-activity-bg:#123330;
-  --t-free:#8B9C9A;        --t-free-bg:#1D2726;
-  --t-other:#8B9C9A;       --t-other-bg:#1D2726;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.7);
-}
 
-/* ---------- alternate palettes ----------
-   Each redefines only the ground/ink/accent tokens. The categorical
-   activity-type colours stay constant so the chips read the same everywhere. */
-
-body[data-palette="teal"]{
+/* Sea teal, the one alternate palette. */
+:root[data-palette="teal"]{
   --bg:#F6F8F8; --surface:#FFFFFF; --surface-2:#EFF3F3;
   --line:#DCE3E3; --line-strong:#C3CFCE;
   --ink:#141D1C; --ink-2:#3D4E4C; --muted:#677A78;
   --accent:#0B6E67; --accent-ink:#06514C; --accent-soft:#E2EFED; --on-accent:#FFFFFF;
+  --t-flight:#2C74AC;    --t-flight-bg:#E3EDF6;
+  --t-transport:#4F6E7A; --t-transport-bg:#E5ECEE;
+  --t-stay:#6E56A0;      --t-stay-bg:#EBE6F5;
+  --t-food:#A5651C;      --t-food-bg:#F6EBDC;
+  --t-activity:#14847A;  --t-activity-bg:#E2EFED;
+  --t-free:#5F7370;      --t-free-bg:#E9EDEC;
+  --t-other:#5F7370;     --t-other-bg:#E9EDEC;
 }
-body[data-palette="brass"]{
-  --bg:#F7F7F3; --surface:#FFFFFF; --surface-2:#EFEFE8;
-  --line:#E0E0D5; --line-strong:#C8C8B8;
-  --ink:#1B2A22; --ink-2:#3E5147; --muted:#6E7C73;
-  --accent:#8A6721; --accent-ink:#705318; --accent-soft:#F2EBD9; --on-accent:#FFFFFF;
-}
-body[data-palette="swiss"]{
-  --bg:#FCFCFC; --surface:#FFFFFF; --surface-2:#F2F2F2;
-  --line:#E2E2E2; --line-strong:#BDBDBD;
-  --ink:#111111; --ink-2:#3D3D3D; --muted:#707070;
-  --accent:#C81E1E; --accent-ink:#A81717; --accent-soft:#FBE7E7; --on-accent:#FFFFFF;
+
+/* Orchid, built from the pine / teal / mauve / pink / lilac set. */
+:root[data-palette="orchid"]{
+  --bg:#FAF7F8; --surface:#FFFFFF; --surface-2:#EEEDEE;
+  --line:#DCDDDD; --line-strong:#BBC1C0;
+  --ink:#122F2A; --ink-2:#4A5F5B; --muted:#6A7B78;
+  --accent:#8F5772; --accent-ink:#7C4B63; --accent-soft:#E7DAE0; --on-accent:#FFFFFF;
+  --t-flight:#09417E; --t-flight-bg:#CAD3DF;
+  --t-activity:#026466; --t-activity-bg:#C9D9DA;
+  --t-transport:#2E6849; --t-transport-bg:#D2DAD5;
+  --t-stay:#87497E; --t-stay-bg:#E5D7E2;
+  --t-food:#BD2652; --t-food-bg:#F5E0E6;
+  --t-free:#716969; --t-free-bg:#F1EFF0;
+  --t-other:#716969; --t-other-bg:#F1EFF0;
 }
 
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]) body[data-palette="teal"]{
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#1E151A; --surface:#292025; --surface-2:#342A2F;
+    --line:#3C3338; --line-strong:#5A5155;
+    --ink:#F6EBEE; --ink-2:#C0B5B9; --muted:#A09599;
+    --accent:#FB6C98; --accent-ink:#FA9EBA; --accent-soft:#502735; --on-accent:#1E151A;
+    --t-flight:#4FA5C4;    --t-flight-bg:#28323C;
+    --t-transport:#67C0AC; --t-transport-bg:#2D3737;
+    --t-stay:#FF6695;      --t-stay-bg:#4B2533;
+    --t-food:#FF9A32;      --t-food-bg:#4B301F;
+    --t-activity:#FED148;  --t-activity-bg:#4B3B23;
+    --t-free:#B5ABAE;      --t-free-bg:#31282D;
+    --t-other:#B5ABAE;     --t-other-bg:#31282D;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.7);
+  }
+  :root:not([data-theme="light"])[data-palette="teal"]{
     --bg:#0D1413; --surface:#141D1C; --surface-2:#1B2625;
     --line:#283534; --line-strong:#3A4A48;
     --ink:#E9EFEE; --ink-2:#BCCAC8; --muted:#8B9C9A;
     --accent:#57C4B8; --accent-ink:#8AD9CF; --accent-soft:#123330; --on-accent:#07201D;
+    --t-flight:#7CB8E4;    --t-flight-bg:#152A38;
+    --t-transport:#9AB4BD; --t-transport-bg:#1B2A2E;
+    --t-stay:#B7A0E2;      --t-stay-bg:#241E36;
+    --t-food:#DFA764;      --t-food-bg:#33260F;
+    --t-activity:#4FB3A8;  --t-activity-bg:#123330;
+    --t-free:#8B9C9A;      --t-free-bg:#1D2726;
+    --t-other:#8B9C9A;     --t-other-bg:#1D2726;
   }
-  :root:not([data-theme="light"]) body[data-palette="brass"]{
-    --bg:#101711; --surface:#17201A; --surface-2:#1F2A22;
-    --line:#2B3830; --line-strong:#3E4E43;
-    --ink:#E8EEE9; --ink-2:#BECBC2; --muted:#8A9990;
-    --accent:#C9A557; --accent-ink:#DBBC77; --accent-soft:#2C2513; --on-accent:#16140A;
-  }
-  :root:not([data-theme="light"]) body[data-palette="swiss"]{
-    --bg:#0B0B0B; --surface:#141414; --surface-2:#1D1D1D;
-    --line:#292929; --line-strong:#3D3D3D;
-    --ink:#EDEDED; --ink-2:#C4C4C4; --muted:#8A8A8A;
-    --accent:#F04A4A; --accent-ink:#F87171; --accent-soft:#2E1414; --on-accent:#140606;
+  :root:not([data-theme="light"])[data-palette="orchid"]{
+    --bg:#0D231F; --surface:#192D2A; --surface-2:#253735;
+    --line:#2E3F3D; --line-strong:#4F5B5A;
+    --ink:#EADDE4; --ink-2:#B5B0B5; --muted:#969699;
+    --accent:#E489A3; --accent-ink:#E9B2C2; --accent-soft:#403A3D; --on-accent:#0D231F;
+    --t-flight:#3E91EC; --t-flight-bg:#0D2A33;
+    --t-activity:#07A5A9; --t-activity-bg:#0B312E;
+    --t-transport:#51A578; --t-transport-bg:#153228;
+    --t-stay:#B987B1; --t-stay-bg:#2A2E36;
+    --t-food:#E489A3; --t-food-bg:#3C383B;
+    --t-free:#D1CDCD; --t-free-bg:#384946;
+    --t-other:#D1CDCD; --t-other-bg:#384946;
   }
 }
 
-:root[data-theme="dark"] body[data-palette="teal"]{
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#1E151A; --surface:#292025; --surface-2:#342A2F;
+  --line:#3C3338; --line-strong:#5A5155;
+  --ink:#F6EBEE; --ink-2:#C0B5B9; --muted:#A09599;
+  --accent:#FB6C98; --accent-ink:#FA9EBA; --accent-soft:#502735; --on-accent:#1E151A;
+  --t-flight:#4FA5C4;    --t-flight-bg:#28323C;
+  --t-transport:#67C0AC; --t-transport-bg:#2D3737;
+  --t-stay:#FF6695;      --t-stay-bg:#4B2533;
+  --t-food:#FF9A32;      --t-food-bg:#4B301F;
+  --t-activity:#FED148;  --t-activity-bg:#4B3B23;
+  --t-free:#B5ABAE;      --t-free-bg:#31282D;
+  --t-other:#B5ABAE;     --t-other-bg:#31282D;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.7);
+}
+:root[data-theme="dark"][data-palette="teal"]{
   --bg:#0D1413; --surface:#141D1C; --surface-2:#1B2625;
   --line:#283534; --line-strong:#3A4A48;
   --ink:#E9EFEE; --ink-2:#BCCAC8; --muted:#8B9C9A;
   --accent:#57C4B8; --accent-ink:#8AD9CF; --accent-soft:#123330; --on-accent:#07201D;
+  --t-flight:#7CB8E4;    --t-flight-bg:#152A38;
+  --t-transport:#9AB4BD; --t-transport-bg:#1B2A2E;
+  --t-stay:#B7A0E2;      --t-stay-bg:#241E36;
+  --t-food:#DFA764;      --t-food-bg:#33260F;
+  --t-activity:#4FB3A8;  --t-activity-bg:#123330;
+  --t-free:#8B9C9A;      --t-free-bg:#1D2726;
+  --t-other:#8B9C9A;     --t-other-bg:#1D2726;
 }
-:root[data-theme="dark"] body[data-palette="brass"]{
-  --bg:#101711; --surface:#17201A; --surface-2:#1F2A22;
-  --line:#2B3830; --line-strong:#3E4E43;
-  --ink:#E8EEE9; --ink-2:#BECBC2; --muted:#8A9990;
-  --accent:#C9A557; --accent-ink:#DBBC77; --accent-soft:#2C2513; --on-accent:#16140A;
-}
-:root[data-theme="dark"] body[data-palette="swiss"]{
-  --bg:#0B0B0B; --surface:#141414; --surface-2:#1D1D1D;
-  --line:#292929; --line-strong:#3D3D3D;
-  --ink:#EDEDED; --ink-2:#C4C4C4; --muted:#8A8A8A;
-  --accent:#F04A4A; --accent-ink:#F87171; --accent-soft:#2E1414; --on-accent:#140606;
+:root[data-theme="dark"][data-palette="orchid"]{
+  --bg:#0D231F; --surface:#192D2A; --surface-2:#253735;
+  --line:#2E3F3D; --line-strong:#4F5B5A;
+  --ink:#EADDE4; --ink-2:#B5B0B5; --muted:#969699;
+  --accent:#E489A3; --accent-ink:#E9B2C2; --accent-soft:#403A3D; --on-accent:#0D231F;
+  --t-flight:#3E91EC; --t-flight-bg:#0D2A33;
+  --t-activity:#07A5A9; --t-activity-bg:#0B312E;
+  --t-transport:#51A578; --t-transport-bg:#153228;
+  --t-stay:#B987B1; --t-stay-bg:#2A2E36;
+  --t-food:#E489A3; --t-food-bg:#3C383B;
+  --t-free:#D1CDCD; --t-free-bg:#384946;
+  --t-other:#D1CDCD; --t-other-bg:#384946;
 }
 
 *{box-sizing:border-box}
+/* Paint the ground on the root as well as the body. A body-only background is
+   propagated to the canvas, and in light mode that left the page white. */
+html{background:var(--bg)}
 body{
   margin:0;
   background:var(--bg);
@@ -169,8 +169,24 @@ button{font:inherit;color:inherit}
 .mast-meta{display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--f-mono);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
 .mast-meta b{color:var(--ink-2);font-weight:500}
 
+/* ---------- tabs ---------- */
+.tabs{
+  display:flex;gap:2px;border-bottom:1px solid var(--line);margin-top:16px;
+  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;
+  padding:11px 14px;cursor:pointer;flex:0 0 auto;white-space:nowrap;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted);transition:color .15s;
+}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--accent-ink);border-bottom-color:var(--accent)}
+.tab-count{margin-left:8px;opacity:.6;font-variant-numeric:tabular-nums}
+
 /* ---------- toolbar ---------- */
-.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:16px 0 26px;border-bottom:1px solid var(--line)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:16px 0 22px}
 .bar-spacer{flex:1}
 .palettes{display:flex;gap:7px;align-items:center}
 .palettes-label{font-family:var(--f-mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-right:2px}
@@ -182,10 +198,9 @@ button{font:inherit;color:inherit}
 }
 .sw:hover{transform:scale(1.12)}
 .sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--bg),0 0 0 3.5px var(--ink)}
-.sw-coral{--sw-a:#BE4630;--sw-b:#1A2233}
+.sw-sorbet{--sw-a:#D12258;--sw-b:#67C0AC}
 .sw-teal{--sw-a:#0B6E67;--sw-b:#141D1C}
-.sw-brass{--sw-a:#8A6721;--sw-b:#1B2A22}
-.sw-swiss{--sw-a:#C81E1E;--sw-b:#111111}
+.sw-orchid{--sw-a:#8F5772;--sw-b:#122F2A}
 .btn{
   display:inline-flex;align-items:center;gap:7px;
   background:var(--surface);border:1px solid var(--line-strong);
@@ -210,7 +225,7 @@ button{font:inherit;color:inherit}
 .day-items{display:flex;flex-direction:column;gap:2px;min-width:0}
 
 /* ---------- entry ---------- */
-.entry{display:grid;grid-template-columns:64px 1fr;gap:0 18px;padding:14px 0;border-top:1px solid var(--line);min-width:0}
+.entry{display:grid;grid-template-columns:74px 1fr;gap:0 18px;padding:14px 0;border-top:1px solid var(--line);min-width:0}
 .day-items>.entry:first-child{border-top:none}
 .entry-time{
   font-family:var(--f-mono);font-size:13.5px;font-variant-numeric:tabular-nums;
@@ -221,6 +236,10 @@ button{font:inherit;color:inherit}
 .t-rule{display:block;width:1px;height:9px;background:var(--line-strong);margin:2px 0 2px 3px}
 .t-end{color:var(--muted);font-size:12.5px}
 .t-next{font-size:9.5px;vertical-align:super;margin-left:1px;letter-spacing:0;color:var(--t-food)}
+.t-zone{
+  display:block;font-size:9.5px;letter-spacing:.08em;color:var(--muted);
+  line-height:1.5;font-weight:500;
+}
 .entry-body{min-width:0;display:flex;flex-direction:column;gap:7px}
 .entry-head{display:flex;gap:10px;align-items:flex-start}
 .entry-title{font-size:17px;font-weight:600;letter-spacing:-.01em;line-height:1.3;flex:1;min-width:0;word-wrap:break-word}
@@ -228,6 +247,18 @@ button{font:inherit;color:inherit}
 .entry:hover .entry-acts,.entry:focus-within .entry-acts{opacity:1}
 @media (hover:none){.entry-acts{opacity:1}}
 .entry-notes{color:var(--ink-2);font-size:14.5px;white-space:pre-wrap;word-wrap:break-word}
+.entry-facts{
+  display:flex;flex-wrap:wrap;align-items:baseline;
+  font-family:var(--f-mono);font-size:12px;color:var(--ink-2);
+  letter-spacing:.01em;
+}
+.fact{display:inline-flex;align-items:baseline}
+.fact-k{color:var(--muted);margin-right:6px}
+.fact-strong{font-size:13.5px;font-weight:500;color:var(--ink)}
+.entry-facts-block{display:block;line-height:1.55}
+.fact + .fact::before{
+  content:"·";color:var(--line-strong);margin:0 8px;font-weight:700;
+}
 
 .entry-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-width:0}
 .pin,.kind{
@@ -245,6 +276,12 @@ button{font:inherit;color:inherit}
   letter-spacing:.11em;text-transform:uppercase;
   padding:4px 10px 4px 7px;
   background:var(--kind-bg);color:var(--kind-fg);
+}
+.kind-sub{
+  display:inline-flex;align-items:center;
+  margin-left:1px;padding-left:7px;
+  border-left:1px solid currentColor;
+  opacity:.72;
 }
 .k-flight{--kind-fg:var(--t-flight);--kind-bg:var(--t-flight-bg)}
 .k-transport{--kind-fg:var(--t-transport);--kind-bg:var(--t-transport-bg)}
@@ -266,6 +303,105 @@ select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--
   border:1px solid var(--line);background:var(--surface-2);cursor:zoom-in;display:block;
 }
 
+/* ---------- today ---------- */
+.mast-status{
+  color:var(--on-accent);background:var(--accent);
+  padding:2px 9px;border-radius:999px;font-weight:600;letter-spacing:.02em;
+}
+.mast-status.s-after{background:var(--surface-2);color:var(--muted)}
+.day-today{position:relative}
+.day-today::before{
+  content:"";position:absolute;left:-16px;top:22px;bottom:6px;width:3px;
+  border-radius:2px;background:var(--accent);
+}
+.day-today .day-num{color:var(--accent)}
+.day-today-tag{
+  margin-top:8px;display:inline-block;
+  background:var(--accent);color:var(--on-accent);
+  padding:2px 8px;border-radius:999px;
+  font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+}
+
+/* ---------- prep lists ---------- */
+.prep{max-width:620px}
+.prep-col{display:flex;flex-direction:column;gap:12px;min-width:0}
+.prep-blurb{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.5}
+.prep-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px;border-top:1px solid var(--line)}
+.prep-item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)}
+.prep-item input[type="checkbox"]{
+  width:17px;height:17px;flex:none;margin:2px 0 0;accent-color:var(--accent);cursor:pointer;
+}
+.prep-item label{
+  flex:1;min-width:0;margin:0;font-family:var(--f-body);font-size:15px;font-weight:400;
+  letter-spacing:0;text-transform:none;color:var(--ink);line-height:1.45;
+  cursor:pointer;word-wrap:break-word;
+}
+.prep-item.is-done label{color:var(--muted);text-decoration:line-through}
+.prep-item .btn-ghost{opacity:0;flex:none;transition:opacity .15s}
+.prep-item:hover .btn-ghost,.prep-item:focus-within .btn-ghost{opacity:1}
+@media (hover:none){.prep-item .btn-ghost{opacity:1}}
+.prep-add{display:flex;flex-wrap:wrap;gap:8px;padding-top:4px}
+.prep-add input{flex:1 1 200px;min-width:0}
+.prep-add .prep-cat{flex:0 0 auto;width:auto;min-width:130px}
+.prep-add .btn{flex:none}
+.pack-group{display:flex;flex-direction:column;gap:2px}
+.pack-group + .pack-group{margin-top:20px}
+.pack-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--accent-ink);font-weight:500;padding-bottom:7px;
+}
+.pack-count{color:var(--muted);font-weight:400;flex:none}
+.catpick{
+  position:relative;flex:none;display:inline-flex;align-items:center;gap:4px;
+  font-family:var(--f-mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap;cursor:pointer;padding:2px 0;
+  opacity:0;transition:opacity .15s;
+}
+.prep-item:hover .catpick,.prep-item:focus-within .catpick{opacity:1}
+@media (hover:none){.catpick{opacity:.75}}
+.catpick::after{
+  content:"";flex:none;width:0;height:0;
+  border-left:3px solid transparent;border-right:3px solid transparent;
+  border-top:3.5px solid var(--muted);
+}
+.catpick select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0}
+.catpick:focus-within{color:var(--accent-ink)}
+.prep-empty{margin:0;color:var(--muted);font-size:14px}
+.dl-row{display:flex;flex-wrap:wrap;gap:10px}
+
+/* ---------- overview cards ---------- */
+.card-sum{
+  font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);padding-bottom:16px;
+}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(304px,1fr));gap:16px}
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:18px 18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0;
+}
+.card-head{display:flex;flex-direction:column;gap:6px}
+.card-top{display:flex;align-items:flex-start;gap:8px}
+.card-name{flex:1;min-width:0;font-size:17.5px;font-weight:600;letter-spacing:-.01em;line-height:1.25;word-wrap:break-word}
+.card-top .btn-ghost{opacity:0;transition:opacity .15s}
+.card:hover .card-top .btn-ghost,.card:focus-within .card-top .btn-ghost{opacity:1}
+@media (hover:none){.card-top .btn-ghost{opacity:1}}
+.card-when{
+  font-family:var(--f-mono);font-size:12px;color:var(--accent-ink);
+  font-variant-numeric:tabular-nums;display:flex;flex-wrap:wrap;align-items:baseline;
+}
+.card-nights{color:var(--muted);margin-left:10px;padding-left:10px;border-left:1px solid var(--line-strong)}
+.card-sub{font-size:13.5px;color:var(--muted);line-height:1.4}
+.card-lines{
+  display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;
+  font-family:var(--f-mono);font-size:12px;color:var(--ink-2);
+}
+.card-lines>span{min-width:0;word-wrap:break-word}
+.card-lines .fact-k{margin:0}
+.card-block{font-family:var(--f-mono);font-size:12px;color:var(--ink-2);line-height:1.6}
+.card-note{font-size:14px;color:var(--ink-2);line-height:1.5;padding-top:10px;border-top:1px solid var(--line)}
+.card .pin{align-self:flex-start}
+
 /* ---------- empty ---------- */
 .empty{text-align:center;padding:64px 20px;color:var(--muted)}
 .empty h2{font-family:var(--f-display);font-size:26px;color:var(--ink);margin-bottom:6px;font-weight:400}
@@ -275,12 +411,49 @@ select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--
 .sheet-bg{position:fixed;inset:0;background:rgba(10,20,19,.5);display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;overflow:auto;z-index:50}
 .sheet{
   background:var(--surface);border:1px solid var(--line);border-radius:14px;
-  box-shadow:var(--shadow);width:100%;max-width:540px;padding:24px;margin:auto;
+  box-shadow:var(--shadow);width:100%;max-width:660px;padding:24px;margin:auto;
 }
 .sheet h2{font-family:var(--f-display);font-size:26px;font-weight:400;margin-bottom:18px}
 .grid{display:grid;gap:14px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .three{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px}
+/* The type's extra fields flow into the same grid as Type and Detail, so a
+   type with no Detail (Flight) puts its first field beside Type. */
+#f-fields-wrap{display:contents}
+.two>.full,#f-fields-wrap>.full{grid-column:1 / -1}
+.checkfield{display:flex;align-items:center;gap:9px;min-height:44px}
+.checkfield input[type="checkbox"]{
+  width:17px;height:17px;flex:none;margin:0;accent-color:var(--accent);cursor:pointer;
+}
+.checkfield label{
+  margin:0;font-family:var(--f-body);font-size:15px;font-weight:400;
+  letter-spacing:0;text-transform:none;color:var(--ink);cursor:pointer;
+}
+/* Date plus two time-and-zone pairs on one row. */
+.timerow{display:grid;grid-template-columns:118px 1fr 1fr;gap:10px}
+.tgroup{display:flex;gap:6px;min-width:0}
+.tgroup input[type="time"]{flex:1 1 auto;min-width:0;padding-left:9px;padding-right:4px}
+.timerow input[type="date"]{padding-left:9px;padding-right:4px}
+.zonepick{
+  position:relative;flex:0 0 auto;
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--bg);border:1px solid var(--line-strong);border-radius:8px;
+  padding:9px 8px 9px 10px;
+  font-family:var(--f-mono);font-size:12.5px;color:var(--ink);
+  white-space:nowrap;cursor:pointer;
+}
+.zonepick::after{
+  content:"";flex:none;width:0;height:0;
+  border-left:3.5px solid transparent;border-right:3.5px solid transparent;
+  border-top:4px solid var(--muted);
+}
+.zonepick-text{min-width:34px}
+.zonepick-blank{color:var(--muted)}
+.zonepick select{
+  position:absolute;inset:0;width:100%;height:100%;
+  opacity:0;cursor:pointer;padding:0;border:0;border-radius:8px;
+}
+.zonepick:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 label{display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
 input,textarea{
   width:100%;font:inherit;font-size:15px;color:var(--ink);
@@ -313,7 +486,12 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
 .meter{display:inline-flex;align-items:center;gap:8px}
 .meter-track{width:74px;height:4px;border-radius:2px;background:var(--line);overflow:hidden}
 .meter-fill{height:100%;background:var(--accent);border-radius:2px}
-.ro-note{display:flex;gap:9px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);padding:11px 14px;font-size:13.5px;color:var(--ink-2);margin-bottom:18px}
+.ro-note{display:flex;gap:9px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);padding:11px 14px;font-size:13.5px;color:var(--ink-2);margin-bottom:18px;line-height:1.5}
+.ro-note b{color:var(--ink);font-weight:600}
+.prose{display:flex;flex-direction:column;gap:12px;font-size:14.5px;line-height:1.6;color:var(--ink-2)}
+.prose p{margin:0}
+.prose b{color:var(--ink);font-weight:600}
+.prose-note{padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
 
 @media (max-width:640px){
   .wrap{padding:22px 15px 88px}
@@ -321,11 +499,16 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
   .day-mark{position:static;display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
   .day-num{font-size:32px}
   .day-mon,.day-dow{margin-top:0}
-  .entry{grid-template-columns:52px 1fr;gap:0 12px}
+  .entry{grid-template-columns:62px 1fr;gap:0 12px}
   .entry-time{font-size:12.5px}
   .two{grid-template-columns:1fr}
   .three{grid-template-columns:1fr 1fr}
   .three>:first-child{grid-column:1 / -1}
+  .timerow{grid-template-columns:1fr 1fr}
+  .timerow>.t-date{grid-column:1 / -1}
+  .tgroup{flex-wrap:wrap}
+  .tgroup input[type="time"]{flex:1 1 100%}
+  .zonepick{flex:1 1 100%;justify-content:space-between}
   .shots img{width:88px;height:66px}
 }
 </style>
@@ -339,88 +522,706 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
 {
   "trip": {
     "name": "Philippines, November",
-    "theme": "coral",
-    "note": "Example entries so you can see the shape of it. Edit or clear them and add your own."
+    "theme": "sorbet",
+    "note": "Example entries for a Cebu dive trip. Clear them with the button when you are ready to add your own.",
+    "tz": "Europe/Stockholm"
   },
   "items": [
     {
       "id": "seed-1",
-      "date": "2026-11-14",
-      "time": "06:40",
-      "endTime": "09:15",
-      "type": "flight",
-      "title": "Flight to Manila",
-      "location": "Manila",
-      "notes": "Confirmation ABC123. Window seat requested.",
-      "photos": []
+      "date": "2026-11-02",
+      "time": "05:00",
+      "endTime": "05:40",
+      "type": "transport",
+      "title": "Airport express to Arlanda",
+      "location": "Stockholm Central Station",
+      "notes": "Arlanda Express leaves every 15 min. Buy tickets on the app, it is cheaper.",
+      "photos": [],
+      "tz": "Europe/Stockholm",
+      "endTz": "",
+      "subtype": "train",
+      "details": {
+        "company": "Arlanda Express"
+      }
     },
     {
       "id": "seed-2",
-      "date": "2026-11-14",
-      "time": "14:00",
-      "endTime": "",
-      "type": "stay",
-      "title": "Check in at hotel",
-      "location": "Makati, Manila",
-      "notes": "Asked for an early check-in.",
-      "photos": []
+      "date": "2026-11-02",
+      "time": "07:15",
+      "endTime": "04:30",
+      "type": "flight",
+      "title": "Flight ARN to Manila via Doha",
+      "location": "Stockholm Arlanda Airport, Terminal 5",
+      "notes": "Bag drop closes 06:15. Layover in Doha is 1h55, tight but same terminal. Lands early on the 3rd.",
+      "photos": [],
+      "tz": "Europe/Stockholm",
+      "endTz": "Asia/Manila",
+      "subtype": "",
+      "details": {
+        "aircraft": "Boeing 787-9 / Airbus A350-1000",
+        "airline": "Qatar Airways",
+        "flightNo": "QR170 / QR932"
+      }
     },
     {
       "id": "seed-3",
-      "date": "2026-11-15",
-      "time": "08:00",
-      "endTime": "17:00",
-      "type": "activity",
-      "title": "Island hopping tour",
-      "location": "Coron, Palawan",
-      "notes": "Bring reef-safe sunscreen and a dry bag.",
-      "photos": []
+      "date": "2026-11-03",
+      "time": "09:40",
+      "endTime": "10:40",
+      "type": "transport",
+      "title": "Terminal 3 to Terminal 2 shuttle",
+      "location": "Ninoy Aquino International Airport, Manila",
+      "notes": "Free shuttle runs every 30 min. Allow a full hour, the traffic between terminals is unpredictable.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "bus",
+      "details": {
+        "company": "NAIA Airport Shuttle",
+        "service": "T3 to T2"
+      }
     },
     {
       "id": "seed-4",
-      "date": "2026-11-15",
-      "time": "19:00",
-      "endTime": "",
-      "type": "food",
-      "title": "Dinner at the seaside grill",
-      "location": "Coron, Palawan",
-      "notes": "Try the grilled squid.",
-      "photos": []
+      "date": "2026-11-03",
+      "time": "12:05",
+      "endTime": "13:30",
+      "type": "flight",
+      "title": "Flight Manila to Cebu",
+      "location": "Ninoy Aquino International Airport Terminal 2, Manila",
+      "notes": "Domestic, so only 45 min check in needed.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "",
+      "details": {
+        "aircraft": "Airbus A321neo",
+        "airline": "Philippine Airlines",
+        "flightNo": "PR2841"
+      }
     },
     {
       "id": "seed-5",
-      "date": "2026-11-16",
-      "time": "09:00",
-      "endTime": "11:30",
+      "date": "2026-11-03",
+      "time": "15:30",
+      "endTime": "18:30",
       "type": "transport",
-      "title": "Ferry to Moalboal",
-      "location": "Moalboal, Cebu",
-      "notes": "Buy tickets a day ahead in peak season.",
-      "photos": []
+      "title": "Van transfer to Moalboal",
+      "location": "Mactan Cebu International Airport",
+      "notes": "Prebooked private van, roughly 3 hours. Driver meets us at arrivals with a sign.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "transfer",
+      "details": {
+        "company": "Cebu Island Transfers"
+      }
     },
     {
       "id": "seed-6",
-      "date": "2026-11-16",
-      "time": "",
+      "date": "2026-11-03",
+      "time": "19:00",
       "endTime": "",
-      "type": "free",
-      "title": "Free afternoon",
-      "location": "",
-      "notes": "Nothing planned — rest or wander.",
-      "photos": []
+      "type": "stay",
+      "title": "Check in at the dive resort",
+      "location": "Panagsama Beach, Moalboal, Cebu",
+      "notes": "Confirmation is in email. Two rooms booked, both sea facing. Ask about the 06:00 boat to the sardine run.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "resort",
+      "details": {
+        "property": "Blue Abyss Dive Resort",
+        "phone": "+63 32 474 0000",
+        "checkIn": "14:00",
+        "checkOut": "12:00",
+        "breakfast": "yes",
+        "pool": "yes",
+        "breakfastFrom": "06:30",
+        "breakfastTo": "09:30",
+        "amenities": "Wifi in the restaurant only. Hot water 06:00 to 22:00. Free kayaks and a rinse tank for dive gear."
+      }
     },
     {
       "id": "seed-7",
-      "date": "2026-11-17",
-      "time": "07:00",
+      "date": "2026-11-03",
+      "time": "20:00",
+      "endTime": "21:30",
+      "type": "food",
+      "title": "Late dinner at the resort",
+      "location": "Panagsama Beach, Moalboal, Cebu",
+      "notes": "Kitchen closes at 22:00. Anna is vegetarian, mention it when we sit down.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "restaurant",
+      "details": {}
+    },
+    {
+      "id": "seed-8",
+      "date": "2026-11-04",
+      "time": "08:00",
+      "endTime": "10:30",
+      "type": "activity",
+      "title": "Check out dive and gear fitting",
+      "location": "Panagsama Beach, Moalboal, Cebu",
+      "notes": "Shallow house reef dive so the shop can check everyone's weighting. Bring the certification cards.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "diving",
+      "details": {
+        "company": "Blue Abyss Divers",
+        "phone": "+63 32 474 0011"
+      }
+    },
+    {
+      "id": "seed-9",
+      "date": "2026-11-04",
+      "time": "12:30",
+      "endTime": "13:30",
+      "type": "food",
+      "title": "Lunch together",
+      "location": "Panagsama Beach, Moalboal, Cebu",
+      "notes": "Nothing booked, we can just walk along the front and pick somewhere.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "restaurant",
+      "details": {}
+    },
+    {
+      "id": "seed-10",
+      "date": "2026-11-04",
+      "time": "14:30",
+      "endTime": "16:00",
+      "type": "activity",
+      "title": "Afternoon dive, house reef",
+      "location": "Panagsama Beach, Moalboal, Cebu",
+      "notes": "Second dive of the day. Good one for the wide angle lens, the wall starts about 10 m out.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "diving",
+      "details": {
+        "company": "Blue Abyss Divers"
+      }
+    },
+    {
+      "id": "seed-11",
+      "date": "2026-11-04",
+      "time": "",
+      "endTime": "",
+      "type": "free",
+      "title": "Free evening",
+      "location": "",
+      "notes": "Nothing planned. Early night before the sardine run.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "",
+      "details": {}
+    },
+    {
+      "id": "seed-12",
+      "date": "2026-11-05",
+      "time": "06:00",
       "endTime": "08:30",
       "type": "activity",
-      "title": "Sardine run snorkel",
-      "location": "Panagsama Beach, Moalboal",
-      "notes": "Book with a local dive shop the night before.",
-      "photos": []
+      "title": "Sardine run at Panagsama",
+      "location": "Panagsama Beach, Moalboal, Cebu",
+      "notes": "The whole point of the trip. Boat leaves at 06:00 sharp. Best light is in the first hour.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "diving",
+      "details": {
+        "company": "Blue Abyss Divers",
+        "phone": "+63 32 474 0011"
+      }
+    },
+    {
+      "id": "seed-13",
+      "date": "2026-11-05",
+      "time": "10:00",
+      "endTime": "14:00",
+      "type": "activity",
+      "title": "Two tank dive at Pescador Island",
+      "location": "Pescador Island, Moalboal, Cebu",
+      "notes": "Includes surface interval and lunch on the boat. Turtles are usually on the second dive.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "diving",
+      "details": {
+        "company": "Blue Abyss Divers"
+      }
+    },
+    {
+      "id": "seed-14",
+      "date": "2026-11-05",
+      "time": "19:00",
+      "endTime": "21:00",
+      "type": "food",
+      "title": "Dinner in town",
+      "location": "Moalboal, Cebu",
+      "notes": "Somewhere with a table for everyone. Worth booking in the afternoon.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "restaurant",
+      "details": {}
+    },
+    {
+      "id": "seed-15",
+      "date": "2026-11-06",
+      "time": "06:00",
+      "endTime": "07:00",
+      "type": "transport",
+      "title": "Drive to Badian",
+      "location": "Moalboal, Cebu",
+      "notes": "Arranged through the resort. Roughly an hour each way.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "transfer",
+      "details": {
+        "company": "Arranged through the resort"
+      }
+    },
+    {
+      "id": "seed-16",
+      "date": "2026-11-06",
+      "time": "07:30",
+      "endTime": "13:00",
+      "type": "activity",
+      "title": "Kawasan Falls canyoneering",
+      "location": "Kawasan Falls, Badian, Cebu",
+      "notes": "Wet and physical, about 4 hours of jumping and swimming. Life jackets and helmets provided. Leave anything valuable at the resort.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "water",
+      "details": {
+        "company": "Badian Canyoneering Guides",
+        "phone": "+63 917 555 0142"
+      }
+    },
+    {
+      "id": "seed-17",
+      "date": "2026-11-06",
+      "time": "19:00",
+      "endTime": "",
+      "type": "food",
+      "title": "Dinner, whoever is still awake",
+      "location": "Moalboal, Cebu",
+      "notes": "",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "bar",
+      "details": {}
+    },
+    {
+      "id": "seed-18",
+      "date": "2026-11-07",
+      "time": "",
+      "endTime": "",
+      "type": "free",
+      "title": "Rest day, no diving",
+      "location": "",
+      "notes": "Deliberately empty. Everyone will need it after the canyoneering.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "",
+      "details": {}
+    },
+    {
+      "id": "seed-19",
+      "date": "2026-11-07",
+      "time": "11:00",
+      "endTime": "12:00",
+      "type": "activity",
+      "title": "Massages at the resort spa",
+      "location": "Panagsama Beach, Moalboal, Cebu",
+      "notes": "Book at reception the night before, they fill up.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "spa",
+      "details": {
+        "company": "Blue Abyss Resort Spa"
+      }
+    },
+    {
+      "id": "seed-20",
+      "date": "2026-11-07",
+      "time": "17:30",
+      "endTime": "",
+      "type": "activity",
+      "title": "Sunset at Panagsama",
+      "location": "Panagsama Beach, Moalboal, Cebu",
+      "notes": "Sun goes down around 17:40 this time of year.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "sights",
+      "details": {}
+    },
+    {
+      "id": "seed-21",
+      "date": "2026-11-08",
+      "time": "07:00",
+      "endTime": "11:00",
+      "type": "activity",
+      "title": "Last dive, turtles at Pescador",
+      "location": "Pescador Island, Moalboal, Cebu",
+      "notes": "Final dive of the trip. Note we fly on the 10th, so this leaves well over 24 hours before altitude.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "diving",
+      "details": {
+        "company": "Blue Abyss Divers"
+      }
+    },
+    {
+      "id": "seed-22",
+      "date": "2026-11-08",
+      "time": "15:00",
+      "endTime": "18:00",
+      "type": "transport",
+      "title": "Van back to Cebu City",
+      "location": "Panagsama Beach, Moalboal, Cebu",
+      "notes": "Same driver. Pack the night before, checkout is at 12:00.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "transfer",
+      "details": {
+        "company": "Cebu Island Transfers"
+      }
+    },
+    {
+      "id": "seed-23",
+      "date": "2026-11-08",
+      "time": "18:30",
+      "endTime": "",
+      "type": "stay",
+      "title": "Check in at Cebu City hotel",
+      "location": "Cebu City, Cebu",
+      "notes": "One night only, close to the airport side of town.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "hotel",
+      "details": {
+        "property": "Harbour Lights Hotel",
+        "phone": "+63 32 255 1100",
+        "checkIn": "15:00",
+        "checkOut": "11:00",
+        "breakfast": "yes",
+        "breakfastFrom": "06:00",
+        "breakfastTo": "10:00",
+        "amenities": "Airport shuttle on request, book at reception the night before."
+      }
+    },
+    {
+      "id": "seed-24",
+      "date": "2026-11-09",
+      "time": "09:00",
+      "endTime": "12:00",
+      "type": "activity",
+      "title": "Old Cebu on foot",
+      "location": "Magellan's Cross, Cebu City",
+      "notes": "Magellan's Cross, Basilica del Santo Nino, then Fort San Pedro. All walkable, about 20 min between each.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "sights",
+      "details": {}
+    },
+    {
+      "id": "seed-25",
+      "date": "2026-11-09",
+      "time": "12:30",
+      "endTime": "14:00",
+      "type": "food",
+      "title": "Lechon lunch",
+      "location": "Cebu City, Cebu",
+      "notes": "The thing Cebu is actually known for. Go early, the good places sell out by mid afternoon.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "market",
+      "details": {}
+    },
+    {
+      "id": "seed-26",
+      "date": "2026-11-09",
+      "time": "15:00",
+      "endTime": "",
+      "type": "other",
+      "title": "Gifts and last errands",
+      "location": "Cebu City, Cebu",
+      "notes": "Dried mangoes and coffee. Also need to repack the dive gear so it is under the weight limit.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "",
+      "details": {}
+    },
+    {
+      "id": "seed-27",
+      "date": "2026-11-09",
+      "time": "18:30",
+      "endTime": "21:00",
+      "type": "food",
+      "title": "Farewell dinner",
+      "location": "Cebu City, Cebu",
+      "notes": "Book a table for everyone. Last proper meal together.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "restaurant",
+      "details": {}
+    },
+    {
+      "id": "seed-28",
+      "date": "2026-11-10",
+      "time": "08:00",
+      "endTime": "08:45",
+      "type": "transport",
+      "title": "Hotel to Mactan airport",
+      "location": "Cebu City, Cebu",
+      "notes": "Allow extra, the bridge traffic is bad in the morning.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "",
+      "subtype": "taxi",
+      "details": {
+        "company": "Grab"
+      }
+    },
+    {
+      "id": "seed-29",
+      "date": "2026-11-10",
+      "time": "11:20",
+      "endTime": "22:15",
+      "type": "flight",
+      "title": "Flight Cebu to Stockholm via Manila and Doha",
+      "location": "Mactan Cebu International Airport",
+      "notes": "Long one, about 23 hours door to door. Lands at Arlanda late the same evening.",
+      "photos": [],
+      "tz": "Asia/Manila",
+      "endTz": "Europe/Stockholm",
+      "subtype": "",
+      "details": {
+        "aircraft": "Airbus A321neo / Airbus A350-1000",
+        "airline": "Philippine Airlines / Qatar Airways",
+        "flightNo": "PR2842 / QR933 / QR169"
+      }
     }
-  ]
+  ],
+  "lists": {
+    "todo": [
+      {
+        "id": "t1",
+        "text": "Check both passports are valid 6 months past the return date",
+        "done": true
+      },
+      {
+        "id": "t2",
+        "text": "Renew dive insurance, expires in October",
+        "done": false
+      },
+      {
+        "id": "t3",
+        "text": "Book the airport transfer for the 3rd",
+        "done": true
+      },
+      {
+        "id": "t4",
+        "text": "Order pesos, cards are unreliable in Moalboal",
+        "done": false
+      },
+      {
+        "id": "t5",
+        "text": "Send the itinerary link to everyone",
+        "done": false
+      },
+      {
+        "id": "t6",
+        "text": "Service the regulator before it goes in the bag",
+        "done": false
+      }
+    ],
+    "packing": [
+      {
+        "id": "p1",
+        "text": "Passports, valid past 10 May 2027",
+        "done": true,
+        "cat": "documents"
+      },
+      {
+        "id": "p2",
+        "text": "Dive certification cards and logbook",
+        "done": false,
+        "cat": "documents"
+      },
+      {
+        "id": "p3",
+        "text": "Travel insurance policy, printed and on the phone",
+        "done": false,
+        "cat": "documents"
+      },
+      {
+        "id": "p4",
+        "text": "Dive computer, too fragile for the hold",
+        "done": false,
+        "cat": "carryon"
+      },
+      {
+        "id": "p5",
+        "text": "Camera body and lenses",
+        "done": false,
+        "cat": "carryon"
+      },
+      {
+        "id": "p6",
+        "text": "Change of clothes in case a bag goes missing",
+        "done": false,
+        "cat": "carryon"
+      },
+      {
+        "id": "p7",
+        "text": "Earplugs, the resort is on the main strip",
+        "done": false,
+        "cat": "hotel"
+      },
+      {
+        "id": "p8",
+        "text": "Travel plug adapter for the room",
+        "done": true,
+        "cat": "hotel"
+      },
+      {
+        "id": "p9",
+        "text": "Dry bag for boat days",
+        "done": false,
+        "cat": "essentials"
+      },
+      {
+        "id": "p10",
+        "text": "Refillable water bottle",
+        "done": false,
+        "cat": "essentials"
+      },
+      {
+        "id": "p11",
+        "text": "Power bank",
+        "done": false,
+        "cat": "essentials"
+      },
+      {
+        "id": "p12",
+        "text": "Rash guard, cheaper than sunscreen",
+        "done": false,
+        "cat": "clothing"
+      },
+      {
+        "id": "p13",
+        "text": "Light rain jacket, it is the tail of the wet season",
+        "done": false,
+        "cat": "clothing"
+      },
+      {
+        "id": "p14",
+        "text": "One long sleeve for the aircon on the flights",
+        "done": false,
+        "cat": "clothing"
+      },
+      {
+        "id": "p15",
+        "text": "Reef safe sunscreen",
+        "done": true,
+        "cat": "personal"
+      },
+      {
+        "id": "p16",
+        "text": "Insect repellent",
+        "done": false,
+        "cat": "personal"
+      },
+      {
+        "id": "p17",
+        "text": "Motion sickness tablets for the boat days",
+        "done": false,
+        "cat": "medication"
+      },
+      {
+        "id": "p18",
+        "text": "Ear drops, five days of diving",
+        "done": false,
+        "cat": "medication"
+      },
+      {
+        "id": "p19",
+        "text": "Basic first aid, plasters and antiseptic",
+        "done": false,
+        "cat": "medication"
+      },
+      {
+        "id": "p20",
+        "text": "Quick dry towel",
+        "done": false,
+        "cat": "beach"
+      },
+      {
+        "id": "p21",
+        "text": "Flip flops",
+        "done": true,
+        "cat": "beach"
+      },
+      {
+        "id": "p22",
+        "text": "Wide angle lens and housing",
+        "done": false,
+        "cat": "photography"
+      },
+      {
+        "id": "p23",
+        "text": "Spare memory cards",
+        "done": false,
+        "cat": "photography"
+      },
+      {
+        "id": "p24",
+        "text": "Lens cloth and a rocket blower",
+        "done": false,
+        "cat": "photography"
+      },
+      {
+        "id": "p25",
+        "text": "Mask and snorkel",
+        "done": false,
+        "cat": "diving"
+      },
+      {
+        "id": "p27",
+        "text": "Spare mask strap and fin straps",
+        "done": false,
+        "cat": "diving"
+      },
+      {
+        "id": "p28",
+        "text": "Surface marker buoy and reel",
+        "done": false,
+        "cat": "diving"
+      }
+    ]
+  }
 }
 </script>
 
@@ -433,27 +1234,280 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
   var TYPES = [
     {id:'flight',    label:'Flight',    icon:'<path d="M8 1.9c.7 0 1 .6 1 1.3v3l4.4 2.5v1.4L9 8.9v2.9l1.5 1.1v1.1L8 13.4l-2.5.6v-1.1L7 11.8V8.9L2.6 10.1V8.7L7 6.2v-3c0-.7.3-1.3 1-1.3Z"/>'},
     {id:'transport', label:'Transport', icon:'<rect x="3" y="2.8" width="10" height="8.6" rx="1.7"/><path d="M3 8.3h10M5.3 14.1l.9-2.3M10.7 14.1l-.9-2.3"/><path d="M5.5 9.9h.1M10.4 9.9h.1" stroke-linecap="round"/>'},
-    {id:'stay',      label:'Stay',      icon:'<path d="M2 12.8V4.2M2 8.6h9.4A2.6 2.6 0 0 1 14 11.2v1.6"/><circle cx="5.3" cy="6.5" r="1.3"/>'},
-    {id:'food',      label:'Food',      icon:'<path d="M4 2v4.3a1.5 1.5 0 0 0 3 0V2M5.5 7.8V14M11.6 14V2.2c1.3.6 2 2 2 3.9s-.7 3-2 3.3"/>'},
+    {id:'stay',      label:'Accommodation', icon:'<path d="M2 12.8V4.2M2 8.6h9.4A2.6 2.6 0 0 1 14 11.2v1.6"/><circle cx="5.3" cy="6.5" r="1.3"/>'},
+    {id:'food',      label:'Food & Drinks', icon:'<path d="M4 2v4.3a1.5 1.5 0 0 0 3 0V2M5.5 7.8V14M11.6 14V2.2c1.3.6 2 2 2 3.9s-.7 3-2 3.3"/>'},
     {id:'activity',  label:'Activity',  icon:'<path d="M4 14.2V2.4M4 3.3h8.4l-1.7 2.6 1.7 2.6H4"/>'},
     {id:'free',      label:'Free time', icon:'<circle cx="8" cy="8" r="2.8"/><path d="M8 1.7v1.3M8 13v1.3M3 3l.9.9M12.1 12.1l.9.9M1.7 8H3M13 8h1.3M3 13l.9-.9M12.1 3.9l.9-.9" stroke-linecap="round"/>'},
     {id:'other',     label:'Other',     icon:'<path d="M4.2 8h.1M8 8h.1M11.8 8h.1" stroke-linecap="round" stroke-width="2"/>'}
   ];
+  /* Optional second level. Only four types carry one; the rest leave the
+     Detail field hidden rather than showing an empty dropdown. */
+  var SUBTYPES = {
+    transport: [
+      {id:'train',    label:'Train'},
+      {id:'bus',      label:'Bus or coach'},
+      {id:'ferry',    label:'Ferry or boat'},
+      {id:'taxi',     label:'Taxi or rideshare'},
+      {id:'rental',   label:'Rental car'},
+      {id:'transfer', label:'Private transfer'},
+      {id:'walk',     label:'On foot'},
+      {id:'other',    label:'Other'}
+    ],
+    activity: [
+      {id:'diving',   label:'Diving'},
+      {id:'snorkel',  label:'Snorkelling'},
+      {id:'water',    label:'Other water sports'},
+      {id:'tour',     label:'Tour or excursion'},
+      {id:'sights',   label:'Sightseeing'},
+      {id:'hike',     label:'Hike or trek'},
+      {id:'museum',   label:'Museum or gallery'},
+      {id:'spa',      label:'Spa or wellness'},
+      {id:'shopping', label:'Shopping'},
+      {id:'other',    label:'Other'}
+    ],
+    food: [
+      {id:'restaurant',label:'Restaurant'},
+      {id:'cafe',      label:'Café'},
+      {id:'bar',       label:'Bar'},
+      {id:'stall',     label:'Street food stall'},
+      {id:'market',    label:'Market or food hall'},
+      {id:'bakery',    label:'Bakery'},
+      {id:'takeaway',  label:'Takeaway'},
+      {id:'winery',    label:'Winery or brewery'},
+      {id:'other',     label:'Other'}
+    ],
+    stay: [
+      {id:'hotel',      label:'Hotel'},
+      {id:'hostel',     label:'Hostel'},
+      {id:'guesthouse', label:'Guesthouse or B&B'},
+      {id:'homestay',   label:'Homestay'},
+      {id:'villa',      label:'Villa'},
+      {id:'apartment',  label:'Apartment or rental'},
+      {id:'resort',     label:'Resort'},
+      {id:'liveaboard', label:'Liveaboard or boat'},
+      {id:'camping',    label:'Camping'},
+      {id:'other',      label:'Other'}
+    ]
+  };
+
+  /* Extra structured fields carried by specific types. Values live in
+     item.details, keyed by field id, and are dropped if the type changes. */
+  var FIELDS = {
+    /* Form order is the array order; `disp` sets the order on the entry itself
+       where it differs (Aircraft sits beside Type in the form, but reads last). */
+    flight: [
+      {id:'aircraft', label:'Aircraft',      placeholder:'Boeing 787-9',  disp:3},
+      {id:'airline',  label:'Airline',       placeholder:'Qatar Airways', disp:1},
+      {id:'flightNo', label:'Flight number', placeholder:'QR170',         disp:2}
+    ],
+    transport: [
+      {id:'company',  label:'Company',         placeholder:'Arlanda Express'},
+      {id:'service',  label:'Service or line', placeholder:'SJ 421'}
+    ],
+    activity: [
+      {id:'company',  label:'Company name',     placeholder:'Blue Abyss Divers'},
+      {id:'phone',    label:'Phone or WhatsApp', placeholder:'+63 32 474 0000'}
+    ],
+    stay: [
+      {id:'property', label:'Property name',    placeholder:'Blue Abyss Dive Resort', full:true, strong:true, headline:true},
+      {id:'phone',    label:'Phone or WhatsApp', placeholder:'+63 32 474 0000', full:true},
+      {id:'checkIn',  label:'Check-in time',    input:'time', prefix:'Check in'},
+      {id:'checkOut', label:'Check-out time',   input:'time', prefix:'Check out'},
+      {id:'breakfast',label:'Breakfast',        input:'checkbox', span:['breakfastFrom','breakfastTo'], chip:'food'},
+      {id:'pool',     label:'Pool',             input:'checkbox', chip:'activity'},
+      {id:'breakfastFrom', label:'Breakfast from',  input:'time', showIf:'breakfast', quiet:true},
+      {id:'breakfastTo',   label:'Breakfast until', input:'time', showIf:'breakfast', quiet:true},
+      {id:'amenities', label:'Amenities and property notes', input:'textarea', full:true, block:true,
+       prefix:'Amenities', placeholder:'Wifi in the restaurant only, free kayaks, rinse tank for dive gear'}
+    ]
+  };
+
+  function fieldsFor(typeId){ return FIELDS[typeId] || []; }
+
+  /* What a type's extra fields contribute to the entry display.
+     A ticked checkbox shows its own label; a checkbox with a `span` folds its
+     two time fields into that label; `quiet` fields never show on their own. */
+  function detailPairs(it){
+    var d = it.details || {};
+    var out = [];
+    fieldsFor(it.type).forEach(function(f, i){
+      var v = d[f.id];
+      if(!v || f.quiet) return;
+      var o = (f.disp == null ? i : f.disp);
+      if(f.input === 'checkbox'){
+        var text = f.label;
+        if(f.span){
+          var a = d[f.span[0]], z = d[f.span[1]];
+          if(a && z) text += ' ' + a + ' to ' + z;
+          else if(a) text += ' from ' + a;
+          else if(z) text += ' until ' + z;
+        }
+        out.push({text:text, label:f.label, o:o, block:!!f.block});
+      } else {
+        out.push({text:v, label:f.label, prefix:f.prefix, strong:!!f.strong, o:o, block:!!f.block});
+      }
+    });
+    return out.sort(function(a, b){ return a.o - b.o; });
+  }
+
   var TYPE_MAP = {};
-  TYPES.forEach(function(t){ TYPE_MAP[t.id] = t; });
+  TYPES.forEach(function(t){
+    t.subs = SUBTYPES[t.id] || [];
+    t.subMap = {};
+    t.subs.forEach(function(s){ t.subMap[s.id] = s; });
+    TYPE_MAP[t.id] = t;
+  });
+
+  function subLabel(typeId, subId){
+    var t = TYPE_MAP[typeId];
+    if(!t || !subId) return '';
+    return t.subMap[subId] ? t.subMap[subId].label : '';
+  }
+
+  /* Zone handling. We store IANA ids and let Intl work out the abbreviation
+     for the entry's own date, so CET/CEST resolves correctly by season. */
+  var FALLBACK_ZONES = [
+    'Europe/Stockholm','Europe/London','Europe/Paris','Europe/Berlin','Europe/Madrid',
+    'Europe/Rome','Europe/Lisbon','Europe/Athens','Europe/Helsinki','Europe/Istanbul',
+    'Atlantic/Reykjavik','Africa/Cairo','Africa/Nairobi','Africa/Johannesburg','Africa/Lagos',
+    'Asia/Dubai','Asia/Qatar','Asia/Karachi','Asia/Kolkata','Asia/Kathmandu','Asia/Bangkok',
+    'Asia/Jakarta','Asia/Singapore','Asia/Kuala_Lumpur','Asia/Manila','Asia/Hong_Kong',
+    'Asia/Shanghai','Asia/Taipei','Asia/Seoul','Asia/Tokyo','Asia/Colombo','Asia/Male',
+    'Australia/Perth','Australia/Darwin','Australia/Brisbane','Australia/Sydney',
+    'Pacific/Auckland','Pacific/Fiji','Pacific/Honolulu',
+    'America/Anchorage','America/Los_Angeles','America/Denver','America/Chicago',
+    'America/New_York','America/Toronto','America/Mexico_City','America/Bogota',
+    'America/Lima','America/Santiago','America/Sao_Paulo','America/Buenos_Aires','UTC'
+  ];
+
+  function allZones(){
+    var list = [];
+    try{
+      if(typeof Intl.supportedValuesOf === 'function') list = Intl.supportedValuesOf('timeZone') || [];
+    }catch(e){ list = []; }
+    return list.length ? list.slice() : FALLBACK_ZONES.slice();
+  }
+
+  function localZone(){
+    try{
+      var z = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if(z) return z;
+    }catch(e){}
+    return 'UTC';
+  }
+
+  function validZone(tz){
+    if(!tz || typeof tz !== 'string') return false;
+    try{ new Intl.DateTimeFormat('en-GB', {timeZone: tz}); return true; }
+    catch(e){ return false; }
+  }
+
+  /* Short label for a zone on a given date, e.g. CET, CEST, GMT+8. */
+  var zoneCache = {};
+  function zoneLabel(tz, iso){
+    if(!tz) return '';
+    var key = tz + '|' + (iso || '');
+    if(zoneCache[key]) return zoneCache[key];
+    var out = tz;
+    try{
+      var d = parseDate(iso) || new Date(Date.UTC(2026, 0, 1));
+      var parts = new Intl.DateTimeFormat('en-GB', {timeZone: tz, timeZoneName: 'short'}).formatToParts(d);
+      for(var i = 0; i < parts.length; i++){
+        if(parts[i].type === 'timeZoneName'){ out = parts[i].value; break; }
+      }
+    }catch(e){
+      out = tz.split('/').pop().replace(/_/g, ' ');
+    }
+    zoneCache[key] = out;
+    return out;
+  }
+
+  /* Abbreviation first, so a narrow select still shows the useful part:
+     "Asia/Manila" -> "GMT+8 · Manila". */
+  function zoneOptionLabel(tz){
+    var city = tz.split('/').slice(1).join(' / ').replace(/_/g, ' ') || tz;
+    var abbr = zoneLabel(tz, '');
+    return (abbr && abbr !== tz ? abbr + ' · ' : '') + city;
+  }
+
+  /* Distinct zones actually used across the itinerary. */
+  function zonesInUse(){
+    var seen = {}, out = [];
+    state.items.forEach(function(i){
+      [i.tz, i.endTz].forEach(function(z){
+        if(z && !seen[z]){ seen[z] = 1; out.push(z); }
+      });
+    });
+    return out;
+  }
+
+  var TABS = [
+    {id:'itinerary', label:'Itinerary'},
+    {id:'flight',    label:'Flights',       type:'flight',    noun:'flight',   nouns:'flights',    empty:'flights'},
+    {id:'stays',     label:'Stays',         type:'stay',      noun:'property', nouns:'properties', empty:'places to stay'},
+    {id:'transport', label:'Transport',     type:'transport', noun:'journey',  nouns:'journeys',   empty:'journeys'},
+    {id:'activity',  label:'Activities',    type:'activity',  noun:'activity', nouns:'activities', empty:'activities'},
+    {id:'food',      label:'Food & Drinks', type:'food',      noun:'place',    nouns:'places',     empty:'places to eat'},
+    {id:'todo',      label:'To do',         list:'todo'},
+    {id:'packing',   label:'Packing',       list:'packing'}
+  ];
+
+  var PACK_CATS = [
+    {id:'documents',  label:'Documents'},
+    {id:'carryon',    label:'Carry-on'},
+    {id:'hotel',      label:'Hotel'},
+    {id:'essentials', label:'Essentials'},
+    {id:'clothing',   label:'Clothing'},
+    {id:'personal',   label:'Personal Care'},
+    {id:'medication', label:'Medication'},
+    {id:'beach',      label:'Beach'},
+    {id:'photography',label:'Photography'},
+    {id:'diving',     label:'Diving'}
+  ];
+  var PACK_CAT_MAP = {};
+  PACK_CATS.forEach(function(c){ PACK_CAT_MAP[c.id] = c; });
+
+  var LISTS = [
+    {id:'todo',    label:'To do before we go', placeholder:'Renew dive insurance',
+     verb:'still to do', empty:'Nothing to do yet',
+     blurb:'Everything that needs sorting before you fly. Ticks are shared, so family can see what is handled.'},
+    {id:'packing', label:'Packing',            placeholder:'Dive computer and spare batteries',
+     verb:'still to pack', empty:'Nothing on the packing list yet', cats:true,
+     blurb:'What goes in the bag, grouped by category. Change an item’s category from the label on its right.'}
+  ];
+  var LIST_MAP = {};
+  LISTS.forEach(function(l){ LIST_MAP[l.id] = l; });
+  var activeTab = 'itinerary';
+  var jumpedToToday = false;
+  var lastPackCat = 'essentials';   /* sticky, so a run of one category is quick */
 
   var PALETTES = [
-    {id:'coral', label:'Ink and coral'},
-    {id:'teal',  label:'Sea teal'},
-    {id:'brass', label:'Forest and brass'},
-    {id:'swiss', label:'Swiss timetable'}
+    {id:'sorbet', label:'Sorbet'},
+    {id:'teal',   label:'Sea teal'},
+    {id:'orchid', label:'Orchid'}
   ];
   var PALETTE_IDS = PALETTES.map(function(p){ return p.id; });
 
   var state = readState();
-  var canEdit = true;
   var editingId = null;
   var draftPhotos = [];
+
+  /* The page opens read-only for everyone. Editing is unlocked by an explicit
+     click that attempts a real publish: the server decides, not the page. A
+     success is remembered per browser so the owner does not click every visit.
+     This flag is a convenience only; every save is still authorised server-side. */
+  var EDITOR_KEY = 'tripboard:editor';
+  function rememberEditor(on){
+    try{
+      if(on) localStorage.setItem(EDITOR_KEY, '1');
+      else localStorage.removeItem(EDITOR_KEY);
+    }catch(e){}
+  }
+  function wasEditor(){
+    try{ return localStorage.getItem(EDITOR_KEY) === '1'; }catch(e){ return false; }
+  }
+  var canEdit = wasEditor();
+  var probing = false;
 
   function readState(){
     var s;
@@ -464,11 +1518,32 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     }
     if(!s || typeof s !== 'object') s = {};
     if(!s.trip) s.trip = {name:'Our Trip', note:''};
-    if(PALETTE_IDS.indexOf(s.trip.theme) === -1) s.trip.theme = 'coral';
+    if(PALETTE_IDS.indexOf(s.trip.theme) === -1) s.trip.theme = 'sorbet';
     if(!Array.isArray(s.items)) s.items = [];
+    if(!validZone(s.trip.tz)) s.trip.tz = localZone();
+    if(!s.lists || typeof s.lists !== 'object') s.lists = {};
+    LISTS.forEach(function(l){
+      if(!Array.isArray(s.lists[l.id])) s.lists[l.id] = [];
+      s.lists[l.id] = s.lists[l.id].filter(function(i){
+        return i && typeof i.text === 'string' && i.text.trim();
+      }).map(function(i){
+        var row = {id: i.id || uid(), text: i.text.trim(), done: !!i.done};
+        if(l.cats) row.cat = PACK_CAT_MAP[i.cat] ? i.cat : '';
+        return row;
+      });
+    });
     s.items.forEach(function(i){
       if(typeof i.endTime !== 'string') i.endTime = '';
       if(!i.type || !TYPE_MAP[i.type]) i.type = 'other';
+      if(typeof i.subtype !== 'string' || !subLabel(i.type, i.subtype)) i.subtype = '';
+      var keep = {};
+      fieldsFor(i.type).forEach(function(f){
+        var v = i.details && i.details[f.id];
+        if(typeof v === 'string' && v.trim()) keep[f.id] = v.trim();
+      });
+      i.details = keep;
+      if(!validZone(i.tz)) i.tz = s.trip.tz;
+      if(i.endTz === i.tz || !validZone(i.endTz)) i.endTz = '';
     });
     return s;
   }
@@ -524,7 +1599,10 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     pin:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 14.5s5-4.2 5-7.6A5 5 0 0 0 3 6.9c0 3.4 5 7.6 5 7.6Z"/><circle cx="8" cy="6.8" r="1.9"/></svg>',
     edit:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M11.3 2.6a1.6 1.6 0 0 1 2.3 2.3l-7.4 7.4-3 .7.7-3Z"/></svg>',
     trash:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5h10M6.5 4.5V3h3v1.5M4.5 4.5l.6 8.2h5.8l.6-8.2"/></svg>',
-    info:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width:15px;height:15px;flex:none;margin-top:2px"><circle cx="8" cy="8" r="6.2"/><path d="M8 7.2v4M8 4.9v.1" stroke-linecap="round"/></svg>'
+    info:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width:15px;height:15px;flex:none;margin-top:2px"><circle cx="8" cy="8" r="6.2"/><path d="M8 7.2v4M8 4.9v.1" stroke-linecap="round"/></svg>',
+    share:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="3.6" r="1.9"/><circle cx="4" cy="8" r="1.9"/><circle cx="12" cy="12.4" r="1.9"/><path d="M5.7 7.1 10.3 4.5M5.7 8.9l4.6 2.6"/></svg>',
+    down:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.4v7.4M5.1 7.1 8 10l2.9-2.9M2.9 12.4h10.2"/></svg>',
+    unlock:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="3.2" y="7.2" width="9.6" height="6.6" rx="1.6"/><path d="M5.6 7.2V5.1a2.4 2.4 0 0 1 4.7-.6" stroke-linecap="round"/></svg>'
   };
 
   function typeIcon(t){
@@ -538,13 +1616,293 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
 
   /* ------------------------------------------------------------------ render */
 
+  /* Accommodation entries in order, with each stay's length worked out from
+     the next stay's date (or the trip's last date for the final one). */
+  function stayStops(){
+    var dated = sorted().filter(function(i){ return i.date; });
+    var lastDate = dated.length ? dated[dated.length - 1].date : '';
+    var stays = sorted().filter(function(i){ return i.type === 'stay'; });
+    return stays.map(function(s, idx){
+      var nextStay = stays[idx + 1];
+      var out = nextStay ? nextStay.date : lastDate;
+      var nights = 0;
+      if(s.date && out && out > s.date){
+        var a = parseDate(s.date), z = parseDate(out);
+        if(a && z) nights = Math.round((z - a) / 86400000);
+      }
+      return {item:s, from:s.date, to:(nights ? out : ''), nights:nights};
+    });
+  }
+
+  /* Today in the viewer's own calendar, as a plain yyyy-mm-dd string. */
+  function todayISO(){
+    var d = new Date();
+    return d.getFullYear() + '-' +
+           String(d.getMonth() + 1).padStart(2, '0') + '-' +
+           String(d.getDate()).padStart(2, '0');
+  }
+
+  function daysBetween(a, b){
+    var x = parseDate(a), y = parseDate(b);
+    if(!x || !y) return null;
+    return Math.round((y - x) / 86400000);
+  }
+
+  /* Where the trip sits relative to today: before it, inside it, or past. */
+  function tripStatus(){
+    var dated = sorted().filter(function(i){ return i.date; });
+    if(!dated.length) return null;
+    var first = dated[0].date, last = dated[dated.length - 1].date;
+    var today = todayISO();
+    var span = (daysBetween(first, last) || 0) + 1;
+    if(today < first){
+      var n = daysBetween(today, first);
+      return {phase:'before', text: n === 1 ? 'starts tomorrow' : 'starts in ' + n + ' days'};
+    }
+    if(today > last){
+      var m = daysBetween(last, today);
+      return {phase:'after', text: m === 1 ? 'ended yesterday' : 'ended ' + m + ' days ago'};
+    }
+    return {phase:'during', text:'day ' + ((daysBetween(first, today) || 0) + 1) + ' of ' + span, today:today};
+  }
+
+  function shortDate(iso){
+    var d = parseDate(iso);
+    if(!d) return '';
+    return DOW[d.getUTCDay()] + ' ' + d.getUTCDate() + ' ' + MONTHS[d.getUTCMonth()];
+  }
+
+  /* "Mon 2 Nov  ·  07:15 CET to 04:30 GMT+8" */
+  function whenLine(it){
+    var parts = [];
+    if(it.date) parts.push(shortDate(it.date));
+    if(it.time){
+      var showZ = zonesInUse().length > 1;
+      var s = it.time + (showZ ? ' ' + zoneLabel(it.tz, it.date) : '');
+      if(it.endTime){
+        var ez = it.endTz || it.tz;
+        s += ' to ' + it.endTime + (showZ ? ' ' + zoneLabel(ez, it.date) : '');
+      }
+      parts.push(s);
+    }
+    return parts.join('  ·  ');
+  }
+
+  function subCounts(items, typeId){
+    var m = {}, order = [];
+    items.forEach(function(i){
+      var l = subLabel(typeId, i.subtype);
+      if(!l) return;
+      if(m[l] == null){ m[l] = 0; order.push(l); }
+      m[l]++;
+    });
+    return order.map(function(l){ return {label:l, n:m[l]}; })
+                .sort(function(a, b){ return b.n - a.n; });
+  }
+
+  /* One overview tab. Every type uses the same card; Stays adds the nights
+     it works out from when the next stay begins. */
+  function renderOverview(tab){
+    var items = sorted().filter(function(i){ return i.type === tab.type; });
+    var t = TYPE_MAP[tab.type];
+
+    if(!items.length){
+      return '<div class="empty"><h2>No ' + esc(tab.empty) + ' yet</h2>' +
+             '<p>Entries you set to ' + esc(t.label) + ' collect here, with their times and details side by side.</p>' +
+             (canEdit ? '<button class="btn btn-primary" data-act="new">' + ICON.plus + 'Add an entry</button>' : '') +
+             '</div>';
+    }
+
+    var stopBy = {};
+    if(tab.type === 'stay') stayStops().forEach(function(s){ stopBy[s.item.id] = s; });
+
+    var bits = [items.length + ' ' + (items.length === 1 ? tab.noun : tab.nouns)];
+    if(tab.type === 'stay'){
+      var nights = 0, bfast = 0;
+      items.forEach(function(i){
+        var st = stopBy[i.id];
+        if(st) nights += st.nights;
+        if(i.details && i.details.breakfast) bfast++;
+      });
+      if(nights) bits.push(nights + (nights === 1 ? ' night' : ' nights'));
+      if(bfast) bits.push(bfast + ' with breakfast');
+    } else {
+      subCounts(items, tab.type).slice(0, 3).forEach(function(c){
+        bits.push(c.n + ' ' + c.label.toLowerCase());
+      });
+    }
+
+    var html = '<div class="card-sum">' + esc(bits.join('  ·  ')) + '</div><div class="cards">';
+
+    items.forEach(function(it){
+      var d = it.details || {};
+      var fields = fieldsFor(it.type);
+      var headline = fields.filter(function(f){ return f.headline && d[f.id]; })[0];
+      var name = headline ? d[headline.id] : it.title;
+      var sub = subLabel(it.type, it.subtype);
+      var stop = stopBy[it.id];
+
+      html += '<article class="card">';
+      html +=   '<div class="card-head"><div class="card-top">';
+      html +=     '<h3 class="card-name">' + esc(name) + '</h3>';
+      if(canEdit){
+        html +=   '<button class="btn btn-ghost" data-act="edit" data-id="' + esc(it.id) + '"' +
+                  ' aria-label="Edit ' + esc(name) + '">' + ICON.edit + '</button>';
+      }
+      html +=   '</div>';
+
+      var when = whenLine(it);
+      if(stop && stop.from){
+        when = shortDate(stop.from) + (stop.to ? ' to ' + shortDate(stop.to) : '');
+      }
+      if(when || (stop && stop.nights)){
+        html += '<div class="card-when">' + esc(when || 'No date set') +
+                (stop && stop.nights
+                  ? '<span class="card-nights">' + stop.nights + (stop.nights === 1 ? ' night' : ' nights') + '</span>'
+                  : '') + '</div>';
+      }
+      if(headline && it.title !== name){
+        html += '<div class="card-sub">' + esc(it.title) + '</div>';
+      }
+      html +=   '</div>';
+
+      var chips = '';
+      if(sub) chips += '<span class="kind k-' + esc(it.type) + '">' + typeIcon(t) + esc(sub) + '</span>';
+      fields.forEach(function(f){
+        if(f.input !== 'checkbox' || !d[f.id]) return;
+        var text = f.label;
+        if(f.span){
+          var a = d[f.span[0]], z = d[f.span[1]];
+          if(a && z) text += ' ' + a + ' to ' + z;
+          else if(a) text += ' from ' + a;
+          else if(z) text += ' until ' + z;
+        }
+        chips += '<span class="kind k-' + esc(f.chip || it.type) + '">' + esc(text) + '</span>';
+      });
+      if(chips) html += '<div class="entry-chips">' + chips + '</div>';
+
+      if(it.location){
+        html += '<a class="pin" href="' + esc(mapsUrl(it.location)) + '" target="_blank" rel="noopener noreferrer">' +
+                ICON.pin + '<span>' + esc(it.location) + '</span></a>';
+      }
+
+      var rows = '', blocks = '';
+      fields.slice().map(function(f, i){ return {f:f, o:(f.disp == null ? i : f.disp)}; })
+        .sort(function(a, b){ return a.o - b.o; })
+        .map(function(x){ return x.f; })
+        .forEach(function(f){
+        var v = d[f.id];
+        if(!v || f.quiet || f.input === 'checkbox' || (headline && f.id === headline.id)) return;
+        if(f.block){
+          blocks += '<div class="card-block">' + esc(v) + '</div>';
+        } else {
+          rows += '<span class="fact-k">' + esc(f.prefix || f.label) + '</span><span>' + esc(v) + '</span>';
+        }
+      });
+      if(rows)   html += '<div class="card-lines">' + rows + '</div>';
+      if(blocks) html += blocks;
+      if(it.notes) html += '<div class="card-note">' + esc(it.notes) + '</div>';
+
+      html += '</article>';
+    });
+
+    return html + '</div>';
+  }
+
+  function openIn(listId){
+    return (state.lists[listId] || []).filter(function(i){ return !i.done; }).length;
+  }
+
+  function renderList(l){
+    var items = state.lists[l.id] || [];
+    var left = items.filter(function(i){ return !i.done; }).length;
+
+    var sum;
+    if(!items.length) sum = l.empty;
+    else if(!left)    sum = 'All ' + items.length + ' done';
+    else              sum = left + ' of ' + items.length + ' ' + l.verb;
+
+    var html = '<div class="card-sum">' + esc(sum) + '</div>';
+    html += '<div class="prep"><section class="prep-col">';
+
+    if(items.length && l.cats){
+      /* Only categories that actually hold something get a heading, with
+         anything untagged collected at the end. */
+      var groups = PACK_CATS.map(function(c){
+        return {label:c.label, items: items.filter(function(i){ return i.cat === c.id; })};
+      }).filter(function(g){ return g.items.length; });
+      var loose = items.filter(function(i){ return !i.cat; });
+      if(loose.length) groups.push({label:'Not sorted', items:loose});
+
+      groups.forEach(function(g){
+        var gl = g.items.filter(function(i){ return !i.done; }).length;
+        html += '<div class="pack-group">';
+        html +=   '<h3 class="pack-head">' + esc(g.label) +
+                  '<span class="pack-count">' + (gl ? gl + ' left' : 'done') + '</span></h3>';
+        html +=   '<ul class="prep-list">' + g.items.map(function(it){ return listRow(l, it); }).join('') + '</ul>';
+        html += '</div>';
+      });
+    } else if(items.length){
+      html += '<ul class="prep-list">' + items.map(function(it){ return listRow(l, it); }).join('') + '</ul>';
+    }
+
+    if(canEdit){
+      html += '<form class="prep-add" data-list="' + esc(l.id) + '">' +
+                '<input type="text" placeholder="' + esc(l.placeholder) + '"' +
+                  ' aria-label="Add to ' + esc(l.label) + '" autocomplete="off">' +
+                (l.cats ? '<select class="prep-cat" aria-label="Category">' +
+                  PACK_CATS.map(function(c){
+                    return '<option value="' + esc(c.id) + '"' +
+                           (c.id === lastPackCat ? ' selected' : '') + '>' + esc(c.label) + '</option>';
+                  }).join('') + '</select>' : '') +
+                '<button class="btn" type="submit">Add</button>' +
+              '</form>';
+      html += '<p class="prep-blurb">' + esc(l.blurb) + '</p>';
+    } else if(!items.length){
+      html += '<p class="prep-empty">Nothing here yet.</p>';
+    }
+
+    return html + '</section></div>';
+  }
+
+  function listRow(l, it){
+    var cid = 'li-' + it.id;
+    var s = '<li class="prep-item' + (it.done ? ' is-done' : '') + '">' +
+              '<input type="checkbox" id="' + esc(cid) + '" data-act="tick"' +
+                ' data-list="' + esc(l.id) + '" data-id="' + esc(it.id) + '"' +
+                (it.done ? ' checked' : '') + (canEdit ? '' : ' disabled') + '>' +
+              '<label for="' + esc(cid) + '">' + esc(it.text) + '</label>';
+    if(l.cats && canEdit){
+      s +=    '<span class="catpick" title="Change category">' +
+                '<span class="catpick-text">' +
+                  esc(it.cat ? PACK_CAT_MAP[it.cat].label : 'Not sorted') + '</span>' +
+                '<select data-act="setcat" data-list="' + esc(l.id) + '" data-id="' + esc(it.id) + '"' +
+                  ' aria-label="Category for ' + esc(it.text) + '">' +
+                  '<option value=""' + (it.cat ? '' : ' selected') + '>Not sorted</option>' +
+                  PACK_CATS.map(function(c){
+                    return '<option value="' + esc(c.id) + '"' + (c.id === it.cat ? ' selected' : '') +
+                           '>' + esc(c.label) + '</option>';
+                  }).join('') +
+                '</select>' +
+              '</span>';
+    }
+    if(canEdit){
+      s +=    '<button class="btn btn-ghost" data-act="rm-item" data-list="' + esc(l.id) +
+              '" data-id="' + esc(it.id) + '" aria-label="Remove ' + esc(it.text) + '">' +
+              ICON.trash + '</button>';
+    }
+    return s + '</li>';
+  }
+
   function applyPalette(){
-    document.body.setAttribute('data-palette', state.trip.theme);
+    document.documentElement.setAttribute('data-palette', state.trip.theme);
   }
 
   function render(){
     applyPalette();
     var g = grouped();
+    var zones = zonesInUse();
+    var showZones = zones.length > 1;
     var days = g.length;
     var app = document.getElementById('app');
 
@@ -565,7 +1923,29 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     if(range) html += '<span><b>' + esc(range) + '</b></span>';
     html +=     '<span>' + days + ' ' + (days === 1 ? 'day' : 'days') + '</span>';
     html +=     '<span>' + state.items.length + ' ' + (state.items.length === 1 ? 'entry' : 'entries') + '</span>';
+    var status = tripStatus();
+    if(status){
+      html +=   '<span class="mast-status s-' + status.phase + '">' + esc(status.text) + '</span>';
+    }
+    if(zones.length === 1){
+      html +=   '<span>All times <b>' + esc(zoneLabel(zones[0], withDates.length ? withDates[0].date : '')) + '</b></span>';
+    } else if(zones.length > 1){
+      html +=   '<span><b>' + zones.length + ' time zones</b>, shown per entry</span>';
+    }
     html +=   '</div>';
+    html += '</div>';
+
+    html += '<div class="tabs" role="tablist">';
+    TABS.forEach(function(t){
+      var on = activeTab === t.id;
+      var n;
+      if(t.list) n = openIn(t.list);
+      else if(t.type) n = state.items.filter(function(i){ return i.type === t.type; }).length;
+      else n = state.items.length;
+      html += '<button class="tab" role="tab" data-act="tab" data-tab="' + t.id + '"' +
+              ' aria-selected="' + on + '">' + esc(t.label) +
+              '<span class="tab-count">' + n + '</span></button>';
+    });
     html += '</div>';
 
     html += '<div class="bar">';
@@ -574,6 +1954,9 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
       if(state.items.some(function(i){ return /^seed-/.test(i.id); })){
         html += '<button class="btn" data-act="clear-seed">Clear the examples</button>';
       }
+      html += '<button class="btn" data-act="sharing">' + ICON.share + 'Sharing</button>';
+    } else {
+      html += '<button class="btn btn-primary" data-act="unlock">' + ICON.unlock + 'Edit this itinerary</button>';
     }
     html += '<span class="bar-spacer"></span>';
     if(canEdit){
@@ -585,24 +1968,36 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
                 ' aria-pressed="' + on + '" title="' + esc(p.label) + '" aria-label="' + esc(p.label) + '"></button>';
       });
       html += '</div>';
+      html += '<button class="btn btn-ghost" data-act="lock" title="See what family sees">Preview as viewer</button>';
     }
     html += '</div>';
 
     if(!canEdit){
-      html += '<div class="ro-note">' + ICON.info + '<div>You are viewing this itinerary. Only the person who created it can add or change entries.</div></div>';
+      html += '<div class="ro-note">' + ICON.info +
+              '<div><b>View only.</b> This itinerary is read only here, so nothing you do can change it. ' +
+              'If it is yours, choose <b>Edit this itinerary</b> and your access will be checked.</div></div>';
     }
 
-    if(!state.items.length){
+    var tab = TABS.filter(function(t){ return t.id === activeTab; })[0];
+    if(tab && tab.list){
+      html += renderList(LIST_MAP[tab.list]);
+    } else if(tab && tab.type){
+      html += renderOverview(tab);
+    } else if(!state.items.length){
       html += '<div class="empty"><h2>Nothing on the board yet</h2><p>Add your first entry and it will appear here, grouped by day and ordered by time.</p>' +
               (canEdit ? '<button class="btn btn-primary" data-act="new">' + ICON.plus + 'Add the first entry</button>' : '') + '</div>';
     } else {
+      var todayStr = todayISO();
       g.forEach(function(day){
         var d = parseDate(day.date);
-        html += '<section class="day">';
+        var isToday = day.date === todayStr;
+        html += '<section class="day' + (isToday ? ' day-today' : '') + '"' +
+                (isToday ? ' id="today"' : '') + '>';
         html +=   '<div class="day-mark">';
         if(d){
           html += '<div class="day-num">' + d.getUTCDate() + '</div>';
           html += '<div><div class="day-mon">' + MONTHS[d.getUTCMonth()] + '</div><div class="day-dow">' + DOW[d.getUTCDay()] + '</div></div>';
+          if(isToday) html += '<div class="day-today-tag">Today</div>';
         } else {
           html += '<div class="day-mon">Undated</div>';
         }
@@ -613,13 +2008,20 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
           html += '<article class="entry">';
           html +=   '<div class="entry-time' + (it.time ? '' : ' none') + '">';
           if(it.time){
+            var endZone = it.endTz || it.tz;
             html +=   '<span class="t-start">' + esc(it.time) + '</span>';
+            if(showZones){
+              html += '<span class="t-zone" title="' + esc(it.tz) + '">' + esc(zoneLabel(it.tz, it.date)) + '</span>';
+            }
             if(it.endTime){
-              var overnight = it.endTime < it.time;
+              var overnight = it.endTime < it.time && endZone === it.tz;
               html += '<span class="t-rule" aria-hidden="true"></span>';
               html += '<span class="t-end">' + esc(it.endTime) +
                       (overnight ? '<span class="t-next" title="Ends the next day">+1</span>' : '') +
                       '</span>';
+              if(showZones){
+                html += '<span class="t-zone" title="' + esc(endZone) + '">' + esc(zoneLabel(endZone, it.date)) + '</span>';
+              }
             }
           } else {
             html +=   '<span aria-label="No set time">&mdash;</span>';
@@ -635,11 +2037,28 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
           }
           html +=     '</div>';
           html +=     '<div class="entry-chips">';
-          html +=       '<span class="kind k-' + esc(kind.id) + '">' + typeIcon(kind) + kind.label + '</span>';
+          var sub = subLabel(it.type, it.subtype);
+          html +=       '<span class="kind k-' + esc(kind.id) + '">' + typeIcon(kind) + esc(kind.label) +
+                        (sub ? '<span class="kind-sub">' + esc(sub) + '</span>' : '') + '</span>';
           if(it.location){
             html +=     '<a class="pin" href="' + esc(mapsUrl(it.location)) + '" target="_blank" rel="noopener noreferrer">' + ICON.pin + '<span>' + esc(it.location) + '</span></a>';
           }
           html +=     '</div>';
+          var facts = detailPairs(it);
+          var inlineFacts = facts.filter(function(p){ return !p.block; });
+          var blockFacts = facts.filter(function(p){ return p.block; });
+          if(inlineFacts.length){
+            html +=   '<div class="entry-facts">' + inlineFacts.map(function(p){
+                        return '<span class="fact' + (p.strong ? ' fact-strong' : '') + '" title="' + esc(p.label) + '">' +
+                               (p.prefix ? '<span class="fact-k">' + esc(p.prefix) + '</span>' : '') +
+                               esc(p.text) + '</span>';
+                      }).join('') + '</div>';
+          }
+          blockFacts.forEach(function(p){
+            html +=   '<div class="entry-facts entry-facts-block">' +
+                        (p.prefix ? '<span class="fact-k">' + esc(p.prefix) + '</span>' : '') +
+                        esc(p.text) + '</div>';
+          });
           if(it.notes){
             html +=   '<div class="entry-notes">' + esc(it.notes) + '</div>';
           }
@@ -661,10 +2080,25 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     var size = bytes < 1048576 ? Math.max(1, Math.round(bytes/1024)) + ' KB' : (bytes/1048576).toFixed(1) + ' MB';
     html += '<div class="foot">';
     html +=   '<span class="meter" title="Photos are stored inside the page itself, so there is a ceiling.">Page size <span class="meter-track"><span class="meter-fill" style="width:' + pct + '%"></span></span> ' + size + ' of 15 MB</span>';
-    html +=   '<span>Times are local to each stop</span>';
+    if(zones.length > 1){
+      html += '<span>Each time is local to its own zone, not converted</span>';
+    }
     html += '</div>';
 
     app.innerHTML = html;
+
+    /* On the first paint of a trip that is under way, land on today rather
+       than at the top of a week that has already happened. */
+    if(!jumpedToToday && activeTab === 'itinerary'){
+      jumpedToToday = true;
+      var el = document.getElementById('today');
+      if(el){
+        requestAnimationFrame(function(){
+          el.scrollIntoView({block:'start', behavior:'auto'});
+          window.scrollBy(0, -18);
+        });
+      }
+    }
   }
 
   /* -------------------------------------------------------------------- form */
@@ -676,7 +2110,13 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
 
     var today = new Date();
     var iso = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
-    var lastDate = state.items.length ? sorted()[state.items.length-1].date : '';
+    var ordered = sorted();
+    var last = ordered.length ? ordered[ordered.length-1] : null;
+    var lastDate = last ? last.date : '';
+    /* A new entry inherits the zone the trip has most recently reached, so a run
+       of stops in one country is a single choice rather than one per entry. */
+    var startTz = it ? it.tz : ((last && (last.endTz || last.tz)) || state.trip.tz);
+    var startType = it ? it.type : 'activity';
 
     var bg = document.createElement('div');
     bg.className = 'sheet-bg';
@@ -685,22 +2125,34 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
       '<form class="sheet" id="entry-form">' +
         '<h2>' + (it ? 'Edit entry' : 'New entry') + '</h2>' +
         '<div class="grid">' +
-          '<div class="three">' +
-            '<div><label for="f-date">Date</label><input type="date" id="f-date" value="' + esc(it ? it.date : (lastDate || iso)) + '"></div>' +
-            '<div><label for="f-time">Starts</label><input type="time" id="f-time" value="' + esc(it ? it.time : '') + '"></div>' +
-            '<div><label for="f-end">Ends</label><input type="time" id="f-end" value="' + esc(it ? it.endTime : '') + '"></div>' +
+          '<div class="timerow">' +
+            '<div class="t-date"><label for="f-date">Date</label>' +
+              '<input type="date" id="f-date" value="' + esc(it ? it.date : (lastDate || iso)) + '"></div>' +
+            '<div><label for="f-time">Starts</label><div class="tgroup">' +
+              '<input type="time" id="f-time" value="' + esc(it ? it.time : '') + '">' +
+              zonePicker('f-tz', startTz, null) +
+            '</div></div>' +
+            '<div><label for="f-end">Ends</label><div class="tgroup">' +
+              '<input type="time" id="f-end" value="' + esc(it ? it.endTime : '') + '">' +
+              zonePicker('f-endtz', (it && it.endTz) || '', 'Same as start') +
+            '</div></div>' +
           '</div>' +
-          '<div class="hint" style="margin-top:-6px">Both times are optional. An end time earlier than the start is treated as the next day and marked +1.</div>' +
-          '<div><label for="f-type">Type</label><select id="f-type">' +
-            TYPES.map(function(t){
-              var sel = (it ? it.type : 'activity') === t.id ? ' selected' : '';
-              return '<option value="' + t.id + '"' + sel + '>' + t.label + '</option>';
-            }).join('') +
-          '</select></div>' +
+          '<div class="hint" style="margin-top:-6px">Times are optional and stored exactly as written, never converted. An end earlier than the start counts as the next day.</div>' +
           '<div><label for="f-title">Activity</label><input type="text" id="f-title" required placeholder="Morning dive, Pescador Island" value="' + esc(it ? it.title : '') + '"></div>' +
+          '<div class="two">' +
+            '<div><label for="f-type">Type</label><select id="f-type">' +
+              TYPES.map(function(t){
+                var sel = startType === t.id ? ' selected' : '';
+                return '<option value="' + esc(t.id) + '"' + sel + '>' + esc(t.label) + '</option>';
+              }).join('') +
+            '</select></div>' +
+            '<div id="f-sub-wrap"><label for="f-sub">Detail</label>' +
+              subSelect(startType, it ? it.subtype : '') + '</div>' +
+            '<div id="f-fields-wrap">' + fieldInputs(startType, it ? it.details : null) + '</div>' +
+          '</div>' +
           '<div><label for="f-loc">Location</label><input type="text" id="f-loc" placeholder="Moalboal, Cebu" value="' + esc(it ? it.location : '') + '">' +
             '<div class="hint">Becomes a tappable link that opens Google Maps</div></div>' +
-          '<div><label for="f-notes">Notes</label><textarea id="f-notes" placeholder="Booking reference, what to bring, who is coming">' + esc(it ? it.notes : '') + '</textarea></div>' +
+          '<div><label for="f-notes">Notes</label><textarea id="f-notes" placeholder="What to bring, who is coming, anything to remember">' + esc(it ? it.notes : '') + '</textarea></div>' +
           '<div><label for="f-photo">Photos</label><input type="file" id="f-photo" accept="image/*" multiple>' +
             '<div class="hint">Resized to fit inside the page. Keep it to a few per entry.</div>' +
             '<div class="thumbs" id="f-thumbs"></div></div>' +
@@ -717,9 +2169,136 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     bg.addEventListener('click', function(e){
       if(e.target === bg || e.target.closest('[data-act="cancel"]')) closeForm();
     });
+    paintZones();
+    document.getElementById('f-tz').addEventListener('change', paintZones);
+    document.getElementById('f-endtz').addEventListener('change', paintZones);
+    document.getElementById('f-date').addEventListener('change', paintZones);
+    document.getElementById('f-type').addEventListener('change', refreshTypeFields);
+    document.getElementById('f-fields-wrap').addEventListener('change', refreshConditionals);
+    refreshConditionals();
+    if(!TYPE_MAP[startType].subs.length) document.getElementById('f-sub-wrap').style.display = 'none';
     document.getElementById('f-photo').addEventListener('change', onPhotos);
     document.getElementById('entry-form').addEventListener('submit', onSubmit);
     document.addEventListener('keydown', escClose);
+  }
+
+  /* Zone <select>. Zones already used in this trip, plus the viewer's own, are
+     pinned to the top so the common picks are reachable without scrolling. */
+  function zoneSelect(id, selected, blankLabel){
+    var pinned = [], seen = {};
+    zonesInUse().concat([state.trip.tz, localZone(), selected]).forEach(function(z){
+      if(z && validZone(z) && !seen[z]){ seen[z] = 1; pinned.push(z); }
+    });
+    var rest = allZones().filter(function(z){ return !seen[z]; }).sort();
+
+    function opt(z){
+      return '<option value="' + esc(z) + '"' + (z === selected ? ' selected' : '') + '>' +
+             esc(zoneOptionLabel(z)) + '</option>';
+    }
+    var html = '<select id="' + id + '">';
+    if(blankLabel){
+      html += '<option value=""' + (selected ? '' : ' selected') + '>' + esc(blankLabel) + '</option>';
+    }
+    if(pinned.length){
+      html += '<optgroup label="In this trip">' + pinned.map(opt).join('') + '</optgroup>';
+    }
+    html += '<optgroup label="All time zones">' + rest.map(opt).join('') + '</optgroup>';
+    return html + '</select>';
+  }
+
+  /* Detail <select> for the chosen type. Rebuilt whenever Type changes. */
+  function subSelect(typeId, selected){
+    var t = TYPE_MAP[typeId];
+    var subs = (t && t.subs) || [];
+    var html = '<select id="f-sub"' + (subs.length ? '' : ' disabled') + '>';
+    html += '<option value="">' + (subs.length ? 'Not specified' : 'None for this type') + '</option>';
+    subs.forEach(function(s){
+      html += '<option value="' + esc(s.id) + '"' + (s.id === selected ? ' selected' : '') + '>' + esc(s.label) + '</option>';
+    });
+    return html + '</select>';
+  }
+
+  /* Text inputs for a type's extra fields. Empty string when the type has none. */
+  function fieldInputs(typeId, details){
+    var fs = fieldsFor(typeId);
+    if(!fs.length) return '';
+    return fs.map(function(f){
+      var v = (details && details[f.id]) || '';
+      var cls = [];
+      if(f.full) cls.push('full');
+      if(f.input === 'checkbox') cls.push('checkfield');
+      var attrs = (cls.length ? ' class="' + cls.join(' ') + '"' : '') +
+                  (f.showIf ? ' data-showif="' + esc(f.showIf) + '"' : '');
+
+      if(f.input === 'checkbox'){
+        return '<div' + attrs + '>' +
+               '<input type="checkbox" id="ff-' + esc(f.id) + '"' + (v ? ' checked' : '') + '>' +
+               '<label for="ff-' + esc(f.id) + '">' + esc(f.label) + '</label></div>';
+      }
+      var control = f.input === 'textarea'
+        ? '<textarea id="ff-' + esc(f.id) + '" rows="2" placeholder="' + esc(f.placeholder || '') + '">' + esc(v) + '</textarea>'
+        : '<input type="' + esc(f.input || 'text') + '" id="ff-' + esc(f.id) + '"' +
+          ' placeholder="' + esc(f.placeholder || '') + '" value="' + esc(v) + '">';
+      return '<div' + attrs + '><label for="ff-' + esc(f.id) + '">' + esc(f.label) + '</label>' + control + '</div>';
+    }).join('');
+  }
+
+  /* Fields gated on a checkbox appear only while it is ticked. */
+  function refreshConditionals(){
+    var fw = document.getElementById('f-fields-wrap');
+    if(!fw) return;
+    fw.querySelectorAll('[data-showif]').forEach(function(el){
+      var ctrl = document.getElementById('ff-' + el.getAttribute('data-showif'));
+      el.style.display = (ctrl && ctrl.checked) ? '' : 'none';
+    });
+  }
+
+  function refreshTypeFields(){
+    var typeSel = document.getElementById('f-type');
+    if(!typeSel) return;
+    var t = TYPE_MAP[typeSel.value];
+
+    var wrap = document.getElementById('f-sub-wrap');
+    if(wrap){
+      wrap.style.display = (t && t.subs.length) ? '' : 'none';
+      wrap.innerHTML = '<label for="f-sub">Detail</label>' + subSelect(typeSel.value, '');
+    }
+    var fw = document.getElementById('f-fields-wrap');
+    if(fw){
+      fw.innerHTML = fieldInputs(typeSel.value, null);
+      refreshConditionals();
+    }
+  }
+
+  /* A compact control showing just the abbreviation (CET, GMT+8). The real
+     <select> sits transparently on top, so opening it gives the native picker
+     with full zone names while the closed state stays small. */
+  function zonePicker(id, selected, blankLabel){
+    return '<span class="zonepick">' +
+             '<span class="zonepick-text" id="' + esc(id) + '-text"></span>' +
+             zoneSelect(id, selected, blankLabel) +
+           '</span>';
+  }
+
+  function paintZone(id, blankShort){
+    var sel = document.getElementById(id);
+    var txt = document.getElementById(id + '-text');
+    if(!sel || !txt) return;
+    var dateEl = document.getElementById('f-date');
+    var iso = dateEl ? dateEl.value : '';
+    if(sel.value){
+      txt.textContent = zoneLabel(sel.value, iso);
+      txt.classList.remove('zonepick-blank');
+    } else {
+      txt.textContent = blankShort;
+      txt.classList.add('zonepick-blank');
+    }
+    txt.parentNode.setAttribute('title', sel.value || blankShort);
+  }
+
+  function paintZones(){
+    paintZone('f-tz', '');
+    paintZone('f-endtz', 'same');
   }
 
   function escClose(e){ if(e.key === 'Escape') closeForm(); }
@@ -783,6 +2362,26 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     });
   }
 
+  function collectFields(typeId){
+    var out = {};
+    fieldsFor(typeId).forEach(function(f){
+      var el = document.getElementById('ff-' + f.id);
+      if(!el) return;
+      /* A field gated on an unticked checkbox is not saved at all. */
+      if(f.showIf){
+        var ctrl = document.getElementById('ff-' + f.showIf);
+        if(!ctrl || !ctrl.checked) return;
+      }
+      if(f.input === 'checkbox'){
+        if(el.checked) out[f.id] = 'yes';
+        return;
+      }
+      var v = el.value.trim();
+      if(v) out[f.id] = v;
+    });
+    return out;
+  }
+
   function onSubmit(e){
     e.preventDefault();
     var title = document.getElementById('f-title').value.trim();
@@ -795,12 +2394,26 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
       return;
     }
 
+    var typeVal = document.getElementById('f-type').value;
+    if(!TYPE_MAP[typeVal]) typeVal = 'other';
+    var subEl = document.getElementById('f-sub');
+    var subVal = subEl ? subEl.value : '';
+
+    var tz = document.getElementById('f-tz').value;
+    var endTz = document.getElementById('f-endtz').value;
+    if(!validZone(tz)) tz = state.trip.tz;
+    if(endTz === tz || !validZone(endTz)) endTz = '';
+
     var next = {
       id: editingId || uid(),
       date: document.getElementById('f-date').value,
       time: start,
       endTime: end,
-      type: document.getElementById('f-type').value,
+      tz: tz,
+      endTz: endTz,
+      type: typeVal,
+      subtype: subLabel(typeVal, subVal) ? subVal : '',
+      details: collectFields(typeVal),
       title: title,
       location: document.getElementById('f-loc').value.trim(),
       notes: document.getElementById('f-notes').value.trim(),
@@ -831,13 +2444,14 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
   function buildDocument(){
     var clone = document.documentElement.cloneNode(true);
     clone.removeAttribute('data-theme');
+    clone.setAttribute('data-palette', state.trip.theme);
     clone.removeAttribute('class');
     clone.removeAttribute('style');
     var b = clone.querySelector('body');
     if(b){
       b.removeAttribute('class');
       b.removeAttribute('style');
-      b.setAttribute('data-palette', state.trip.theme);
+      b.removeAttribute('data-palette');
     }
     var a = clone.querySelector('#app');
     if(a) a.innerHTML = '';
@@ -850,6 +2464,112 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     var s = clone.querySelector('#trip-state');
     if(s) s.textContent = '\n' + JSON.stringify(state, null, 2) + '\n';
     return '<!doctype html>\n' + clone.outerHTML;
+  }
+
+  /* Ask the server whether this viewer may write, by attempting one publish of
+     the state exactly as it stands. Only ever runs on a deliberate click. */
+  function tryUnlock(){
+    if(probing) return;
+    var api = (typeof claude !== 'undefined' && claude && typeof claude.use === 'function') ? claude : null;
+    if(!api){
+      toast('Access cannot be checked here. Open the itinerary from its own page.', true);
+      return;
+    }
+    probing = true;
+    toast('Checking your access');
+    api.use('artifact').then(function(artifact){
+      if(!artifact){
+        probing = false;
+        toast('Access cannot be checked here. Open the itinerary from its own page.', true);
+        return;
+      }
+      return artifact.publish(buildDocument()).then(function(){
+        probing = false;
+        canEdit = true;
+        rememberEditor(true);
+        render();
+        toast('Editing unlocked on this device');
+      }, function(err){
+        probing = false;
+        var code = (err && (err.code || err.name)) || '';
+        if(code === 'not_granted' || code === 'not_writer'){
+          rememberEditor(false);
+          toast('You have view access to this itinerary, so it stays read only.', true);
+          return;
+        }
+        if(code === 'conflict'){
+          toast('A newer version was saved elsewhere. This page is reloading to it.', true);
+          return;
+        }
+        toast('Could not check your access. Try again in a moment.', true);
+      });
+    }).catch(function(){
+      probing = false;
+      toast('Could not check your access. Try again in a moment.', true);
+    });
+  }
+
+  function slug(){
+    return (state.trip.name || 'trip').toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'trip';
+  }
+
+  function offerDownload(filename, data){
+    var api = (typeof claude !== 'undefined' && claude && typeof claude.use === 'function') ? claude : null;
+    if(!api){ toast('Downloads are not available in this view.', true); return; }
+    api.use('downloads').then(function(dl){
+      if(!dl){ toast('Downloads are not available in this view.', true); return; }
+      return dl.save({filename: filename, data: data}).then(function(){
+        toast('Saved ' + filename);
+      }, function(err){
+        var code = (err && err.code) || 'unavailable';
+        if(code === 'declined') return;                 /* never retry a no */
+        if(code === 'extension_not_enabled'){
+          toast('This view cannot save .html files. The data file still works.', true);
+          return;
+        }
+        if(code === 'too_large'){ toast('That file is too big to save here.', true); return; }
+        if(code === 'rate_limited'){ toast('One download at a time. Try again in a moment.', true); return; }
+        toast('That did not save. Try again in a moment.', true);
+      });
+    }).catch(function(){ toast('That did not save. Try again in a moment.', true); });
+  }
+
+  function openSharing(){
+    var bg = document.createElement('div');
+    bg.className = 'sheet-bg';
+    bg.id = 'sheet-bg';
+    bg.innerHTML =
+      '<div class="sheet">' +
+        '<h2>Share and export</h2>' +
+        '<div class="prose">' +
+          '<p><b>Keep a copy.</b> Everything lives inside this page, so a copy is your only backup.</p>' +
+          '<div class="dl-row">' +
+            '<button class="btn btn-primary" data-act="dl-json">' + ICON.down + 'Download the data</button>' +
+            '<button class="btn" data-act="dl-html">' + ICON.down + 'Download an offline copy</button>' +
+          '</div>' +
+          '<p class="prose-note" id="dl-note">The data file is JSON you can keep or hand back to me. ' +
+          'The offline copy is this whole page as one file: open it from your phone or laptop with no ' +
+          'connection and the itinerary still works, though it cannot save changes.</p>' +
+          '<p>Anyone you share the link with opens it <b>read only</b>. There is no Add entry button, ' +
+          'no edit pencils and no theme picker, so family can look through every tab without being able ' +
+          'to change anything.</p>' +
+          '<p>What actually enforces that is the access you give them, not the link itself. Use the ' +
+          'artifact’s own share menu and add people as <b>viewers</b> rather than editors. Even if ' +
+          'someone tries to unlock editing, a save from a viewer is refused by the server and the page ' +
+          'puts itself back.</p>' +
+          '<p>Your own editing is remembered in this browser only. On a new device or a private window ' +
+          'you will unlock it once more.</p>' +
+          '<p class="prose-note">Use <b>Preview as viewer</b> in the toolbar to see exactly what family ' +
+          'sees. It changes nothing and you can unlock again whenever you like.</p>' +
+        '</div>' +
+        '<div class="sheet-foot"><button class="btn btn-primary" data-act="cancel">Close</button></div>' +
+      '</div>';
+    document.body.appendChild(bg);
+    bg.addEventListener('click', function(e){
+      if(e.target === bg || e.target.closest('[data-act="cancel"]')) closeForm();
+    });
+    document.addEventListener('keydown', escClose);
   }
 
   function save(revert, okMsg){
@@ -877,8 +2597,9 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
         }
         if(code === 'not_granted' || code === 'not_writer'){
           canEdit = false;
+          rememberEditor(false);
           undo();
-          toast('You do not have permission to change this itinerary.', true);
+          toast('You have view access only, so that change was not saved.', true);
           return;
         }
         undo();
@@ -918,6 +2639,39 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     if(!btn) return;
     var act = btn.getAttribute('data-act');
 
+    if(act === 'tab'){
+      var tid = btn.getAttribute('data-tab');
+      if(activeTab === tid) return;
+      activeTab = tid;      /* view state only, never published */
+      render();
+      window.scrollTo({top:0, behavior:'auto'});
+      return;
+    }
+    if(act === 'unlock'){ tryUnlock(); return; }
+    if(act === 'lock'){
+      canEdit = false;
+      rememberEditor(false);
+      render();
+      toast('This is what family sees. Choose Edit this itinerary to come back.');
+      return;
+    }
+    if(act === 'sharing'){ openSharing(); return; }
+    if(act === 'dl-json'){
+      offerDownload(slug() + '.json', JSON.stringify(state, null, 2));
+      return;
+    }
+    if(act === 'dl-html'){
+      offerDownload(slug() + '.html', buildDocument());
+      return;
+    }
+    if(act === 'rm-item'){
+      var lk = btn.getAttribute('data-list'), iid = btn.getAttribute('data-id');
+      var was = (state.lists[lk] || []).slice();
+      state.lists[lk] = was.filter(function(i){ return i.id !== iid; });
+      render();
+      save(function(){ state.lists[lk] = was; }, 'Removed');
+      return;
+    }
     if(act === 'new'){ openForm(null); }
     else if(act === 'edit'){ openForm(btn.getAttribute('data-id')); }
     else if(act === 'del'){
@@ -942,6 +2696,60 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
       render();
       save(function(){ state.items = prev; }, 'Examples cleared');
     }
+  });
+
+  document.addEventListener('change', function(e){
+    var sel = e.target.closest ? e.target.closest('[data-act="setcat"]') : null;
+    if(sel && canEdit){
+      var slk = sel.getAttribute('data-list'), sid = sel.getAttribute('data-id');
+      var arr = state.lists[slk] || [];
+      var prev = arr.map(function(i){ return {id:i.id, text:i.text, done:i.done, cat:i.cat}; });
+      var row = arr.filter(function(i){ return i.id === sid; })[0];
+      if(!row) return;
+      var next = PACK_CAT_MAP[sel.value] ? sel.value : '';
+      if(next === row.cat) return;
+      row.cat = next;
+      if(next) lastPackCat = next;
+      render();
+      save(function(){ state.lists[slk] = prev; },
+           'Moved to ' + (next ? PACK_CAT_MAP[next].label : 'Not sorted'));
+      return;
+    }
+
+    var box = e.target.closest ? e.target.closest('[data-act="tick"]') : null;
+    if(!box || !canEdit) return;
+    var lk = box.getAttribute('data-list'), iid = box.getAttribute('data-id');
+    var items = state.lists[lk] || [];
+    var was = items.map(function(i){ return {id:i.id, text:i.text, done:i.done}; });
+    var hit = items.filter(function(i){ return i.id === iid; })[0];
+    if(!hit) return;
+    hit.done = box.checked;
+    render();
+    save(function(){ state.lists[lk] = was; }, hit.done ? 'Ticked off' : 'Back on the list');
+  });
+
+  document.addEventListener('submit', function(e){
+    var form = e.target;
+    if(!form.classList || !form.classList.contains('prep-add')) return;
+    e.preventDefault();
+    if(!canEdit) return;
+    var lk = form.getAttribute('data-list');
+    var input = form.querySelector('input');
+    var text = input.value.trim();
+    if(!text) return;
+    var catSel = form.querySelector('.prep-cat');
+    var row = {id: uid(), text: text, done: false};
+    if(catSel){
+      row.cat = PACK_CAT_MAP[catSel.value] ? catSel.value : '';
+      if(row.cat) lastPackCat = row.cat;
+    }
+    var was = (state.lists[lk] || []).slice();
+    state.lists[lk] = was.concat([row]);
+    render();
+    /* put the cursor back so a run of items can be typed without re-clicking */
+    var again = document.querySelector('.prep-add[data-list="' + lk + '"] input');
+    if(again) again.focus();
+    save(function(){ state.lists[lk] = was; }, 'Added');
   });
 
   document.addEventListener('blur', function(e){
