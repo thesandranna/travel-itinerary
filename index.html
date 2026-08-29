@@ -170,20 +170,51 @@ button{font:inherit;color:inherit}
 .mast-meta b{color:var(--ink-2);font-weight:500}
 
 /* ---------- tabs ---------- */
+/* The strip scrolls sideways, so each edge that has more tabs behind it gets
+   a fade and an arrow. Both are switched on from script, never guessed. */
+.tabwrap{position:relative;margin-top:16px}
+.tabwrap::before,.tabwrap::after{
+  content:"";position:absolute;top:0;bottom:1px;width:56px;pointer-events:none;
+  opacity:0;transition:opacity .15s;z-index:1;
+}
+.tabwrap::before{left:0;background:linear-gradient(to right,var(--bg) 34%,transparent)}
+.tabwrap::after{right:0;background:linear-gradient(to left,var(--bg) 34%,transparent)}
+.tabwrap.more-l::before,.tabwrap.more-r::after{opacity:1}
+.tabnav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+  display:none;align-items:center;justify-content:center;
+  width:26px;height:26px;padding:0;border-radius:999px;cursor:pointer;
+  background:var(--surface);border:1px solid var(--line-strong);color:var(--ink-2);
+  box-shadow:0 1px 4px rgba(0,0,0,.14);
+}
+.tabnav svg{width:13px;height:13px}
+.tabnav:hover{color:var(--accent-ink);border-color:var(--accent)}
+.tn-l{left:0}
+.tn-r{right:0}
+.tabwrap.more-l .tn-l,.tabwrap.more-r .tn-r{display:flex}
 .tabs{
-  display:flex;gap:2px;border-bottom:1px solid var(--line);margin-top:16px;
+  display:flex;gap:2px;border-bottom:1px solid var(--line);
   overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  scroll-behavior:smooth;
 }
 .tabs::-webkit-scrollbar{display:none}
+@media (prefers-reduced-motion:reduce){.tabs{scroll-behavior:auto}}
 .tab{
-  background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;
+  background:none;border:0;margin-bottom:-1px;border-radius:8px 8px 0 0;
   padding:11px 14px;cursor:pointer;flex:0 0 auto;white-space:nowrap;
   font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--muted);transition:color .15s;
+  color:var(--muted);transition:color .15s, background .15s;
 }
 .tab:hover{color:var(--ink)}
-.tab[aria-selected="true"]{color:var(--accent-ink);border-bottom-color:var(--accent)}
+/* The selected tab is filled rather than underlined. `--on-accent` is the
+   ink each palette pairs with its own accent, so it stays readable when the
+   accent goes bright in dark mode. */
+.tab[aria-selected="true"]{
+  background:var(--accent);color:var(--on-accent);font-weight:600;
+}
+.tab[aria-selected="true"]:hover{background:var(--accent);color:var(--on-accent)}
 .tab-count{margin-left:8px;opacity:.6;font-variant-numeric:tabular-nums}
+.tab[aria-selected="true"] .tab-count{opacity:.72}
 
 /* ---------- toolbar ---------- */
 .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:16px 0 22px}
@@ -256,6 +287,10 @@ button{font:inherit;color:inherit}
 .fact-k{color:var(--muted);margin-right:6px}
 .fact-strong{font-size:13.5px;font-weight:500;color:var(--ink)}
 .entry-facts-block{display:block;line-height:1.55}
+/* Stacked fact lines read as one block, so they sit tighter than the
+   7px the entry body puts between its other parts. */
+.entry-facts + .entry-facts{margin-top:-4px}
+.amen-chips{margin-top:1px}
 .fact + .fact::before{
   content:"·";color:var(--line-strong);margin:0 8px;font-weight:700;
 }
@@ -305,8 +340,10 @@ select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--
 
 /* ---------- today ---------- */
 .mast-status{
+  align-self:flex-start;margin-top:-4px;
+  font-family:var(--f-mono);font-size:12.5px;
   color:var(--on-accent);background:var(--accent);
-  padding:2px 9px;border-radius:999px;font-weight:600;letter-spacing:.02em;
+  padding:3px 11px;border-radius:999px;font-weight:600;letter-spacing:.02em;
 }
 .mast-status.s-after{background:var(--surface-2);color:var(--muted)}
 .day-today{position:relative}
@@ -322,6 +359,80 @@ select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--
   font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
 }
 
+/* ---------- budget ----------
+   A table with a meter per row. Currencies are never summed, so each gets its
+   own card and its own 100%. One hue throughout: this is magnitude, not identity. */
+.budget{gap:0;padding-bottom:18px}
+.bud-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding-bottom:14px;margin-bottom:16px;border-bottom:2px solid var(--ink);
+}
+.bud-cur{
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);
+}
+.bud-total{
+  font-family:var(--f-display);font-size:34px;line-height:1;color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+.bud-block + .bud-block{margin-top:16px}
+.bud-row{display:flex;align-items:baseline;gap:10px;font-size:14.5px}
+.bud-name{flex:1;min-width:0;font-weight:600;letter-spacing:-.01em}
+.bud-amt{font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.bud-pct{
+  font-family:var(--f-mono);font-size:11px;color:var(--muted);
+  font-variant-numeric:tabular-nums;flex:0 0 34px;text-align:right;
+}
+.bud-meter{display:block;height:6px;border-radius:3px;background:var(--surface-2);margin-top:6px;overflow:hidden}
+.bud-meter>span{display:block;height:100%;border-radius:3px;background:var(--accent);min-width:2px}
+.rates{
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px 16px 12px;margin-bottom:16px;background:var(--surface);
+}
+.rates-head{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px;
+}
+.rates-grid{
+  display:grid;grid-template-columns:max-content 96px max-content 1fr;
+  gap:8px 10px;align-items:center;
+}
+.rate-cur{font-family:var(--f-mono);font-size:13px;font-weight:500;color:var(--ink)}
+.rate-in{padding:6px 9px;font-size:14px;font-family:var(--f-mono);text-align:right}
+.rate-ro{font-family:var(--f-mono);font-size:13px;color:var(--ink-2);text-align:right}
+.rate-per{font-size:13px;color:var(--muted);white-space:nowrap}
+.rate-eg{
+  font-family:var(--f-mono);font-size:11.5px;color:var(--muted);
+  text-align:right;font-variant-numeric:tabular-nums;min-width:0;
+}
+.rates-note{margin:12px 0 0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.budget-home{margin-bottom:16px;border-color:var(--accent)}
+.budget-home .bud-head{border-bottom-color:var(--accent)}
+.bud-conv{
+  display:block;margin-top:4px;font-family:var(--f-mono);font-size:11px;
+  letter-spacing:.04em;text-transform:none;color:var(--accent-ink);
+}
+.bud-warn{
+  font-size:13px;color:var(--ink-2);background:var(--surface-2);
+  border-radius:8px;padding:9px 12px;margin-bottom:14px;line-height:1.5;
+}
+@media (max-width:640px){
+  .rates-grid{grid-template-columns:max-content 1fr;gap:6px 10px}
+  .rate-per,.rate-eg{grid-column:2;text-align:left}
+}
+.bud-gaps{
+  display:flex;gap:9px;align-items:flex-start;
+  background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:11px 14px;font-size:13.5px;color:var(--ink-2);line-height:1.5;margin-bottom:16px;
+}
+.bud-subs{
+  display:grid;grid-template-columns:1fr max-content;gap:2px 12px;
+  margin-top:8px;padding-left:12px;border-left:1px solid var(--line);
+  font-family:var(--f-mono);font-size:12px;color:var(--ink-2);
+}
+.bud-sub-name{min-width:0;word-wrap:break-word}
+.bud-sub-amt{font-variant-numeric:tabular-nums;text-align:right}
+
 /* ---------- prep lists ---------- */
 .prep{max-width:620px}
 .prep-col{display:flex;flex-direction:column;gap:12px;min-width:0}
@@ -331,16 +442,30 @@ select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--
 .prep-item input[type="checkbox"]{
   width:17px;height:17px;flex:none;margin:2px 0 0;accent-color:var(--accent);cursor:pointer;
 }
-.prep-item label{
+.prep-item label,.prep-text{
   flex:1;min-width:0;margin:0;font-family:var(--f-body);font-size:15px;font-weight:400;
   letter-spacing:0;text-transform:none;color:var(--ink);line-height:1.45;
   cursor:pointer;word-wrap:break-word;
 }
-.prep-item.is-done label{color:var(--muted);text-decoration:line-through}
+.prep-item.is-done label,.prep-item.is-done .prep-text{color:var(--muted);text-decoration:line-through}
+/* The row text is typed into directly. It stays flat until you touch it, so a
+   long list does not read as a wall of input boxes. */
+.prep-text{
+  cursor:text;border-radius:5px;margin:-2px -6px;padding:2px 6px;
+  border:1px solid transparent;transition:border-color .15s,background .15s;
+}
+.prep-item:hover .prep-text{border-color:var(--line)}
+.prep-text:focus{
+  outline:none;background:var(--surface);border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-soft);text-decoration:none;color:var(--ink);
+}
 .prep-item .btn-ghost{opacity:0;flex:none;transition:opacity .15s}
 .prep-item:hover .btn-ghost,.prep-item:focus-within .btn-ghost{opacity:1}
 @media (hover:none){.prep-item .btn-ghost{opacity:1}}
 .prep-add{display:flex;flex-wrap:wrap;gap:8px;padding-top:4px}
+/* Sitting in the toolbar, it takes the room the entry buttons used to. */
+.prep-add.in-bar{padding-top:0;flex:1 1 340px;min-width:0}
+.bar-list{align-items:flex-start}
 .prep-add input{flex:1 1 200px;min-width:0}
 .prep-add .prep-cat{flex:0 0 auto;width:auto;min-width:130px}
 .prep-add .btn{flex:none}
@@ -401,6 +526,9 @@ select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--
 .card-block{font-family:var(--f-mono);font-size:12px;color:var(--ink-2);line-height:1.6}
 .card-note{font-size:14px;color:var(--ink-2);line-height:1.5;padding-top:10px;border-top:1px solid var(--line)}
 .card .pin{align-self:flex-start}
+/* The amenity row reads as a continuation of the row above it, not a new
+   section, so it sits closer than the card's usual gap. */
+.card-amen{margin-top:-6px}
 
 /* ---------- empty ---------- */
 .empty{text-align:center;padding:64px 20px;color:var(--muted)}
@@ -419,9 +547,32 @@ select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--
 .three{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px}
 /* The type's extra fields flow into the same grid as Type and Detail, so a
    type with no Detail (Flight) puts its first field beside Type. */
+/* Worked-out elapsed time, sitting under the times it comes from. */
+.dur-line{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;
+  margin-top:-4px;font-family:var(--f-mono);font-size:12px;
+}
+.dur-k{color:var(--muted);text-transform:uppercase;letter-spacing:.09em;font-size:10.5px}
+.dur-v{color:var(--accent-ink);font-weight:600;font-variant-numeric:tabular-nums}
+.dur-n{color:var(--muted)}
 #f-fields-wrap{display:contents}
 .two>.full,#f-fields-wrap>.full{grid-column:1 / -1}
 .checkfield{display:flex;align-items:center;gap:9px;min-height:44px}
+/* A tick box sits beside the hours it governs; everything else a type offers
+   collects into one wrapping band underneath. */
+.field-row{display:grid;gap:12px}
+.row-breakfast,.row-hours{grid-template-columns:max-content 1fr 1fr;align-items:end}
+.row-breakfast>.checkfield,.row-hours>.checkfield{min-height:0;padding-bottom:11px}
+.row-amenities{
+  display:flex;flex-wrap:wrap;gap:2px 24px;
+  padding:2px 0 0;border-top:1px solid var(--line);margin-top:2px;
+}
+.row-amenities>.checkfield{min-height:40px}
+@media (max-width:640px){
+  .row-breakfast,.row-hours{grid-template-columns:1fr 1fr}
+  .row-breakfast>.checkfield,.row-hours>.checkfield{grid-column:1 / -1;min-height:40px;padding-bottom:0}
+  .row-amenities{gap:0 20px}
+}
 .checkfield input[type="checkbox"]{
   width:17px;height:17px;flex:none;margin:0;accent-color:var(--accent);cursor:pointer;
 }
@@ -492,6 +643,16 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
 .prose p{margin:0}
 .prose b{color:var(--ink);font-weight:600}
 .prose-note{padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+.prose h3{
+  margin:6px 0 -4px;font-family:var(--f-mono);font-size:10.5px;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--accent-ink);
+}
+.prose h3:first-child{margin-top:0}
+/* Says plainly that the page is not in its normal state. */
+.preview-flag{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--on-accent);background:var(--accent);padding:5px 10px;border-radius:999px;
+}
 
 @media (max-width:640px){
   .wrap{padding:22px 15px 88px}
@@ -521,540 +682,832 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
 <script id="trip-state" type="application/json">
 {
   "trip": {
-    "name": "Philippines, November",
+    "name": "SADcation 2026 edition",
     "theme": "sorbet",
-    "note": "Example entries for a Cebu dive trip. Clear them with the button when you are ready to add your own.",
+    "note": "Example entries. Clear them with the button when you are ready to add your own.",
     "tz": "Europe/Stockholm"
   },
   "items": [
     {
-      "id": "seed-1",
-      "date": "2026-11-02",
-      "time": "05:00",
-      "endTime": "05:40",
+      "id": "seed-out1",
+      "date": "2026-11-09",
+      "time": "19:00",
+      "endTime": "19:40",
+      "tz": "Europe/Stockholm",
+      "endTz": "",
       "type": "transport",
+      "subtype": "train",
       "title": "Airport express to Arlanda",
       "location": "Stockholm Central Station",
       "notes": "Arlanda Express leaves every 15 min. Buy tickets on the app, it is cheaper.",
       "photos": [],
-      "tz": "Europe/Stockholm",
-      "endTz": "",
-      "subtype": "train",
       "details": {
-        "company": "Arlanda Express"
+        "company": "Arlanda Express",
+        "cost": "340",
+        "costCur": "SEK"
       }
     },
     {
-      "id": "seed-2",
-      "date": "2026-11-02",
-      "time": "07:15",
-      "endTime": "04:30",
-      "type": "flight",
-      "title": "Flight ARN to Manila via Doha",
-      "location": "Stockholm Arlanda Airport, Terminal 5",
-      "notes": "Bag drop closes 06:15. Layover in Doha is 1h55, tight but same terminal. Lands early on the 3rd.",
-      "photos": [],
+      "id": "seed-out2",
+      "date": "2026-11-09",
+      "time": "21:45",
+      "endTime": "16:45",
       "tz": "Europe/Stockholm",
-      "endTz": "Asia/Manila",
+      "endTz": "Asia/Bangkok",
+      "type": "flight",
       "subtype": "",
+      "title": "Flight ARN to Bangkok via Doha",
+      "location": "Stockholm Arlanda Airport, Terminal 5",
+      "notes": "Bag drop closes 20:45. Layover in Doha is 2h10. Lands mid afternoon on the 10th.",
+      "photos": [],
       "details": {
         "aircraft": "Boeing 787-9 / Airbus A350-1000",
         "airline": "Qatar Airways",
-        "flightNo": "QR170 / QR932"
+        "flightNo": "QR170 / QR832",
+        "cost": "6400",
+        "costCur": "SEK"
       }
     },
     {
-      "id": "seed-3",
-      "date": "2026-11-03",
-      "time": "09:40",
-      "endTime": "10:40",
+      "date": "2026-11-10",
+      "time": "18:30",
+      "endTime": "19:10",
+      "tz": "Asia/Bangkok",
+      "endTz": "",
       "type": "transport",
-      "title": "Terminal 3 to Terminal 2 shuttle",
-      "location": "Ninoy Aquino International Airport, Manila",
-      "notes": "Free shuttle runs every 30 min. Allow a full hour, the traffic between terminals is unpredictable.",
+      "subtype": "train",
+      "title": "Airport rail link into the city",
+      "location": "Suvarnabhumi Airport, Bangkok",
+      "notes": "Faster than a taxi at this hour. Change at Phaya Thai.",
       "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "bus",
       "details": {
-        "company": "NAIA Airport Shuttle",
-        "service": "T3 to T2"
-      }
+        "company": "SRT Airport Rail Link",
+        "service": "City Line",
+        "cost": "45",
+        "costCur": "THB"
+      },
+      "id": "seed-30"
     },
     {
-      "id": "seed-4",
-      "date": "2026-11-03",
-      "time": "12:05",
-      "endTime": "13:30",
-      "type": "flight",
-      "title": "Flight Manila to Cebu",
-      "location": "Ninoy Aquino International Airport Terminal 2, Manila",
-      "notes": "Domestic, so only 45 min check in needed.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "",
-      "details": {
-        "aircraft": "Airbus A321neo",
-        "airline": "Philippine Airlines",
-        "flightNo": "PR2841"
-      }
-    },
-    {
-      "id": "seed-5",
-      "date": "2026-11-03",
-      "time": "15:30",
-      "endTime": "18:30",
-      "type": "transport",
-      "title": "Van transfer to Moalboal",
-      "location": "Mactan Cebu International Airport",
-      "notes": "Prebooked private van, roughly 3 hours. Driver meets us at arrivals with a sign.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "transfer",
-      "details": {
-        "company": "Cebu Island Transfers"
-      }
-    },
-    {
-      "id": "seed-6",
-      "date": "2026-11-03",
-      "time": "19:00",
+      "date": "2026-11-10",
+      "time": "19:30",
       "endTime": "",
-      "type": "stay",
-      "title": "Check in at the dive resort",
-      "location": "Panagsama Beach, Moalboal, Cebu",
-      "notes": "Confirmation is in email. Two rooms booked, both sea facing. Ask about the 06:00 boat to the sardine run.",
-      "photos": [],
-      "tz": "Asia/Manila",
+      "tz": "Asia/Bangkok",
       "endTz": "",
-      "subtype": "resort",
+      "type": "stay",
+      "subtype": "hotel",
+      "title": "Check in, Bangkok",
+      "location": "Phra Nakhon, Bangkok",
+      "notes": "Two rooms, one with the river view. Ask for high floor, the street is loud.",
+      "photos": [],
       "details": {
-        "property": "Blue Abyss Dive Resort",
-        "phone": "+63 32 474 0000",
+        "property": "Chakrabongse Riverside",
+        "phone": "+66 2 222 1290",
         "checkIn": "14:00",
         "checkOut": "12:00",
+        "cost": "14400",
+        "costCur": "THB",
         "breakfast": "yes",
-        "pool": "yes",
         "breakfastFrom": "06:30",
-        "breakfastTo": "09:30",
-        "amenities": "Wifi in the restaurant only. Hot water 06:00 to 22:00. Free kayaks and a rinse tank for dive gear."
-      }
+        "breakfastTo": "10:30",
+        "pool": "yes",
+        "restaurant": "yes",
+        "bar": "yes",
+        "laundry": "yes",
+        "amenities": "Free river shuttle to the pier until 22:00. Laundry same day if handed in before 09:00."
+      },
+      "id": "seed-31"
     },
     {
-      "id": "seed-7",
-      "date": "2026-11-03",
-      "time": "20:00",
-      "endTime": "21:30",
+      "date": "2026-11-10",
+      "time": "21:00",
+      "endTime": "22:30",
+      "tz": "Asia/Bangkok",
+      "endTz": "",
       "type": "food",
-      "title": "Late dinner at the resort",
-      "location": "Panagsama Beach, Moalboal, Cebu",
-      "notes": "Kitchen closes at 22:00. Anna is vegetarian, mention it when we sit down.",
+      "subtype": "stall",
+      "title": "Late food on Thanon Maha Rat",
+      "location": "Maha Rat Road, Bangkok",
+      "notes": "Stalls run past midnight. Anna needs to check the broth is vegetarian.",
       "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "restaurant",
-      "details": {}
-    },
-    {
-      "id": "seed-8",
-      "date": "2026-11-04",
-      "time": "08:00",
-      "endTime": "10:30",
-      "type": "activity",
-      "title": "Check out dive and gear fitting",
-      "location": "Panagsama Beach, Moalboal, Cebu",
-      "notes": "Shallow house reef dive so the shop can check everyone's weighting. Bring the certification cards.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "diving",
       "details": {
-        "company": "Blue Abyss Divers",
-        "phone": "+63 32 474 0011"
-      }
+        "cost": "320",
+        "costCur": "THB"
+      },
+      "id": "seed-32"
     },
     {
-      "id": "seed-9",
-      "date": "2026-11-04",
-      "time": "12:30",
-      "endTime": "13:30",
-      "type": "food",
-      "title": "Lunch together",
-      "location": "Panagsama Beach, Moalboal, Cebu",
-      "notes": "Nothing booked, we can just walk along the front and pick somewhere.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "restaurant",
-      "details": {}
-    },
-    {
-      "id": "seed-10",
-      "date": "2026-11-04",
-      "time": "14:30",
-      "endTime": "16:00",
-      "type": "activity",
-      "title": "Afternoon dive, house reef",
-      "location": "Panagsama Beach, Moalboal, Cebu",
-      "notes": "Second dive of the day. Good one for the wide angle lens, the wall starts about 10 m out.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "diving",
-      "details": {
-        "company": "Blue Abyss Divers"
-      }
-    },
-    {
-      "id": "seed-11",
-      "date": "2026-11-04",
-      "time": "",
-      "endTime": "",
-      "type": "free",
-      "title": "Free evening",
-      "location": "",
-      "notes": "Nothing planned. Early night before the sardine run.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "",
-      "details": {}
-    },
-    {
-      "id": "seed-12",
-      "date": "2026-11-05",
-      "time": "06:00",
-      "endTime": "08:30",
-      "type": "activity",
-      "title": "Sardine run at Panagsama",
-      "location": "Panagsama Beach, Moalboal, Cebu",
-      "notes": "The whole point of the trip. Boat leaves at 06:00 sharp. Best light is in the first hour.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "diving",
-      "details": {
-        "company": "Blue Abyss Divers",
-        "phone": "+63 32 474 0011"
-      }
-    },
-    {
-      "id": "seed-13",
-      "date": "2026-11-05",
-      "time": "10:00",
-      "endTime": "14:00",
-      "type": "activity",
-      "title": "Two tank dive at Pescador Island",
-      "location": "Pescador Island, Moalboal, Cebu",
-      "notes": "Includes surface interval and lunch on the boat. Turtles are usually on the second dive.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "diving",
-      "details": {
-        "company": "Blue Abyss Divers"
-      }
-    },
-    {
-      "id": "seed-14",
-      "date": "2026-11-05",
-      "time": "19:00",
-      "endTime": "21:00",
-      "type": "food",
-      "title": "Dinner in town",
-      "location": "Moalboal, Cebu",
-      "notes": "Somewhere with a table for everyone. Worth booking in the afternoon.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "restaurant",
-      "details": {}
-    },
-    {
-      "id": "seed-15",
-      "date": "2026-11-06",
-      "time": "06:00",
-      "endTime": "07:00",
-      "type": "transport",
-      "title": "Drive to Badian",
-      "location": "Moalboal, Cebu",
-      "notes": "Arranged through the resort. Roughly an hour each way.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "transfer",
-      "details": {
-        "company": "Arranged through the resort"
-      }
-    },
-    {
-      "id": "seed-16",
-      "date": "2026-11-06",
-      "time": "07:30",
-      "endTime": "13:00",
-      "type": "activity",
-      "title": "Kawasan Falls canyoneering",
-      "location": "Kawasan Falls, Badian, Cebu",
-      "notes": "Wet and physical, about 4 hours of jumping and swimming. Life jackets and helmets provided. Leave anything valuable at the resort.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "water",
-      "details": {
-        "company": "Badian Canyoneering Guides",
-        "phone": "+63 917 555 0142"
-      }
-    },
-    {
-      "id": "seed-17",
-      "date": "2026-11-06",
-      "time": "19:00",
-      "endTime": "",
-      "type": "food",
-      "title": "Dinner, whoever is still awake",
-      "location": "Moalboal, Cebu",
-      "notes": "",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "bar",
-      "details": {}
-    },
-    {
-      "id": "seed-18",
-      "date": "2026-11-07",
-      "time": "",
-      "endTime": "",
-      "type": "free",
-      "title": "Rest day, no diving",
-      "location": "",
-      "notes": "Deliberately empty. Everyone will need it after the canyoneering.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "",
-      "details": {}
-    },
-    {
-      "id": "seed-19",
-      "date": "2026-11-07",
-      "time": "11:00",
-      "endTime": "12:00",
-      "type": "activity",
-      "title": "Massages at the resort spa",
-      "location": "Panagsama Beach, Moalboal, Cebu",
-      "notes": "Book at reception the night before, they fill up.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "spa",
-      "details": {
-        "company": "Blue Abyss Resort Spa"
-      }
-    },
-    {
-      "id": "seed-20",
-      "date": "2026-11-07",
-      "time": "17:30",
-      "endTime": "",
-      "type": "activity",
-      "title": "Sunset at Panagsama",
-      "location": "Panagsama Beach, Moalboal, Cebu",
-      "notes": "Sun goes down around 17:40 this time of year.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "sights",
-      "details": {}
-    },
-    {
-      "id": "seed-21",
-      "date": "2026-11-08",
-      "time": "07:00",
-      "endTime": "11:00",
-      "type": "activity",
-      "title": "Last dive, turtles at Pescador",
-      "location": "Pescador Island, Moalboal, Cebu",
-      "notes": "Final dive of the trip. Note we fly on the 10th, so this leaves well over 24 hours before altitude.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "diving",
-      "details": {
-        "company": "Blue Abyss Divers"
-      }
-    },
-    {
-      "id": "seed-22",
-      "date": "2026-11-08",
-      "time": "15:00",
-      "endTime": "18:00",
-      "type": "transport",
-      "title": "Van back to Cebu City",
-      "location": "Panagsama Beach, Moalboal, Cebu",
-      "notes": "Same driver. Pack the night before, checkout is at 12:00.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "transfer",
-      "details": {
-        "company": "Cebu Island Transfers"
-      }
-    },
-    {
-      "id": "seed-23",
-      "date": "2026-11-08",
-      "time": "18:30",
-      "endTime": "",
-      "type": "stay",
-      "title": "Check in at Cebu City hotel",
-      "location": "Cebu City, Cebu",
-      "notes": "One night only, close to the airport side of town.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
-      "subtype": "hotel",
-      "details": {
-        "property": "Harbour Lights Hotel",
-        "phone": "+63 32 255 1100",
-        "checkIn": "15:00",
-        "checkOut": "11:00",
-        "breakfast": "yes",
-        "breakfastFrom": "06:00",
-        "breakfastTo": "10:00",
-        "amenities": "Airport shuttle on request, book at reception the night before."
-      }
-    },
-    {
-      "id": "seed-24",
-      "date": "2026-11-09",
+      "date": "2026-11-11",
       "time": "09:00",
       "endTime": "12:00",
+      "tz": "Asia/Bangkok",
+      "endTz": "",
       "type": "activity",
-      "title": "Old Cebu on foot",
-      "location": "Magellan's Cross, Cebu City",
-      "notes": "Magellan's Cross, Basilica del Santo Nino, then Fort San Pedro. All walkable, about 20 min between each.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
       "subtype": "sights",
-      "details": {}
+      "title": "Grand Palace and Wat Pho",
+      "location": "Grand Palace, Bangkok",
+      "notes": "Shoulders and knees covered or they turn you away. Go at opening, it is unbearable by eleven.",
+      "photos": [],
+      "details": {
+        "company": "Self guided",
+        "cost": "500",
+        "costCur": "THB"
+      },
+      "id": "seed-33"
     },
     {
-      "id": "seed-25",
-      "date": "2026-11-09",
+      "date": "2026-11-11",
       "time": "12:30",
-      "endTime": "14:00",
-      "type": "food",
-      "title": "Lechon lunch",
-      "location": "Cebu City, Cebu",
-      "notes": "The thing Cebu is actually known for. Go early, the good places sell out by mid afternoon.",
-      "photos": [],
-      "tz": "Asia/Manila",
+      "endTime": "13:30",
+      "tz": "Asia/Bangkok",
       "endTz": "",
+      "type": "food",
       "subtype": "market",
-      "details": {}
+      "title": "Lunch at Tha Tien market",
+      "location": "Tha Tien, Bangkok",
+      "notes": "",
+      "photos": [],
+      "details": {
+        "cost": "260",
+        "costCur": "THB"
+      },
+      "id": "seed-34"
     },
     {
-      "id": "seed-26",
-      "date": "2026-11-09",
+      "date": "2026-11-11",
       "time": "15:00",
-      "endTime": "",
-      "type": "other",
-      "title": "Gifts and last errands",
-      "location": "Cebu City, Cebu",
-      "notes": "Dried mangoes and coffee. Also need to repack the dive gear so it is under the weight limit.",
-      "photos": [],
-      "tz": "Asia/Manila",
+      "endTime": "17:00",
+      "tz": "Asia/Bangkok",
       "endTz": "",
-      "subtype": "",
-      "details": {}
+      "type": "activity",
+      "subtype": "tour",
+      "title": "Chao Phraya longtail boat",
+      "location": "Tha Tien Pier, Bangkok",
+      "notes": "Ninety minutes through the klongs. Negotiate before getting in.",
+      "photos": [],
+      "details": {
+        "company": "Tha Tien boat operators",
+        "cost": "1600",
+        "costCur": "THB"
+      },
+      "id": "seed-35"
     },
     {
-      "id": "seed-27",
-      "date": "2026-11-09",
-      "time": "18:30",
-      "endTime": "21:00",
+      "date": "2026-11-11",
+      "time": "19:30",
+      "endTime": "21:30",
+      "tz": "Asia/Bangkok",
+      "endTz": "",
       "type": "food",
-      "title": "Farewell dinner",
-      "location": "Cebu City, Cebu",
-      "notes": "Book a table for everyone. Last proper meal together.",
-      "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "",
       "subtype": "restaurant",
-      "details": {}
+      "title": "Dinner in Banglamphu",
+      "location": "Banglamphu, Bangkok",
+      "notes": "",
+      "photos": [],
+      "details": {
+        "cost": "900",
+        "costCur": "THB"
+      },
+      "id": "seed-36"
     },
     {
-      "id": "seed-28",
-      "date": "2026-11-10",
-      "time": "08:00",
-      "endTime": "08:45",
-      "type": "transport",
-      "title": "Hotel to Mactan airport",
-      "location": "Cebu City, Cebu",
-      "notes": "Allow extra, the bridge traffic is bad in the morning.",
-      "photos": [],
-      "tz": "Asia/Manila",
+      "date": "2026-11-12",
+      "time": "09:30",
+      "endTime": "14:00",
+      "tz": "Asia/Bangkok",
       "endTz": "",
-      "subtype": "taxi",
+      "type": "activity",
+      "subtype": "tour",
+      "title": "Thai cooking class",
+      "location": "Silom, Bangkok",
+      "notes": "Includes the market walk first. Book two days ahead.",
+      "photos": [],
       "details": {
-        "company": "Grab"
-      }
+        "company": "Silom Thai Cooking School",
+        "phone": "+66 84 726 5669",
+        "cost": "2400",
+        "costCur": "THB"
+      },
+      "id": "seed-37"
     },
     {
-      "id": "seed-29",
-      "date": "2026-11-10",
-      "time": "11:20",
-      "endTime": "22:15",
-      "type": "flight",
-      "title": "Flight Cebu to Stockholm via Manila and Doha",
-      "location": "Mactan Cebu International Airport",
-      "notes": "Long one, about 23 hours door to door. Lands at Arlanda late the same evening.",
+      "date": "2026-11-12",
+      "time": "16:00",
+      "endTime": "17:00",
+      "tz": "Asia/Bangkok",
+      "endTz": "",
+      "type": "activity",
+      "subtype": "spa",
+      "title": "Thai massage",
+      "location": "Wat Pho, Bangkok",
+      "notes": "The school at the temple, not the tourist places on the road.",
       "photos": [],
-      "tz": "Asia/Manila",
-      "endTz": "Europe/Stockholm",
-      "subtype": "",
       "details": {
-        "aircraft": "Airbus A321neo / Airbus A350-1000",
-        "airline": "Philippine Airlines / Qatar Airways",
-        "flightNo": "PR2842 / QR933 / QR169"
-      }
+        "cost": "520",
+        "costCur": "THB"
+      },
+      "id": "seed-38"
+    },
+    {
+      "date": "2026-11-12",
+      "time": "19:00",
+      "endTime": "21:00",
+      "tz": "Asia/Bangkok",
+      "endTz": "",
+      "type": "food",
+      "subtype": "bar",
+      "title": "Rooftop drinks",
+      "location": "Sathon, Bangkok",
+      "notes": "Dress code, no shorts or sandals.",
+      "photos": [],
+      "details": {
+        "cost": "1400",
+        "costCur": "THB"
+      },
+      "id": "seed-39"
+    },
+    {
+      "date": "2026-11-13",
+      "time": "",
+      "endTime": "",
+      "tz": "Asia/Bangkok",
+      "endTz": "",
+      "type": "free",
+      "subtype": "",
+      "title": "Free day in Bangkok",
+      "location": "",
+      "notes": "Nothing booked. Chatuchak only runs at weekends so it is out.",
+      "photos": [],
+      "details": {},
+      "id": "seed-40"
+    },
+    {
+      "date": "2026-11-13",
+      "time": "11:00",
+      "endTime": "14:00",
+      "tz": "Asia/Bangkok",
+      "endTz": "",
+      "type": "activity",
+      "subtype": "shopping",
+      "title": "Shopping and last errands",
+      "location": "Siam, Bangkok",
+      "notes": "Dive gear is cheap here if anything needs replacing before Bali.",
+      "photos": [],
+      "details": {},
+      "id": "seed-41"
+    },
+    {
+      "date": "2026-11-13",
+      "time": "19:00",
+      "endTime": "",
+      "tz": "Asia/Bangkok",
+      "endTz": "",
+      "type": "food",
+      "subtype": "restaurant",
+      "title": "Dinner, whoever is up for it",
+      "location": "Bangkok",
+      "notes": "",
+      "photos": [],
+      "details": {},
+      "id": "seed-42"
+    },
+    {
+      "date": "2026-11-14",
+      "time": "09:00",
+      "endTime": "10:00",
+      "tz": "Asia/Bangkok",
+      "endTz": "",
+      "type": "transport",
+      "subtype": "taxi",
+      "title": "Taxi to Suvarnabhumi",
+      "location": "Phra Nakhon, Bangkok",
+      "notes": "Allow extra, the expressway backs up on Saturdays.",
+      "photos": [],
+      "details": {
+        "company": "Grab",
+        "cost": "450",
+        "costCur": "THB"
+      },
+      "id": "seed-43"
+    },
+    {
+      "date": "2026-11-14",
+      "time": "12:15",
+      "endTime": "17:45",
+      "tz": "Asia/Bangkok",
+      "endTz": "Asia/Makassar",
+      "type": "flight",
+      "subtype": "",
+      "title": "Flight Bangkok to Denpasar",
+      "location": "Suvarnabhumi Airport, Bangkok",
+      "notes": "Direct, about 4h30. Visa on arrival for Indonesia, have the fee ready.",
+      "photos": [],
+      "details": {
+        "aircraft": "Airbus A330-300",
+        "airline": "Thai Airways",
+        "flightNo": "TG431",
+        "cost": "4200",
+        "costCur": "THB"
+      },
+      "id": "seed-44"
+    },
+    {
+      "date": "2026-11-14",
+      "time": "18:30",
+      "endTime": "19:45",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "transport",
+      "subtype": "transfer",
+      "title": "Private transfer to Ubud",
+      "location": "Ngurah Rai International Airport, Denpasar",
+      "notes": "Prebooked. Roughly an hour and a quarter depending on traffic through Denpasar.",
+      "photos": [],
+      "details": {
+        "company": "Bali Prime Transfers",
+        "cost": "450000",
+        "costCur": "IDR"
+      },
+      "id": "seed-45"
+    },
+    {
+      "date": "2026-11-14",
+      "time": "20:00",
+      "endTime": "",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "stay",
+      "subtype": "villa",
+      "title": "Check in, Ubud",
+      "location": "Ubud, Bali",
+      "notes": "Two bedroom villa with its own pool. Staff live on site, breakfast is cooked to order.",
+      "photos": [],
+      "details": {
+        "property": "Sungai Gita Villas",
+        "phone": "+62 361 975 254",
+        "checkIn": "15:00",
+        "checkOut": "11:00",
+        "cost": "6800000",
+        "costCur": "IDR",
+        "breakfast": "yes",
+        "breakfastFrom": "07:00",
+        "breakfastTo": "10:00",
+        "pool": "yes",
+        "laundry": "yes",
+        "amenities": "Scooters available. Wifi is fast in the main pavilion, weak in the bedrooms. Airport transfer can be arranged at reception."
+      },
+      "id": "seed-46"
+    },
+    {
+      "date": "2026-11-15",
+      "time": "06:00",
+      "endTime": "07:30",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "activity",
+      "subtype": "hike",
+      "title": "Campuhan Ridge at sunrise",
+      "location": "Campuhan Ridge Walk, Ubud",
+      "notes": "Go early, there is no shade at all after eight.",
+      "photos": [],
+      "details": {},
+      "id": "seed-47"
+    },
+    {
+      "date": "2026-11-15",
+      "time": "09:00",
+      "endTime": "10:00",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "food",
+      "subtype": "cafe",
+      "title": "Breakfast in town",
+      "location": "Ubud, Bali",
+      "notes": "",
+      "photos": [],
+      "details": {},
+      "id": "seed-48"
+    },
+    {
+      "date": "2026-11-15",
+      "time": "11:30",
+      "endTime": "14:00",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "activity",
+      "subtype": "sights",
+      "title": "Tegallalang rice terraces",
+      "location": "Tegallalang, Bali",
+      "notes": "Small donation at each gate on the way down. Bring small notes.",
+      "photos": [],
+      "details": {
+        "cost": "150000",
+        "costCur": "IDR"
+      },
+      "id": "seed-49"
+    },
+    {
+      "date": "2026-11-15",
+      "time": "19:00",
+      "endTime": "21:00",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "food",
+      "subtype": "restaurant",
+      "title": "Dinner in Ubud",
+      "location": "Ubud, Bali",
+      "notes": "",
+      "photos": [],
+      "details": {
+        "cost": "450000",
+        "costCur": "IDR"
+      },
+      "id": "seed-50"
+    },
+    {
+      "date": "2026-11-16",
+      "time": "07:00",
+      "endTime": "15:00",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "activity",
+      "subtype": "diving",
+      "title": "Diving at Nusa Penida",
+      "location": "Nusa Penida, Bali",
+      "notes": "Two dives, Manta Point and Crystal Bay. Cold thermoclines, take the 5mm. Long boat crossing.",
+      "photos": [],
+      "details": {
+        "company": "Penida Dive Collective",
+        "phone": "+62 812 3860 1188",
+        "cost": "2100000",
+        "costCur": "IDR"
+      },
+      "id": "seed-51"
+    },
+    {
+      "date": "2026-11-16",
+      "time": "19:30",
+      "endTime": "",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "food",
+      "subtype": "restaurant",
+      "title": "Dinner, early one",
+      "location": "Ubud, Bali",
+      "notes": "Everyone will be wrecked after the crossing.",
+      "photos": [],
+      "details": {},
+      "id": "seed-52"
+    },
+    {
+      "date": "2026-11-17",
+      "time": "",
+      "endTime": "",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "free",
+      "subtype": "",
+      "title": "Rest day",
+      "location": "",
+      "notes": "Deliberately empty. No diving, no driving.",
+      "photos": [],
+      "details": {},
+      "id": "seed-53"
+    },
+    {
+      "date": "2026-11-17",
+      "time": "15:00",
+      "endTime": "16:30",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "activity",
+      "subtype": "spa",
+      "title": "Massage at the villa",
+      "location": "Ubud, Bali",
+      "notes": "Book at breakfast, they come to the villa.",
+      "photos": [],
+      "details": {
+        "cost": "350000",
+        "costCur": "IDR"
+      },
+      "id": "seed-54"
+    },
+    {
+      "date": "2026-11-18",
+      "time": "09:30",
+      "endTime": "10:30",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "transport",
+      "subtype": "transfer",
+      "title": "Transfer to Sanur",
+      "location": "Ubud, Bali",
+      "notes": "Same driver as the airport run.",
+      "photos": [],
+      "details": {
+        "company": "Bali Prime Transfers",
+        "cost": "400000",
+        "costCur": "IDR"
+      },
+      "id": "seed-55"
+    },
+    {
+      "date": "2026-11-18",
+      "time": "11:00",
+      "endTime": "",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "stay",
+      "subtype": "hotel",
+      "title": "Check in, Sanur",
+      "location": "Sanur, Bali",
+      "notes": "One night by the beach so nobody has to do the airport run from Ubud.",
+      "photos": [],
+      "details": {
+        "property": "Segara Beach Hotel",
+        "phone": "+62 361 288 407",
+        "checkIn": "14:00",
+        "checkOut": "12:00",
+        "cost": "1250000",
+        "costCur": "IDR",
+        "breakfast": "yes",
+        "breakfastFrom": "06:30",
+        "breakfastTo": "10:00",
+        "pool": "yes",
+        "restaurant": "yes",
+        "bar": "yes",
+        "gym": "yes",
+        "amenities": "Beach loungers included. Twenty minutes from the airport without traffic."
+      },
+      "id": "seed-56"
+    },
+    {
+      "date": "2026-11-18",
+      "time": "16:00",
+      "endTime": "",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "activity",
+      "subtype": "water",
+      "title": "Last swim",
+      "location": "Sanur Beach, Bali",
+      "notes": "No diving, we fly tomorrow.",
+      "photos": [],
+      "details": {},
+      "id": "seed-57"
+    },
+    {
+      "date": "2026-11-18",
+      "time": "19:00",
+      "endTime": "21:30",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "food",
+      "subtype": "restaurant",
+      "title": "Farewell dinner",
+      "location": "Sanur, Bali",
+      "notes": "Book a table on the sand.",
+      "photos": [],
+      "details": {
+        "cost": "1100000",
+        "costCur": "IDR"
+      },
+      "id": "seed-58"
+    },
+    {
+      "date": "2026-11-19",
+      "time": "10:00",
+      "endTime": "10:30",
+      "tz": "Asia/Makassar",
+      "endTz": "",
+      "type": "transport",
+      "subtype": "taxi",
+      "title": "To Denpasar airport",
+      "location": "Sanur, Bali",
+      "notes": "",
+      "photos": [],
+      "details": {
+        "company": "Hotel car",
+        "cost": "250000",
+        "costCur": "IDR"
+      },
+      "id": "seed-59"
+    },
+    {
+      "date": "2026-11-19",
+      "time": "13:20",
+      "endTime": "22:40",
+      "tz": "Asia/Makassar",
+      "endTz": "Europe/Stockholm",
+      "type": "flight",
+      "subtype": "",
+      "title": "Flight Denpasar to Stockholm via Doha",
+      "location": "Ngurah Rai International Airport, Denpasar",
+      "notes": "The long one home, about 19 hours door to door. Lands late the same evening.",
+      "photos": [],
+      "details": {
+        "aircraft": "Boeing 777-300ER / Boeing 787-9",
+        "airline": "Qatar Airways",
+        "flightNo": "QR961 / QR169",
+        "cost": "7100",
+        "costCur": "SEK"
+      },
+      "id": "seed-60"
     }
   ],
   "lists": {
     "todo": [
       {
         "id": "t1",
-        "text": "Check both passports are valid 6 months past the return date",
-        "done": true
+        "text": "Book accommodation",
+        "done": false,
+        "cat": "booking"
       },
       {
         "id": "t2",
-        "text": "Renew dive insurance, expires in October",
-        "done": false
+        "text": "Book flight",
+        "done": false,
+        "cat": "booking"
       },
       {
         "id": "t3",
-        "text": "Book the airport transfer for the 3rd",
-        "done": true
+        "text": "Acquire esim for destination",
+        "done": false,
+        "cat": "admin"
       },
       {
         "id": "t4",
-        "text": "Order pesos, cards are unreliable in Moalboal",
-        "done": false
+        "text": "Book airport transfer",
+        "done": false,
+        "cat": "booking"
       },
       {
         "id": "t5",
-        "text": "Send the itinerary link to everyone",
-        "done": false
+        "text": "Travel insurance documentation",
+        "done": false,
+        "cat": "admin"
       },
       {
         "id": "t6",
-        "text": "Service the regulator before it goes in the bag",
-        "done": false
+        "text": "Scan & email important documents",
+        "done": false,
+        "cat": "admin"
+      },
+      {
+        "id": "t7",
+        "text": "Report to UD",
+        "done": false,
+        "cat": "admin"
+      },
+      {
+        "id": "t8",
+        "text": "Check travel restrictions",
+        "done": false,
+        "cat": "admin"
+      },
+      {
+        "id": "t9",
+        "text": "Check passport expiry date",
+        "done": false,
+        "cat": "admin"
+      },
+      {
+        "id": "t10",
+        "text": "Check restrictions / apply for visa",
+        "done": false,
+        "cat": "admin"
+      },
+      {
+        "id": "t11",
+        "text": "Medicine certificate",
+        "done": false,
+        "cat": "health"
+      },
+      {
+        "id": "t12",
+        "text": "Vaccination certificates",
+        "done": false,
+        "cat": "health"
+      },
+      {
+        "id": "t13",
+        "text": "Fill out arrival card",
+        "done": false,
+        "cat": "admin"
+      },
+      {
+        "id": "t14",
+        "text": "Pack airtags",
+        "done": false,
+        "cat": "admin"
+      },
+      {
+        "id": "t15",
+        "text": "Get currency",
+        "done": false,
+        "cat": "money"
+      },
+      {
+        "id": "t16",
+        "text": "Check credit cards and credit limits",
+        "done": false,
+        "cat": "money"
+      },
+      {
+        "id": "t17",
+        "text": "Change approved locations for cards",
+        "done": false,
+        "cat": "money"
+      },
+      {
+        "id": "t18",
+        "text": "Start taking probiotics",
+        "done": false,
+        "cat": "health"
+      },
+      {
+        "id": "t19",
+        "text": "Vaccinations",
+        "done": false,
+        "cat": "health"
+      },
+      {
+        "id": "t20",
+        "text": "Probiotics",
+        "done": false,
+        "cat": "health"
+      },
+      {
+        "id": "t21",
+        "text": "Waxing",
+        "done": false,
+        "cat": "beauty"
+      },
+      {
+        "id": "t22",
+        "text": "Get nails done",
+        "done": false,
+        "cat": "beauty"
+      },
+      {
+        "id": "t23",
+        "text": "Eyelashes lift/extensions",
+        "done": false,
+        "cat": "beauty"
+      },
+      {
+        "id": "t24",
+        "text": "Download from streaming services",
+        "done": false,
+        "cat": "entertainment"
+      },
+      {
+        "id": "t25",
+        "text": "Charge devices",
+        "done": false,
+        "cat": "entertainment"
+      },
+      {
+        "id": "t26",
+        "text": "Do all dishes",
+        "done": false,
+        "cat": "home"
+      },
+      {
+        "id": "t27",
+        "text": "Turn off devices",
+        "done": false,
+        "cat": "home"
+      },
+      {
+        "id": "t28",
+        "text": "Take out trash",
+        "done": false,
+        "cat": "home"
+      },
+      {
+        "id": "t29",
+        "text": "Close windows",
+        "done": false,
+        "cat": "home"
+      },
+      {
+        "id": "t30",
+        "text": "Unplug devices",
+        "done": false,
+        "cat": "home"
+      },
+      {
+        "id": "t31",
+        "text": "Prep plants",
+        "done": false,
+        "cat": "home"
+      },
+      {
+        "id": "t32",
+        "text": "Make bed",
+        "done": false,
+        "cat": "home"
       }
     ],
     "packing": [
@@ -1209,6 +1662,12 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
         "cat": "diving"
       },
       {
+        "id": "p26",
+        "text": "3mm wetsuit",
+        "done": false,
+        "cat": "diving"
+      },
+      {
         "id": "p27",
         "text": "Spare mask strap and fin straps",
         "done": false,
@@ -1221,6 +1680,10 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
         "cat": "diving"
       }
     ]
+  },
+  "rates": {
+    "THB": "3.4",
+    "IDR": "1862"
   }
 }
 </script>
@@ -1290,39 +1753,111 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     ]
   };
 
+  /* Activity kinds that have posted opening hours worth writing down. */
+  var HOURS_SUBS = ['diving', 'snorkel', 'sights', 'museum', 'spa', 'shopping'];
+
   /* Extra structured fields carried by specific types. Values live in
-     item.details, keyed by field id, and are dropped if the type changes. */
+     item.details, keyed by field id, and are dropped if the type changes.
+     A field with `subs` is only offered for those subtypes. */
   var FIELDS = {
     /* Form order is the array order; `disp` sets the order on the entry itself
        where it differs (Aircraft sits beside Type in the form, but reads last). */
     flight: [
       {id:'aircraft', label:'Aircraft',      placeholder:'Boeing 787-9',  disp:3},
       {id:'airline',  label:'Airline',       placeholder:'Qatar Airways', disp:1},
-      {id:'flightNo', label:'Flight number', placeholder:'QR170',         disp:2}
+      {id:'flightNo', label:'Flight number', placeholder:'QR170',         disp:2},
+      {id:'cost',     label:'Cost',          input:'money', placeholder:'6400', money:true, curField:'costCur', disp:4, private:true},
+      {id:'costCur',  label:'Currency',      input:'currency', quiet:true}
+    ],
+    food: [
+      {id:'cost',     label:'Cost',          input:'money', placeholder:'320', money:true, curField:'costCur', private:true},
+      {id:'costCur',  label:'Currency',      input:'currency', quiet:true},
+      {id:'hours',     label:'Opening hours', input:'checkbox', span:['hoursFrom','hoursTo'],
+       chip:'other', row:'hours', cardRow:true, prefix:'Opening hours'},
+      {id:'hoursFrom', label:'Opens',  input:'time', showIf:'hours', quiet:true, row:'hours'},
+      {id:'hoursTo',   label:'Closes', input:'time', showIf:'hours', quiet:true, row:'hours'}
     ],
     transport: [
       {id:'company',  label:'Company',         placeholder:'Arlanda Express'},
-      {id:'service',  label:'Service or line', placeholder:'SJ 421'}
+      {id:'service',  label:'Service or line', placeholder:'SJ 421', private:true},
+      {id:'cost',     label:'Cost',            input:'money', placeholder:'1200', money:true, curField:'costCur', private:true},
+      {id:'costCur',  label:'Currency',        input:'currency', quiet:true}
     ],
     activity: [
       {id:'company',  label:'Company name',     placeholder:'Blue Abyss Divers'},
-      {id:'phone',    label:'Phone or WhatsApp', placeholder:'+63 32 474 0000'}
+      {id:'phone',    label:'Phone or WhatsApp', placeholder:'+63 32 474 0000', private:true},
+      {id:'cost',     label:'Cost',             input:'money', placeholder:'1200', money:true, curField:'costCur', private:true},
+      {id:'costCur',  label:'Currency',         input:'currency', quiet:true},
+      /* Only the kinds of outing that keep posted hours are asked for them. */
+      {id:'hours',     label:'Opening hours', input:'checkbox', span:['hoursFrom','hoursTo'],
+       chip:'other', row:'hours', cardRow:true, prefix:'Opening hours', subs:HOURS_SUBS},
+      {id:'hoursFrom', label:'Opens',  input:'time', showIf:'hours', quiet:true, row:'hours', subs:HOURS_SUBS},
+      {id:'hoursTo',   label:'Closes', input:'time', showIf:'hours', quiet:true, row:'hours', subs:HOURS_SUBS}
     ],
     stay: [
-      {id:'property', label:'Property name',    placeholder:'Blue Abyss Dive Resort', full:true, strong:true, headline:true},
-      {id:'phone',    label:'Phone or WhatsApp', placeholder:'+63 32 474 0000', full:true},
-      {id:'checkIn',  label:'Check-in time',    input:'time', prefix:'Check in'},
-      {id:'checkOut', label:'Check-out time',   input:'time', prefix:'Check out'},
-      {id:'breakfast',label:'Breakfast',        input:'checkbox', span:['breakfastFrom','breakfastTo'], chip:'food'},
-      {id:'pool',     label:'Pool',             input:'checkbox', chip:'activity'},
-      {id:'breakfastFrom', label:'Breakfast from',  input:'time', showIf:'breakfast', quiet:true},
-      {id:'breakfastTo',   label:'Breakfast until', input:'time', showIf:'breakfast', quiet:true},
+      {id:'property', label:'Property name',    placeholder:'Blue Abyss Dive Resort', full:true, strong:true, headline:true, line:1},
+      {id:'phone',    label:'Phone or WhatsApp', placeholder:'+63 32 474 0000', full:true, line:1, private:true},
+      {id:'checkIn',  label:'Check-in time',    input:'time', prefix:'Check in',  line:2},
+      {id:'checkOut', label:'Check-out time',   input:'time', prefix:'Check out', line:2},
+      {id:'cost',     label:'Cost for the stay', input:'money', placeholder:'14400', money:true, curField:'costCur', line:3, private:true},
+      {id:'costCur',  label:'Currency',         input:'currency', quiet:true},
+      {id:'breakfast',label:'Breakfast',        input:'checkbox', span:['breakfastFrom','breakfastTo'], chip:'food', row:'breakfast', line:3, cardRow:true, spanEmpty:'Included'},
+      {id:'breakfastFrom', label:'Breakfast from',  input:'time', showIf:'breakfast', quiet:true, row:'breakfast'},
+      {id:'breakfastTo',   label:'Breakfast until', input:'time', showIf:'breakfast', quiet:true, row:'breakfast'},
+      {id:'pool',     label:'Pool',             input:'checkbox', chip:'activity', row:'amenities', line:4, aschip:true},
+      {id:'restaurant',label:'Restaurant',      input:'checkbox', chip:'food',     row:'amenities', line:4, aschip:true},
+      {id:'bar',      label:'Bar',              input:'checkbox', chip:'food',     row:'amenities', line:4, aschip:true},
+      {id:'gym',      label:'Gym',              input:'checkbox', chip:'activity', row:'amenities', line:4, aschip:true},
+      {id:'laundry',  label:'Laundry room',     input:'checkbox', chip:'other',    row:'amenities', line:4, aschip:true},
+      {id:'kitchen',  label:'Kitchen',          input:'checkbox', chip:'food',     row:'amenities', line:4, aschip:true},
+      {id:'roomService', label:'Room service',  input:'checkbox', chip:'other',    row:'amenities', line:4, aschip:true},
       {id:'amenities', label:'Amenities and property notes', input:'textarea', full:true, block:true,
        prefix:'Amenities', placeholder:'Wifi in the restaurant only, free kayaks, rinse tank for dive gear'}
     ]
   };
 
   function fieldsFor(typeId){ return FIELDS[typeId] || []; }
+
+  var CURRENCIES = ['SEK','USD','IDR','KRW','THB','EUR'];
+  var lastCur = 'SEK';
+
+  /* Amounts are grouped the European way (1 200,50) and never converted;
+     a made-up exchange rate would be worse than showing each currency. */
+  function fmtAmount(v){
+    var n = parseFloat(String(v).replace(/\s/g, '').replace(',', '.'));
+    if(!isFinite(n)) return String(v);
+    var cents = Math.abs(n % 1) > 0.0001;
+    try{
+      return new Intl.NumberFormat('sv-SE', {
+        minimumFractionDigits: cents ? 2 : 0,
+        maximumFractionDigits: cents ? 2 : 0
+      }).format(n);
+    }catch(e){
+      return String(n);
+    }
+  }
+
+  function fmtMoney(v, cur){
+    return fmtAmount(v) + (cur ? ' ' + cur : '');
+  }
+
+  /* Sum a type's costs, kept apart by currency. */
+  function costTotals(items, typeId){
+    var f = fieldsFor(typeId).filter(function(x){ return x.money; })[0];
+    if(!f) return [];
+    var by = {}, order = [];
+    items.forEach(function(i){
+      var d = i.details || {};
+      var raw = d[f.id];
+      if(!raw) return;
+      var n = parseFloat(String(raw).replace(/\s/g, '').replace(',', '.'));
+      if(!isFinite(n)) return;
+      var cur = d[f.curField] || '';
+      if(by[cur] == null){ by[cur] = 0; order.push(cur); }
+      by[cur] += n;
+    });
+    return order.map(function(c){ return fmtMoney(by[c], c); });
+  }
 
   /* What a type's extra fields contribute to the entry display.
      A ticked checkbox shows its own label; a checkbox with a `span` folds its
@@ -1333,6 +1868,7 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     fieldsFor(it.type).forEach(function(f, i){
       var v = d[f.id];
       if(!v || f.quiet) return;
+      if(f.private && !canEdit) return;   /* not for the family copy */
       var o = (f.disp == null ? i : f.disp);
       if(f.input === 'checkbox'){
         var text = f.label;
@@ -1341,10 +1877,17 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
           if(a && z) text += ' ' + a + ' to ' + z;
           else if(a) text += ' from ' + a;
           else if(z) text += ' until ' + z;
+          /* A tick box that only means something with hours stays quiet without them. */
+          else if(!f.spanEmpty) return;
         }
-        out.push({text:text, label:f.label, o:o, block:!!f.block});
+        out.push({text:text, label:f.label, o:o, block:!!f.block,
+                  line:f.line || 0, aschip:!!f.aschip, chip:f.chip || it.type});
+      } else if(f.money){
+        out.push({text: fmtMoney(v, d[f.curField]), label:f.label, prefix:f.prefix,
+                  strong:!!f.strong, o:o, block:!!f.block, line:f.line || 0});
       } else {
-        out.push({text:v, label:f.label, prefix:f.prefix, strong:!!f.strong, o:o, block:!!f.block});
+        out.push({text:v, label:f.label, prefix:f.prefix, strong:!!f.strong, o:o,
+                  block:!!f.block, line:f.line || 0});
       }
     });
     return out.sort(function(a, b){ return a.o - b.o; });
@@ -1357,6 +1900,13 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     t.subs.forEach(function(s){ t.subMap[s.id] = s; });
     TYPE_MAP[t.id] = t;
   });
+
+  /* The subtype picker is named after the type it belongs to, so the pair
+     reads as "Type: Activity" then "Activity: Sightseeing". */
+  function subFieldLabel(typeId){
+    var t = TYPE_MAP[typeId];
+    return (t && t.label) ? t.label : 'Detail';
+  }
 
   function subLabel(typeId, subId){
     var t = TYPE_MAP[typeId];
@@ -1422,6 +1972,59 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     return out;
   }
 
+  /* How far a zone is from UTC at a given instant, in minutes. Read back off
+     Intl rather than guessed, so summer time is handled by the browser. */
+  function zoneOffset(utcMs, tz){
+    var p = {};
+    new Intl.DateTimeFormat('en-GB', {
+      timeZone: tz, hour12: false,
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    }).formatToParts(new Date(utcMs)).forEach(function(x){ p[x.type] = x.value; });
+    var asUTC = Date.UTC(+p.year, +p.month - 1, +p.day,
+                         p.hour === '24' ? 0 : +p.hour, +p.minute, +p.second);
+    return (asUTC - utcMs) / 60000;
+  }
+
+  /* A wall clock reading in one zone turned into a real instant. The offset
+     depends on the instant we are solving for, so it is applied twice. */
+  function zonedInstant(iso, hhmm, tz, dayShift){
+    if(!iso || !hhmm) return null;
+    var dp = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+    var tp = /^(\d{1,2}):(\d{2})$/.exec(hhmm);
+    if(!dp || !tp) return null;
+    var wall = Date.UTC(+dp[1], +dp[2] - 1, +dp[3] + (dayShift || 0), +tp[1], +tp[2]);
+    if(!validZone(tz)) return wall;
+    try{
+      var t = wall - zoneOffset(wall, tz) * 60000;
+      return wall - zoneOffset(t, tz) * 60000;
+    }catch(e){ return wall; }
+  }
+
+  /* Elapsed minutes between an entry's start and end, across time zones.
+     An end that reads earlier on the clock than the start is the next day,
+     which is the same rule the rest of the page uses. */
+  function elapsedMinutes(iso, start, startTz, end, endTz){
+    if(!iso || !start || !end) return null;
+    var ez = endTz || startTz;
+    var a = zonedInstant(iso, start, startTz, 0);
+    var z = zonedInstant(iso, end, ez, end < start ? 1 : 0);
+    if(a == null || z == null) return null;
+    var min = Math.round((z - a) / 60000);
+    return (min >= 0 && min < 60 * 24 * 14) ? min : null;
+  }
+
+  function entryElapsed(it){
+    return elapsedMinutes(it.date, it.time, it.tz, it.endTime, it.endTz);
+  }
+
+  function fmtDuration(min){
+    if(min == null) return '';
+    var h = Math.floor(min / 60), m = min % 60;
+    if(!h) return m + 'm';
+    return h + 'h' + (m ? ' ' + (m < 10 ? '0' + m : m) + 'm' : '');
+  }
+
   /* Abbreviation first, so a narrow select still shows the useful part:
      "Asia/Manila" -> "GMT+8 · Manila". */
   function zoneOptionLabel(tz){
@@ -1448,6 +2051,7 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     {id:'transport', label:'Transport',     type:'transport', noun:'journey',  nouns:'journeys',   empty:'journeys'},
     {id:'activity',  label:'Activities',    type:'activity',  noun:'activity', nouns:'activities', empty:'activities'},
     {id:'food',      label:'Food & Drinks', type:'food',      noun:'place',    nouns:'places',     empty:'places to eat'},
+    {id:'budget',    label:'Budget',        budget:true},
     {id:'todo',      label:'To do',         list:'todo'},
     {id:'packing',   label:'Packing',       list:'packing'}
   ];
@@ -1464,22 +2068,48 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     {id:'photography',label:'Photography'},
     {id:'diving',     label:'Diving'}
   ];
-  var PACK_CAT_MAP = {};
-  PACK_CATS.forEach(function(c){ PACK_CAT_MAP[c.id] = c; });
+  var TODO_CATS = [
+    {id:'booking',       label:'Booking'},
+    {id:'admin',         label:'Admin'},
+    {id:'money',         label:'Money'},
+    {id:'health',        label:'Health'},
+    {id:'beauty',        label:'Beauty'},
+    {id:'entertainment', label:'Entertainment'},
+    {id:'home',          label:'Home'}
+  ];
 
   var LISTS = [
     {id:'todo',    label:'To do before we go', placeholder:'Renew dive insurance',
-     verb:'still to do', empty:'Nothing to do yet',
+     verb:'still to do', empty:'Nothing to do yet', cats:TODO_CATS,
      blurb:'Everything that needs sorting before you fly. Ticks are shared, so family can see what is handled.'},
     {id:'packing', label:'Packing',            placeholder:'Dive computer and spare batteries',
-     verb:'still to pack', empty:'Nothing on the packing list yet', cats:true,
+     verb:'still to pack', empty:'Nothing on the packing list yet', cats:PACK_CATS,
      blurb:'What goes in the bag, grouped by category. Change an item’s category from the label on its right.'}
   ];
   var LIST_MAP = {};
-  LISTS.forEach(function(l){ LIST_MAP[l.id] = l; });
-  var activeTab = 'itinerary';
+  /* Each list carries its own category set, looked up by id through catMap. */
+  LISTS.forEach(function(l){
+    LIST_MAP[l.id] = l;
+    l.catMap = {};
+    (l.cats || []).forEach(function(c){ l.catMap[c.id] = c; });
+  });
+  /* Saving republishes the page, which can bring the viewer back on the new
+     version. Without this the tab they were working in would reset to the
+     first one every time they ticked something. Per browser, never published. */
+  var TAB_KEY = 'tripboard:tab';
+  function rememberTab(id){
+    try{ localStorage.setItem(TAB_KEY, id); }catch(e){}
+  }
+  function lastTab(){
+    try{
+      var v = localStorage.getItem(TAB_KEY);
+      return TABS.some(function(t){ return t.id === v; }) ? v : 'itinerary';
+    }catch(e){ return 'itinerary'; }
+  }
+  var activeTab = lastTab();
   var jumpedToToday = false;
-  var lastPackCat = 'essentials';   /* sticky, so a run of one category is quick */
+  /* Sticky per list, so a run of one category is quick to enter. */
+  var lastCat = {todo:'admin', packing:'essentials'};
 
   var PALETTES = [
     {id:'sorbet', label:'Sorbet'},
@@ -1507,6 +2137,7 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     try{ return localStorage.getItem(EDITOR_KEY) === '1'; }catch(e){ return false; }
   }
   var canEdit = wasEditor();
+  var previewing = false;   /* an editor looking at the family view */
   var probing = false;
 
   function readState(){
@@ -1521,6 +2152,11 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     if(PALETTE_IDS.indexOf(s.trip.theme) === -1) s.trip.theme = 'sorbet';
     if(!Array.isArray(s.items)) s.items = [];
     if(!validZone(s.trip.tz)) s.trip.tz = localZone();
+    if(!s.rates || typeof s.rates !== 'object' || Array.isArray(s.rates)) s.rates = {};
+    Object.keys(s.rates).forEach(function(k){
+      var n = parseFloat(String(s.rates[k]).replace(/\s/g, '').replace(',', '.'));
+      if(isFinite(n) && n > 0) s.rates[k] = String(n); else delete s.rates[k];
+    });
     if(!s.lists || typeof s.lists !== 'object') s.lists = {};
     LISTS.forEach(function(l){
       if(!Array.isArray(s.lists[l.id])) s.lists[l.id] = [];
@@ -1528,7 +2164,7 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
         return i && typeof i.text === 'string' && i.text.trim();
       }).map(function(i){
         var row = {id: i.id || uid(), text: i.text.trim(), done: !!i.done};
-        if(l.cats) row.cat = PACK_CAT_MAP[i.cat] ? i.cat : '';
+        if(l.cats) row.cat = l.catMap[i.cat] ? i.cat : '';
         return row;
       });
     });
@@ -1602,7 +2238,9 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     info:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width:15px;height:15px;flex:none;margin-top:2px"><circle cx="8" cy="8" r="6.2"/><path d="M8 7.2v4M8 4.9v.1" stroke-linecap="round"/></svg>',
     share:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="3.6" r="1.9"/><circle cx="4" cy="8" r="1.9"/><circle cx="12" cy="12.4" r="1.9"/><path d="M5.7 7.1 10.3 4.5M5.7 8.9l4.6 2.6"/></svg>',
     down:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.4v7.4M5.1 7.1 8 10l2.9-2.9M2.9 12.4h10.2"/></svg>',
-    unlock:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="3.2" y="7.2" width="9.6" height="6.6" rx="1.6"/><path d="M5.6 7.2V5.1a2.4 2.4 0 0 1 4.7-.6" stroke-linecap="round"/></svg>'
+    unlock:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="3.2" y="7.2" width="9.6" height="6.6" rx="1.6"/><path d="M5.6 7.2V5.1a2.4 2.4 0 0 1 4.7-.6" stroke-linecap="round"/></svg>',
+    chevL:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3.2 5.2 8l4.8 4.8"/></svg>',
+    chevR:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.2 10.8 8 6 12.8"/></svg>'
   };
 
   function typeIcon(t){
@@ -1673,6 +2311,9 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
   }
 
   /* "Mon 2 Nov  ·  07:15 CET to 04:30 GMT+8" */
+  /* Types where the gap between departure and arrival is the point. */
+  var ELAPSED_TYPES = {flight:1, transport:1};
+
   function whenLine(it){
     var parts = [];
     if(it.date) parts.push(shortDate(it.date));
@@ -1684,6 +2325,12 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
         s += ' to ' + it.endTime + (showZ ? ' ' + zoneLabel(ez, it.date) : '');
       }
       parts.push(s);
+    }
+    /* Travel legs get the elapsed time worked out for them; for anything else
+       the two clock readings already say it. */
+    if(ELAPSED_TYPES[it.type]){
+      var dur = fmtDuration(entryElapsed(it));
+      if(dur) parts.push(dur);
     }
     return parts.join('  ·  ');
   }
@@ -1726,10 +2373,24 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
       });
       if(nights) bits.push(nights + (nights === 1 ? ' night' : ' nights'));
       if(bfast) bits.push(bfast + ' with breakfast');
+      costTotals(items, tab.type).forEach(function(t){ bits.push(t); });
     } else {
       subCounts(items, tab.type).slice(0, 3).forEach(function(c){
         bits.push(c.n + ' ' + c.label.toLowerCase());
       });
+      /* Time in transit across the whole tab, from the legs that have both
+         a departure and an arrival on them. */
+      if(ELAPSED_TYPES[tab.type]){
+        var mins = 0, timed = 0;
+        items.forEach(function(i){
+          var m = entryElapsed(i);
+          if(m != null){ mins += m; timed++; }
+        });
+        var word = tab.type === 'flight' ? ' in the air' : ' in transit';
+        if(mins) bits.push(fmtDuration(mins) + word +
+                           (timed < items.length ? ' over ' + timed + ' of ' + items.length : ''));
+      }
+      costTotals(items, tab.type).forEach(function(t){ bits.push(t); });
     }
 
     var html = '<div class="card-sum">' + esc(bits.join('  ·  ')) + '</div><div class="cards">';
@@ -1766,25 +2427,25 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
       }
       html +=   '</div>';
 
+      /* What it is and where it is belong together on one row; the amenity
+         badges are a different kind of fact, so they get the row below. */
       var chips = '';
       if(sub) chips += '<span class="kind k-' + esc(it.type) + '">' + typeIcon(t) + esc(sub) + '</span>';
-      fields.forEach(function(f){
-        if(f.input !== 'checkbox' || !d[f.id]) return;
-        var text = f.label;
-        if(f.span){
-          var a = d[f.span[0]], z = d[f.span[1]];
-          if(a && z) text += ' ' + a + ' to ' + z;
-          else if(a) text += ' from ' + a;
-          else if(z) text += ' until ' + z;
-        }
-        chips += '<span class="kind k-' + esc(f.chip || it.type) + '">' + esc(text) + '</span>';
-      });
+      if(it.location){
+        chips += '<a class="pin" href="' + esc(mapsUrl(it.location)) + '" target="_blank" rel="noopener noreferrer">' +
+                 ICON.pin + '<span>' + esc(it.location) + '</span></a>';
+      }
       if(chips) html += '<div class="entry-chips">' + chips + '</div>';
 
-      if(it.location){
-        html += '<a class="pin" href="' + esc(mapsUrl(it.location)) + '" target="_blank" rel="noopener noreferrer">' +
-                ICON.pin + '<span>' + esc(it.location) + '</span></a>';
-      }
+      var amen = '';
+      fields.forEach(function(f){
+        /* A tick box that carries its own hours reads as a value, not a badge,
+           so it goes in the table with the other times instead. */
+        if(f.input !== 'checkbox' || f.cardRow || !d[f.id]) return;
+        if(f.private && !canEdit) return;
+        amen += '<span class="kind k-' + esc(f.chip || it.type) + '">' + esc(f.label) + '</span>';
+      });
+      if(amen) html += '<div class="entry-chips card-amen">' + amen + '</div>';
 
       var rows = '', blocks = '';
       fields.slice().map(function(f, i){ return {f:f, o:(f.disp == null ? i : f.disp)}; })
@@ -1792,11 +2453,26 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
         .map(function(x){ return x.f; })
         .forEach(function(f){
         var v = d[f.id];
-        if(!v || f.quiet || f.input === 'checkbox' || (headline && f.id === headline.id)) return;
+        if(!v || f.quiet || (headline && f.id === headline.id)) return;
+        if(f.private && !canEdit) return;
+        if(f.input === 'checkbox'){
+          /* A tick box with its own hours belongs with the other times. */
+          if(!f.cardRow) return;
+          var a = d[f.span ? f.span[0] : ''], z = d[f.span ? f.span[1] : ''];
+          var val = (a && z) ? (a + ' to ' + z)
+                  : a ? ('from ' + a)
+                  : z ? ('until ' + z)
+                  : (f.spanEmpty || '');
+          /* Ticked with no hours and nothing sensible to say: leave the row out. */
+          if(!val) return;
+          rows += '<span class="fact-k">' + esc(f.prefix || f.label) + '</span><span>' + esc(val) + '</span>';
+          return;
+        }
         if(f.block){
           blocks += '<div class="card-block">' + esc(v) + '</div>';
         } else {
-          rows += '<span class="fact-k">' + esc(f.prefix || f.label) + '</span><span>' + esc(v) + '</span>';
+          var shown = f.money ? fmtMoney(v, d[f.curField]) : v;
+          rows += '<span class="fact-k">' + esc(f.prefix || f.label) + '</span><span>' + esc(shown) + '</span>';
         }
       });
       if(rows)   html += '<div class="card-lines">' + rows + '</div>';
@@ -1809,8 +2485,234 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     return html + '</div>';
   }
 
+  function moneyField(typeId){
+    return fieldsFor(typeId).filter(function(f){ return f.money; })[0] || null;
+  }
+
+  function amountOf(it){
+    var f = moneyField(it.type);
+    if(!f) return null;
+    var raw = (it.details || {})[f.id];
+    if(!raw) return null;
+    var n = parseFloat(String(raw).replace(/\s/g, '').replace(',', '.'));
+    return isFinite(n) ? {n:n, cur:(it.details[f.curField] || '')} : null;
+  }
+
+  var HOME_CUR = 'SEK';
+
+  /* Rates are entered as "how many of this currency you get for 1 SEK",
+     so converting back to SEK divides. */
+  function rateFor(cur){
+    if(!cur) return null;
+    if(cur === HOME_CUR) return 1;
+    var r = parseFloat(String((state.rates || {})[cur] || '').replace(/\s/g, '').replace(',', '.'));
+    return (isFinite(r) && r > 0) ? r : null;
+  }
+
+  function toHome(n, cur){
+    var r = rateFor(cur);
+    return r ? n / r : null;
+  }
+
+  function pricedCount(){
+    return state.items.filter(function(i){ return amountOf(i); }).length;
+  }
+
+  /* Costs rolled up per currency, then per type, then per subtype. Currencies
+     are never added together, so each gets its own total and its own shares. */
+  function budgetData(){
+    var order = TABS.filter(function(t){ return t.type; }).map(function(t){ return t.type; });
+    var curs = {}, curOrder = [];
+    var counts = {};
+
+    state.items.forEach(function(it){
+      if(!moneyField(it.type)) return;
+      if(!counts[it.type]) counts[it.type] = {priced:0, unpriced:0};
+      var a = amountOf(it);
+      if(!a){ counts[it.type].unpriced++; return; }
+      counts[it.type].priced++;
+
+      if(!curs[a.cur]){ curs[a.cur] = {total:0, types:{}}; curOrder.push(a.cur); }
+      var c = curs[a.cur];
+      c.total += a.n;
+      if(!c.types[it.type]) c.types[it.type] = {total:0, subs:{}, subOrder:[]};
+      var t = c.types[it.type];
+      t.total += a.n;
+      var sl = subLabel(it.type, it.subtype) || 'Not specified';
+      if(t.subs[sl] == null){ t.subs[sl] = 0; t.subOrder.push(sl); }
+      t.subs[sl] += a.n;
+    });
+
+    curOrder.sort(function(a, b){ return curs[b].total - curs[a].total; });
+    return {curs:curs, curOrder:curOrder, order:order, counts:counts};
+  }
+
+  /* Everything converted into SEK, by type and subtype. Any currency without a
+     rate is left out entirely and reported, never silently treated as zero. */
+  function homeRollup(){
+    var types = {}, order = [], total = 0, missing = [];
+    state.items.forEach(function(it){
+      var a = amountOf(it);
+      if(!a) return;
+      var v = toHome(a.n, a.cur);
+      if(v == null){
+        if(missing.indexOf(a.cur) === -1) missing.push(a.cur);
+        return;
+      }
+      total += v;
+      if(!types[it.type]){ types[it.type] = {total:0, subs:{}, subOrder:[]}; order.push(it.type); }
+      var t = types[it.type];
+      t.total += v;
+      var sl = subLabel(it.type, it.subtype) || 'Not specified';
+      if(t.subs[sl] == null){ t.subs[sl] = 0; t.subOrder.push(sl); }
+      t.subs[sl] += v;
+    });
+    return {types:types, total:total, missing:missing};
+  }
+
+  function renderRates(inUse){
+    var others = inUse.filter(function(c){ return c && c !== HOME_CUR; });
+    if(!others.length) return '';
+    var html = '<div class="rates"><div class="rates-head">Conversion rates</div><div class="rates-grid">';
+    others.forEach(function(cur){
+      var val = (state.rates || {})[cur] || '';
+      var r = rateFor(cur);
+      html += '<span class="rate-cur">' + esc(cur) + '</span>';
+      html += canEdit
+        ? '<input type="text" inputmode="decimal" class="rate-in" data-act="rate" data-cur="' + esc(cur) +
+          '" value="' + esc(val) + '" placeholder="0" aria-label="' + esc(cur) + ' per 1 ' + HOME_CUR + '">'
+        : '<span class="rate-ro">' + esc(val || 'not set') + '</span>';
+      html += '<span class="rate-per">per 1 ' + HOME_CUR + '</span>';
+      /* Pick a round sample big enough that the answer is not just "1". */
+      var eg = '';
+      if(r){
+        var base = 1;
+        while(base / r < 10 && base < 1e7) base *= 10;
+        eg = fmtAmount(base) + ' ' + cur + ' = ' + fmtAmount(Math.round(base / r)) + ' ' + HOME_CUR;
+      }
+      html += '<span class="rate-eg">' + esc(eg) + '</span>';
+    });
+    html += '</div><p class="rates-note">Typed in by you and stored with the trip. Nothing is looked up, so they are only as current as you make them.</p></div>';
+    return html;
+  }
+
+  function renderBudget(){
+    var b = budgetData();
+    var priced = pricedCount();
+    var costable = state.items.filter(function(i){ return moneyField(i.type); }).length;
+
+    if(!priced){
+      return '<div class="empty"><h2>Nothing costed yet</h2>' +
+             '<p>Put a cost on a flight, stay, journey, activity or meal and it is totalled here, ' +
+             'broken down by type and by the detail underneath it.</p></div>';
+    }
+
+    var html = '<div class="card-sum">' + priced + ' of ' + costable + ' costable entries priced' +
+               (priced < costable ? '  ·  totals are a floor, not a final figure' : '') + '</div>';
+
+    /* Unpriced entries belong to no currency, so they are listed once here
+       rather than repeated inside every currency card. */
+    var tabOf = {};
+    TABS.forEach(function(t){ if(t.type) tabOf[t.type] = t.label; });
+    var gaps = b.order.filter(function(tid){ return (b.counts[tid] || {}).unpriced; })
+                      .map(function(tid){ return b.counts[tid].unpriced + ' in ' + (tabOf[tid] || TYPE_MAP[tid].label); });
+    if(gaps.length){
+      html += '<div class="bud-gaps">' + ICON.info + '<div>Still without a cost: ' + esc(gaps.join(', ')) +
+              '. Those are missing from every total below.</div></div>';
+    }
+
+    html += renderRates(b.curOrder);
+
+    /* The combined view, when at least one rate makes conversion possible. */
+    var home = homeRollup();
+    if(home.total > 0 && b.curOrder.filter(function(c){ return c && c !== HOME_CUR; }).length){
+      html += '<article class="card budget budget-home">';
+      html +=   '<div class="bud-head">' +
+                  '<span class="bud-cur">Everything in ' + HOME_CUR + '</span>' +
+                  '<span class="bud-total">' + esc(fmtAmount(Math.round(home.total))) + '</span>' +
+                '</div>';
+      if(home.missing.length){
+        html += '<div class="bud-warn">No rate for ' + esc(home.missing.join(', ')) +
+                ', so nothing in ' + (home.missing.length === 1 ? 'it is' : 'them is') + ' counted here.</div>';
+      }
+      b.order.forEach(function(tid){
+        var t = home.types[tid];
+        if(!t) return;
+        var pct = home.total ? (t.total / home.total * 100) : 0;
+        html += '<div class="bud-block">';
+        html +=   '<div class="bud-row">' +
+                    '<span class="bud-name">' + esc(TYPE_MAP[tid].label) + '</span>' +
+                    '<span class="bud-amt">' + esc(fmtAmount(Math.round(t.total))) + '</span>' +
+                    '<span class="bud-pct">' + Math.round(pct) + '%</span>' +
+                  '</div>';
+        html +=   '<div class="bud-meter" role="img" aria-label="' + Math.round(pct) + ' percent of the total">' +
+                    '<span style="width:' + pct.toFixed(1) + '%"></span></div>';
+        html +=   '<div class="bud-subs">' + t.subOrder.slice().sort(function(x, y){
+                    return t.subs[y] - t.subs[x];
+                  }).map(function(s){
+                    return '<span class="bud-sub-name">' + esc(s) + '</span>' +
+                           '<span class="bud-sub-amt">' + esc(fmtAmount(Math.round(t.subs[s]))) + '</span>';
+                  }).join('') + '</div>';
+        html += '</div>';
+      });
+      html += '</article>';
+    }
+
+    html += '<div class="cards">';
+
+    b.curOrder.forEach(function(cur){
+      var c = b.curs[cur];
+      var inHome = toHome(c.total, cur);
+      html += '<article class="card budget">';
+      html +=   '<div class="bud-head">' +
+                  '<span class="bud-cur">' + esc(cur || 'No currency set') +
+                    (inHome != null && cur !== HOME_CUR
+                      ? '<span class="bud-conv">' + esc(fmtAmount(Math.round(inHome))) + ' ' + HOME_CUR + '</span>'
+                      : '') +
+                  '</span>' +
+                  '<span class="bud-total">' + esc(fmtAmount(c.total)) + '</span>' +
+                '</div>';
+
+      b.order.forEach(function(tid){
+        var t = c.types[tid];
+        if(!t) return;
+        var pct = c.total ? (t.total / c.total * 100) : 0;
+        var miss = (b.counts[tid] || {}).unpriced || 0;
+        html += '<div class="bud-block">';
+        html +=   '<div class="bud-row">' +
+                    '<span class="bud-name">' + esc(TYPE_MAP[tid].label) + '</span>' +
+                    '<span class="bud-amt">' + esc(fmtAmount(t.total)) + '</span>' +
+                    '<span class="bud-pct">' + Math.round(pct) + '%</span>' +
+                  '</div>';
+        html +=   '<div class="bud-meter" role="img" aria-label="' + Math.round(pct) +
+                  ' percent of the ' + esc(cur) + ' total">' +
+                    '<span style="width:' + pct.toFixed(1) + '%"></span></div>';
+        if(t.subOrder.length > 1 || t.subOrder[0] !== 'Not specified'){
+          html += '<div class="bud-subs">' + t.subOrder.slice().sort(function(x, y){
+                    return t.subs[y] - t.subs[x];
+                  }).map(function(s){
+                    return '<span class="bud-sub-name">' + esc(s) + '</span>' +
+                           '<span class="bud-sub-amt">' + esc(fmtAmount(t.subs[s])) + '</span>';
+                  }).join('') + '</div>';
+        }
+        html += '</div>';
+      });
+
+      html += '</article>';
+    });
+
+    return html + '</div>';
+  }
+
   function openIn(listId){
     return (state.lists[listId] || []).filter(function(i){ return !i.done; }).length;
+  }
+
+  /* Ticked rows drop to the foot of their section, keeping the order of
+     everything else, so what is left to do stays together at the top. */
+  function openFirst(arr){
+    return arr.filter(function(i){ return !i.done; })
+              .concat(arr.filter(function(i){ return i.done; }));
   }
 
   function renderList(l){
@@ -1828,10 +2730,10 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     if(items.length && l.cats){
       /* Only categories that actually hold something get a heading, with
          anything untagged collected at the end. */
-      var groups = PACK_CATS.map(function(c){
-        return {label:c.label, items: items.filter(function(i){ return i.cat === c.id; })};
+      var groups = l.cats.map(function(c){
+        return {label:c.label, items: openFirst(items.filter(function(i){ return i.cat === c.id; }))};
       }).filter(function(g){ return g.items.length; });
-      var loose = items.filter(function(i){ return !i.cat; });
+      var loose = openFirst(items.filter(function(i){ return !i.cat; }));
       if(loose.length) groups.push({label:'Not sorted', items:loose});
 
       groups.forEach(function(g){
@@ -1843,26 +2745,29 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
         html += '</div>';
       });
     } else if(items.length){
-      html += '<ul class="prep-list">' + items.map(function(it){ return listRow(l, it); }).join('') + '</ul>';
+      html += '<ul class="prep-list">' + openFirst(items).map(function(it){ return listRow(l, it); }).join('') + '</ul>';
     }
 
-    if(canEdit){
-      html += '<form class="prep-add" data-list="' + esc(l.id) + '">' +
-                '<input type="text" placeholder="' + esc(l.placeholder) + '"' +
-                  ' aria-label="Add to ' + esc(l.label) + '" autocomplete="off">' +
-                (l.cats ? '<select class="prep-cat" aria-label="Category">' +
-                  PACK_CATS.map(function(c){
-                    return '<option value="' + esc(c.id) + '"' +
-                           (c.id === lastPackCat ? ' selected' : '') + '>' + esc(c.label) + '</option>';
-                  }).join('') + '</select>' : '') +
-                '<button class="btn" type="submit">Add</button>' +
-              '</form>';
-      html += '<p class="prep-blurb">' + esc(l.blurb) + '</p>';
-    } else if(!items.length){
+    if(!canEdit && !items.length){
       html += '<p class="prep-empty">Nothing here yet.</p>';
     }
 
     return html + '</section></div>';
+  }
+
+  /* The add row for a list. It is rendered into the toolbar above the list
+     rather than under it, so adding does not mean scrolling past everything. */
+  function listAddForm(l){
+    return '<form class="prep-add in-bar" data-list="' + esc(l.id) + '">' +
+             '<input type="text" placeholder="' + esc(l.placeholder) + '"' +
+               ' aria-label="Add to ' + esc(l.label) + '" autocomplete="off">' +
+             (l.cats ? '<select class="prep-cat" aria-label="Category">' +
+               l.cats.map(function(c){
+                 return '<option value="' + esc(c.id) + '"' +
+                        (c.id === lastCat[l.id] ? ' selected' : '') + '>' + esc(c.label) + '</option>';
+               }).join('') + '</select>' : '') +
+             '<button class="btn" type="submit">Add</button>' +
+           '</form>';
   }
 
   function listRow(l, it){
@@ -1870,16 +2775,26 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     var s = '<li class="prep-item' + (it.done ? ' is-done' : '') + '">' +
               '<input type="checkbox" id="' + esc(cid) + '" data-act="tick"' +
                 ' data-list="' + esc(l.id) + '" data-id="' + esc(it.id) + '"' +
-                (it.done ? ' checked' : '') + (canEdit ? '' : ' disabled') + '>' +
-              '<label for="' + esc(cid) + '">' + esc(it.text) + '</label>';
+                (it.done ? ' checked' : '') + (canEdit ? '' : ' disabled') +
+                (canEdit ? ' aria-label="' + esc(it.text) + '"' : '') + '>';
+    /* An editor types straight into the row. A viewer gets a plain label, which
+       also keeps the click-the-text-to-tick behaviour they expect. */
+    if(canEdit){
+      s +=      '<span class="prep-text" contenteditable="plaintext-only" spellcheck="false"' +
+                  ' data-act="edit-item" data-list="' + esc(l.id) + '" data-id="' + esc(it.id) + '"' +
+                  ' role="textbox" aria-label="Edit ' + esc(it.text) + '"' +
+                  ' title="Click to edit">' + esc(it.text) + '</span>';
+    } else {
+      s +=      '<label for="' + esc(cid) + '">' + esc(it.text) + '</label>';
+    }
     if(l.cats && canEdit){
       s +=    '<span class="catpick" title="Change category">' +
                 '<span class="catpick-text">' +
-                  esc(it.cat ? PACK_CAT_MAP[it.cat].label : 'Not sorted') + '</span>' +
+                  esc(it.cat && l.catMap[it.cat] ? l.catMap[it.cat].label : 'Not sorted') + '</span>' +
                 '<select data-act="setcat" data-list="' + esc(l.id) + '" data-id="' + esc(it.id) + '"' +
                   ' aria-label="Category for ' + esc(it.text) + '">' +
                   '<option value=""' + (it.cat ? '' : ' selected') + '>Not sorted</option>' +
-                  PACK_CATS.map(function(c){
+                  l.cats.map(function(c){
                     return '<option value="' + esc(c.id) + '"' + (c.id === it.cat ? ' selected' : '') +
                            '>' + esc(c.label) + '</option>';
                   }).join('') +
@@ -1917,29 +2832,34 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     var html = '';
 
     html += '<div class="mast">';
-    html +=   '<div class="mast-eyebrow">Shared itinerary</div>';
+    html +=   '<div class="mast-eyebrow">Itinerary</div>';
     html +=   '<h1 class="mast-title" id="trip-name"' + (canEdit ? ' contenteditable="plaintext-only" spellcheck="false"' : '') + '>' + esc(state.trip.name) + '</h1>';
+    /* The countdown is only interesting while there is something to count
+       down to, so it goes away the day the trip starts. */
+    var status = tripStatus();
+    if(status && status.phase === 'before'){
+      html +=  '<span class="mast-status s-' + status.phase + '">' + esc(status.text) + '</span>';
+    }
     html +=   '<div class="mast-meta">';
     if(range) html += '<span><b>' + esc(range) + '</b></span>';
     html +=     '<span>' + days + ' ' + (days === 1 ? 'day' : 'days') + '</span>';
     html +=     '<span>' + state.items.length + ' ' + (state.items.length === 1 ? 'entry' : 'entries') + '</span>';
-    var status = tripStatus();
-    if(status){
-      html +=   '<span class="mast-status s-' + status.phase + '">' + esc(status.text) + '</span>';
-    }
+    /* With several zones the per-entry labels already say it; only the
+       single-zone case needs stating, since nothing else shows it. */
     if(zones.length === 1){
       html +=   '<span>All times <b>' + esc(zoneLabel(zones[0], withDates.length ? withDates[0].date : '')) + '</b></span>';
-    } else if(zones.length > 1){
-      html +=   '<span><b>' + zones.length + ' time zones</b>, shown per entry</span>';
     }
     html +=   '</div>';
     html += '</div>';
 
-    html += '<div class="tabs" role="tablist">';
+    if(canEdit){
+    html += '<div class="tabwrap" id="tabwrap">';
+    html += '<div class="tabs" role="tablist" id="tabstrip">';
     TABS.forEach(function(t){
       var on = activeTab === t.id;
       var n;
-      if(t.list) n = openIn(t.list);
+      if(t.budget) n = pricedCount();
+      else if(t.list) n = openIn(t.list);
       else if(t.type) n = state.items.filter(function(i){ return i.type === t.type; }).length;
       else n = state.items.length;
       html += '<button class="tab" role="tab" data-act="tab" data-tab="' + t.id + '"' +
@@ -1947,14 +2867,33 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
               '<span class="tab-count">' + n + '</span></button>';
     });
     html += '</div>';
+    html += '<button class="tabnav tn-l" data-act="tabscroll" data-dir="-1" tabindex="-1"' +
+            ' aria-label="Scroll tabs left">' + ICON.chevL + '</button>';
+    html += '<button class="tabnav tn-r" data-act="tabscroll" data-dir="1" tabindex="-1"' +
+            ' aria-label="Scroll tabs right">' + ICON.chevR + '</button>';
+    html += '</div>';
+    }
 
-    html += '<div class="bar">';
-    if(canEdit){
+    /* Family get the itinerary and nothing else, so a viewer is always on it. */
+    if(!canEdit) activeTab = 'itinerary';
+    var tab = TABS.filter(function(t){ return t.id === activeTab; })[0];
+    /* On a list tab the toolbar carries that list's add row instead of the
+       buttons for itinerary entries, which have nothing to do there. */
+    var barList = tab && tab.list ? LIST_MAP[tab.list] : null;
+    var onItinerary = !tab || tab.id === 'itinerary';
+    html += '<div class="bar' + (barList ? ' bar-list' : '') + '">';
+    if(canEdit && barList){
+      html += listAddForm(barList);
+    } else if(canEdit){
       html += '<button class="btn btn-primary" data-act="new">' + ICON.plus + 'Add entry</button>';
       if(state.items.some(function(i){ return /^seed-/.test(i.id); })){
         html += '<button class="btn" data-act="clear-seed">Clear the examples</button>';
       }
-      html += '<button class="btn" data-act="sharing">' + ICON.share + 'Sharing</button>';
+      /* Sharing is about the itinerary family are given, so it lives there. */
+      if(onItinerary) html += '<button class="btn" data-act="sharing">' + ICON.share + 'Sharing</button>';
+    } else if(previewing){
+      html += '<button class="btn btn-primary" data-act="endpreview">' + ICON.unlock + 'Back to editing</button>';
+      html += '<span class="preview-flag">Viewing as family</span>';
     } else {
       html += '<button class="btn btn-primary" data-act="unlock">' + ICON.unlock + 'Edit this itinerary</button>';
     }
@@ -1968,7 +2907,9 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
                 ' aria-pressed="' + on + '" title="' + esc(p.label) + '" aria-label="' + esc(p.label) + '"></button>';
       });
       html += '</div>';
-      html += '<button class="btn btn-ghost" data-act="lock" title="See what family sees">Preview as viewer</button>';
+      if(onItinerary){
+        html += '<button class="btn btn-ghost" data-act="lock" title="See what family sees">Preview as viewer</button>';
+      }
     }
     html += '</div>';
 
@@ -1978,8 +2919,9 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
               'If it is yours, choose <b>Edit this itinerary</b> and your access will be checked.</div></div>';
     }
 
-    var tab = TABS.filter(function(t){ return t.id === activeTab; })[0];
-    if(tab && tab.list){
+    if(tab && tab.budget){
+      html += renderBudget();
+    } else if(tab && tab.list){
       html += renderList(LIST_MAP[tab.list]);
     } else if(tab && tab.type){
       html += renderOverview(tab);
@@ -2047,13 +2989,28 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
           var facts = detailPairs(it);
           var inlineFacts = facts.filter(function(p){ return !p.block; });
           var blockFacts = facts.filter(function(p){ return p.block; });
-          if(inlineFacts.length){
-            html +=   '<div class="entry-facts">' + inlineFacts.map(function(p){
+          /* Fields can claim a line number; anything without one shares line 0,
+             so types that never asked for structure keep their single strip. */
+          var byLine = {}, lineOrder = [];
+          inlineFacts.forEach(function(p){
+            if(!byLine[p.line]){ byLine[p.line] = []; lineOrder.push(p.line); }
+            byLine[p.line].push(p);
+          });
+          lineOrder.sort(function(a, b){ return a - b; });
+          lineOrder.forEach(function(L){
+            var group = byLine[L];
+            if(group[0].aschip){
+              html += '<div class="entry-chips amen-chips">' + group.map(function(p){
+                        return '<span class="kind k-' + esc(p.chip) + '">' + esc(p.text) + '</span>';
+                      }).join('') + '</div>';
+            } else {
+              html += '<div class="entry-facts">' + group.map(function(p){
                         return '<span class="fact' + (p.strong ? ' fact-strong' : '') + '" title="' + esc(p.label) + '">' +
                                (p.prefix ? '<span class="fact-k">' + esc(p.prefix) + '</span>' : '') +
                                esc(p.text) + '</span>';
                       }).join('') + '</div>';
-          }
+            }
+          });
           blockFacts.forEach(function(p){
             html +=   '<div class="entry-facts entry-facts-block">' +
                         (p.prefix ? '<span class="fact-k">' + esc(p.prefix) + '</span>' : '') +
@@ -2086,6 +3043,7 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     html += '</div>';
 
     app.innerHTML = html;
+    wireTabStrip();
 
     /* On the first paint of a trip that is under way, land on today rather
        than at the top of a week that has already happened. */
@@ -2098,6 +3056,40 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
           window.scrollBy(0, -18);
         });
       }
+    }
+  }
+
+  /* Which edges of the tab strip have more behind them. Measured, so it is
+     right at any width and after any zoom or font change. */
+  function paintTabOverflow(){
+    var wrap = document.getElementById('tabwrap');
+    var strip = document.getElementById('tabstrip');
+    if(!wrap || !strip) return;
+    var max = strip.scrollWidth - strip.clientWidth;
+    wrap.classList.toggle('more-l', strip.scrollLeft > 2);
+    wrap.classList.toggle('more-r', strip.scrollLeft < max - 2);
+  }
+
+  var tabResizeWired = false;
+  function wireTabStrip(){
+    var strip = document.getElementById('tabstrip');
+    if(!strip) return;
+    strip.addEventListener('scroll', paintTabOverflow, {passive:true});
+    /* Bring the chosen tab into view without dragging the page with it. */
+    var on = strip.querySelector('.tab[aria-selected="true"]');
+    if(on){
+      var left = on.offsetLeft, right = left + on.offsetWidth;
+      if(left < strip.scrollLeft + 40) strip.scrollLeft = Math.max(0, left - 40);
+      else if(right > strip.scrollLeft + strip.clientWidth - 40){
+        strip.scrollLeft = right - strip.clientWidth + 40;
+      }
+    }
+    paintTabOverflow();
+    requestAnimationFrame(paintTabOverflow);   /* after fonts settle */
+    if(!tabResizeWired){
+      tabResizeWired = true;
+      window.addEventListener('resize', paintTabOverflow);
+      if(document.fonts && document.fonts.ready) document.fonts.ready.then(paintTabOverflow);
     }
   }
 
@@ -2137,6 +3129,7 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
               zonePicker('f-endtz', (it && it.endTz) || '', 'Same as start') +
             '</div></div>' +
           '</div>' +
+          '<div class="dur-line" id="f-dur" hidden></div>' +
           '<div class="hint" style="margin-top:-6px">Times are optional and stored exactly as written, never converted. An end earlier than the start counts as the next day.</div>' +
           '<div><label for="f-title">Activity</label><input type="text" id="f-title" required placeholder="Morning dive, Pescador Island" value="' + esc(it ? it.title : '') + '"></div>' +
           '<div class="two">' +
@@ -2146,12 +3139,12 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
                 return '<option value="' + esc(t.id) + '"' + sel + '>' + esc(t.label) + '</option>';
               }).join('') +
             '</select></div>' +
-            '<div id="f-sub-wrap"><label for="f-sub">Detail</label>' +
+            '<div id="f-sub-wrap"><label for="f-sub">' + esc(subFieldLabel(startType)) + '</label>' +
               subSelect(startType, it ? it.subtype : '') + '</div>' +
-            '<div id="f-fields-wrap">' + fieldInputs(startType, it ? it.details : null) + '</div>' +
+            '<div id="f-fields-wrap">' +
+              fieldInputs(startType, it ? it.details : null, it ? it.subtype : '') + '</div>' +
           '</div>' +
-          '<div><label for="f-loc">Location</label><input type="text" id="f-loc" placeholder="Moalboal, Cebu" value="' + esc(it ? it.location : '') + '">' +
-            '<div class="hint">Becomes a tappable link that opens Google Maps</div></div>' +
+          '<div><label for="f-loc">Location</label><input type="text" id="f-loc" placeholder="Moalboal, Cebu" value="' + esc(it ? it.location : '') + '"></div>' +
           '<div><label for="f-notes">Notes</label><textarea id="f-notes" placeholder="What to bring, who is coming, anything to remember">' + esc(it ? it.notes : '') + '</textarea></div>' +
           '<div><label for="f-photo">Photos</label><input type="file" id="f-photo" accept="image/*" multiple>' +
             '<div class="hint">Resized to fit inside the page. Keep it to a few per entry.</div>' +
@@ -2170,10 +3163,16 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
       if(e.target === bg || e.target.closest('[data-act="cancel"]')) closeForm();
     });
     paintZones();
+    paintDuration();
+    ['f-tz', 'f-endtz', 'f-date', 'f-time', 'f-end', 'f-type'].forEach(function(id){
+      document.getElementById(id).addEventListener('change', paintDuration);
+      document.getElementById(id).addEventListener('input', paintDuration);
+    });
     document.getElementById('f-tz').addEventListener('change', paintZones);
     document.getElementById('f-endtz').addEventListener('change', paintZones);
     document.getElementById('f-date').addEventListener('change', paintZones);
     document.getElementById('f-type').addEventListener('change', refreshTypeFields);
+    document.getElementById('f-sub-wrap').addEventListener('change', refreshSubtypeFields);
     document.getElementById('f-fields-wrap').addEventListener('change', refreshConditionals);
     refreshConditionals();
     if(!TYPE_MAP[startType].subs.length) document.getElementById('f-sub-wrap').style.display = 'none';
@@ -2218,29 +3217,59 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     return html + '</select>';
   }
 
-  /* Text inputs for a type's extra fields. Empty string when the type has none. */
-  function fieldInputs(typeId, details){
-    var fs = fieldsFor(typeId);
+  /* Text inputs for a type's extra fields, narrowed to the ones the chosen
+     subtype carries. Empty string when the type has none. */
+  function fieldInputs(typeId, details, subId){
+    var fs = fieldsFor(typeId).filter(function(f){
+      return !f.subs || f.subs.indexOf(subId) !== -1;
+    });
     if(!fs.length) return '';
-    return fs.map(function(f){
-      var v = (details && details[f.id]) || '';
-      var cls = [];
-      if(f.full) cls.push('full');
-      if(f.input === 'checkbox') cls.push('checkfield');
-      var attrs = (cls.length ? ' class="' + cls.join(' ') + '"' : '') +
-                  (f.showIf ? ' data-showif="' + esc(f.showIf) + '"' : '');
 
-      if(f.input === 'checkbox'){
-        return '<div' + attrs + '>' +
-               '<input type="checkbox" id="ff-' + esc(f.id) + '"' + (v ? ' checked' : '') + '>' +
-               '<label for="ff-' + esc(f.id) + '">' + esc(f.label) + '</label></div>';
-      }
-      var control = f.input === 'textarea'
-        ? '<textarea id="ff-' + esc(f.id) + '" rows="2" placeholder="' + esc(f.placeholder || '') + '">' + esc(v) + '</textarea>'
-        : '<input type="' + esc(f.input || 'text') + '" id="ff-' + esc(f.id) + '"' +
-          ' placeholder="' + esc(f.placeholder || '') + '" value="' + esc(v) + '">';
-      return '<div' + attrs + '><label for="ff-' + esc(f.id) + '">' + esc(f.label) + '</label>' + control + '</div>';
-    }).join('');
+    /* Consecutive fields sharing a `row` are wrapped in one full-width band
+       with its own layout, so a checkbox can sit beside the inputs it governs. */
+    var out = '', i = 0;
+    while(i < fs.length){
+      var r = fs[i].row;
+      if(!r){ out += oneField(fs[i], details); i++; continue; }
+      var band = '';
+      while(i < fs.length && fs[i].row === r){ band += oneField(fs[i], details); i++; }
+      out += '<div class="full field-row row-' + esc(r) + '">' + band + '</div>';
+    }
+    return out;
+  }
+
+  /* One field's control, wrapped in its own cell. */
+  function oneField(f, details){
+    var v = (details && details[f.id]) || '';
+    var cls = [];
+    if(f.full) cls.push('full');
+    if(f.input === 'checkbox') cls.push('checkfield');
+    var attrs = (cls.length ? ' class="' + cls.join(' ') + '"' : '') +
+                (f.showIf ? ' data-showif="' + esc(f.showIf) + '"' : '');
+
+    if(f.input === 'checkbox'){
+      return '<div' + attrs + '>' +
+             '<input type="checkbox" id="ff-' + esc(f.id) + '"' + (v ? ' checked' : '') + '>' +
+             '<label for="ff-' + esc(f.id) + '">' + esc(f.label) + '</label></div>';
+    }
+    var control;
+    if(f.input === 'textarea'){
+      control = '<textarea id="ff-' + esc(f.id) + '" rows="2" placeholder="' + esc(f.placeholder || '') + '">' + esc(v) + '</textarea>';
+    } else if(f.input === 'currency'){
+      var cur = v || lastCur;
+      var opts = CURRENCIES.slice();
+      if(cur && opts.indexOf(cur) === -1) opts.unshift(cur);
+      control = '<select id="ff-' + esc(f.id) + '">' + opts.map(function(c){
+        return '<option value="' + esc(c) + '"' + (c === cur ? ' selected' : '') + '>' + esc(c) + '</option>';
+      }).join('') + '</select>';
+    } else if(f.input === 'money'){
+      control = '<input type="text" inputmode="decimal" id="ff-' + esc(f.id) + '"' +
+                ' placeholder="' + esc(f.placeholder || '') + '" value="' + esc(v) + '">';
+    } else {
+      control = '<input type="' + esc(f.input || 'text') + '" id="ff-' + esc(f.id) + '"' +
+                ' placeholder="' + esc(f.placeholder || '') + '" value="' + esc(v) + '">';
+    }
+    return '<div' + attrs + '><label for="ff-' + esc(f.id) + '">' + esc(f.label) + '</label>' + control + '</div>';
   }
 
   /* Fields gated on a checkbox appear only while it is ticked. */
@@ -2261,13 +3290,54 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     var wrap = document.getElementById('f-sub-wrap');
     if(wrap){
       wrap.style.display = (t && t.subs.length) ? '' : 'none';
-      wrap.innerHTML = '<label for="f-sub">Detail</label>' + subSelect(typeSel.value, '');
+      wrap.innerHTML = '<label for="f-sub">' + esc(subFieldLabel(typeSel.value)) +
+                       '</label>' + subSelect(typeSel.value, '');
     }
     var fw = document.getElementById('f-fields-wrap');
     if(fw){
-      fw.innerHTML = fieldInputs(typeSel.value, null);
+      fw.innerHTML = fieldInputs(typeSel.value, null, currentSub());
       refreshConditionals();
     }
+  }
+
+  /* Live readout under the time row. It counts from departure to arrival, so
+     for a flight with a connection the layover is part of the number. */
+  function paintDuration(){
+    var box = document.getElementById('f-dur');
+    if(!box) return;
+    var date  = document.getElementById('f-date').value;
+    var start = document.getElementById('f-time').value;
+    var end   = document.getElementById('f-end').value;
+    var tz    = document.getElementById('f-tz').value;
+    var etz   = document.getElementById('f-endtz').value || tz;
+    var type  = document.getElementById('f-type').value;
+
+    var min = elapsedMinutes(date, start, tz, end, etz);
+    if(min == null){ box.hidden = true; box.textContent = ''; return; }
+
+    /* One entry is one leg, so for a flight this really is time in the air. */
+    var label = type === 'flight' ? 'Flight time' : 'Total time';
+    var note  = (tz && etz && tz !== etz) ? ' across ' + zoneLabel(tz, date) + ' to ' + zoneLabel(etz, date) : '';
+    box.hidden = false;
+    box.innerHTML = '<span class="dur-k">' + esc(label) + '</span>' +
+                    '<span class="dur-v">' + esc(fmtDuration(min)) + '</span>' +
+                    (note ? '<span class="dur-n">' + esc(note.slice(1)) + '</span>' : '');
+  }
+
+  function currentSub(){
+    var s = document.getElementById('f-sub');
+    return s ? s.value : '';
+  }
+
+  /* Some fields belong to particular subtypes, so the block is rebuilt when the
+     subtype changes. What is already typed in is carried over. */
+  function refreshSubtypeFields(){
+    var typeSel = document.getElementById('f-type');
+    var fw = document.getElementById('f-fields-wrap');
+    if(!typeSel || !fw) return;
+    var kept = collectFields(typeSel.value);
+    fw.innerHTML = fieldInputs(typeSel.value, kept, currentSub());
+    refreshConditionals();
   }
 
   /* A compact control showing just the abbreviation (CET, GMT+8). The real
@@ -2377,7 +3447,25 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
         return;
       }
       var v = el.value.trim();
+      if(f.input === 'money'){
+        /* accept 1 200,50 or 1200.50 and store one plain number */
+        var n = parseFloat(v.replace(/\s/g, '').replace(',', '.'));
+        out[f.id] = isFinite(n) ? String(n) : '';
+        if(!out[f.id]) delete out[f.id];
+        return;
+      }
+      if(f.input === 'currency'){
+        if(v) lastCur = v;
+        return;   /* only kept when there is an amount, handled below */
+      }
       if(v) out[f.id] = v;
+    });
+    /* A currency only means something next to an amount. */
+    fieldsFor(typeId).forEach(function(f){
+      if(!f.money) return;
+      var curEl = document.getElementById('ff-' + f.curField);
+      if(out[f.id] && curEl && curEl.value) out[f.curField] = curEl.value;
+      else delete out[f.curField];
     });
     return out;
   }
@@ -2487,6 +3575,7 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
         probing = false;
         canEdit = true;
         rememberEditor(true);
+        activeTab = lastTab();   /* back to whatever tab they were working in */
         render();
         toast('Editing unlocked on this device');
       }, function(err){
@@ -2543,7 +3632,9 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
       '<div class="sheet">' +
         '<h2>Share and export</h2>' +
         '<div class="prose">' +
-          '<p><b>Keep a copy.</b> Everything lives inside this page, so a copy is your only backup.</p>' +
+          '<h3>Your backup</h3>' +
+          '<p>Everything lives inside this page, so a copy is your only backup. These two buttons are ' +
+          'shown to you as the owner and to nobody else.</p>' +
           '<div class="dl-row">' +
             '<button class="btn btn-primary" data-act="dl-json">' + ICON.down + 'Download the data</button>' +
             '<button class="btn" data-act="dl-html">' + ICON.down + 'Download an offline copy</button>' +
@@ -2551,17 +3642,23 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
           '<p class="prose-note" id="dl-note">The data file is JSON you can keep or hand back to me. ' +
           'The offline copy is this whole page as one file: open it from your phone or laptop with no ' +
           'connection and the itinerary still works, though it cannot save changes.</p>' +
-          '<p>Anyone you share the link with opens it <b>read only</b>. There is no Add entry button, ' +
-          'no edit pencils and no theme picker, so family can look through every tab without being able ' +
-          'to change anything.</p>' +
-          '<p>What actually enforces that is the access you give them, not the link itself. Use the ' +
-          'artifact’s own share menu and add people as <b>viewers</b> rather than editors. Even if ' +
-          'someone tries to unlock editing, a save from a viewer is refused by the server and the page ' +
-          'puts itself back.</p>' +
+          '<h3>What family get</h3>' +
+          '<p>Anyone you share the link with opens the <b>itinerary only</b>, read only. No tabs, so no ' +
+          'flights, stays, budget, to do or packing lists. No Add entry, no edit pencils, no theme ' +
+          'picker, and <b>no download buttons</b>: this panel is yours alone.</p>' +
+          '<p>Costs, phone and WhatsApp numbers and transport service codes are left off their copy. ' +
+          'Dates, times, places, flight numbers and your notes stay.</p>' +
+          '<p class="prose-note"><b>This hides, it does not delete.</b> The whole trip, prices included, ' +
+          'is still inside the page file, so someone who views the page source can read it. It stops ' +
+          'browsing and shoulder surfing, not a determined person.</p>' +
+          '<h3>Giving access</h3>' +
+          '<p>What enforces read only is the access you grant, not the link. Use the artifact’s own ' +
+          'share menu and add people as <b>viewers</b> rather than editors. Even if someone tries to ' +
+          'unlock editing, a save from a viewer is refused by the server and the page puts itself back.</p>' +
           '<p>Your own editing is remembered in this browser only. On a new device or a private window ' +
           'you will unlock it once more.</p>' +
           '<p class="prose-note">Use <b>Preview as viewer</b> in the toolbar to see exactly what family ' +
-          'sees. It changes nothing and you can unlock again whenever you like.</p>' +
+          'see. It changes nothing, saves nothing, and <b>Back to editing</b> returns you in one click.</p>' +
         '</div>' +
         '<div class="sheet-foot"><button class="btn btn-primary" data-act="cancel">Close</button></div>' +
       '</div>';
@@ -2571,6 +3668,72 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     });
     document.addEventListener('keydown', escClose);
   }
+
+  /* ------------------------------------------- editing a list row in place */
+
+  function editBox(t){ return t && t.closest ? t.closest('[data-act="edit-item"]') : null; }
+
+  /* Remember what it said, so Escape has something to go back to. */
+  document.addEventListener('focusin', function(e){
+    var box = editBox(e.target);
+    if(box) box.setAttribute('data-was', box.textContent);
+  });
+
+  document.addEventListener('keydown', function(e){
+    var box = editBox(e.target);
+    if(!box) return;
+    if(e.key === 'Enter'){ e.preventDefault(); box.blur(); }
+    else if(e.key === 'Escape'){
+      e.preventDefault();
+      box.setAttribute('data-cancel', '1');
+      box.textContent = box.getAttribute('data-was') || '';
+      box.blur();
+    }
+  });
+
+  document.addEventListener('focusout', function(e){
+    var box = editBox(e.target);
+    if(!box) return;
+    var before = box.getAttribute('data-was') || '';
+    var text = box.textContent.replace(/\s+/g, ' ').trim();
+
+    if(box.getAttribute('data-cancel')){
+      box.removeAttribute('data-cancel');
+      box.textContent = before;
+      return;
+    }
+    if(!canEdit || text === before){ box.textContent = before; return; }
+    if(!text){
+      box.textContent = before;
+      toast('An item needs some text, so that was left as it was.', true);
+      return;
+    }
+
+    var lk = box.getAttribute('data-list'), iid = box.getAttribute('data-id');
+    var arr = state.lists[lk] || [];
+    var was = arr.map(function(i){
+      var c = {}; for(var k in i){ if(i.hasOwnProperty(k)) c[k] = i[k]; } return c;
+    });
+    var row = arr.filter(function(i){ return i.id === iid; })[0];
+    if(!row){ box.textContent = before; return; }
+
+    row.text = text;
+    box.textContent = text;
+    box.setAttribute('data-was', text);
+    /* Repoint the labels that quote the text, without a full repaint, so
+       tabbing down a list is not interrupted. */
+    var li = box.closest('.prep-item');
+    if(li){
+      var cb = li.querySelector('input[type="checkbox"]');
+      if(cb) cb.setAttribute('aria-label', text);
+      var rm = li.querySelector('[data-act="rm-item"]');
+      if(rm) rm.setAttribute('aria-label', 'Remove ' + text);
+      var cs = li.querySelector('[data-act="setcat"]');
+      if(cs) cs.setAttribute('aria-label', 'Category for ' + text);
+      box.setAttribute('aria-label', 'Edit ' + text);
+    }
+    save(function(){ state.lists[lk] = was; }, 'Item updated');
+  });
 
   function save(revert, okMsg){
     function undo(){
@@ -2643,24 +3806,45 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
       var tid = btn.getAttribute('data-tab');
       if(activeTab === tid) return;
       activeTab = tid;      /* view state only, never published */
+      rememberTab(tid);
       render();
       window.scrollTo({top:0, behavior:'auto'});
       return;
     }
+    if(act === 'tabscroll'){
+      var strip = document.getElementById('tabstrip');
+      if(strip){
+        var step = Math.max(120, Math.round(strip.clientWidth * 0.7));
+        strip.scrollLeft += step * (btn.getAttribute('data-dir') === '1' ? 1 : -1);
+      }
+      return;
+    }
     if(act === 'unlock'){ tryUnlock(); return; }
     if(act === 'lock'){
+      /* A look, not a downgrade: the stored editor flag is left alone so
+         coming back is one click and never another publish. */
+      previewing = true;
       canEdit = false;
-      rememberEditor(false);
       render();
-      toast('This is what family sees. Choose Edit this itinerary to come back.');
+      window.scrollTo({top:0, behavior:'auto'});
+      toast('This is what family sees. Choose Back to editing to come back.');
+      return;
+    }
+    if(act === 'endpreview'){
+      previewing = false;
+      canEdit = true;
+      activeTab = lastTab();
+      render();
       return;
     }
     if(act === 'sharing'){ openSharing(); return; }
     if(act === 'dl-json'){
+      if(!canEdit) return;   /* nothing downloadable in the family view */
       offerDownload(slug() + '.json', JSON.stringify(state, null, 2));
       return;
     }
     if(act === 'dl-html'){
+      if(!canEdit) return;
       offerDownload(slug() + '.html', buildDocument());
       return;
     }
@@ -2706,13 +3890,27 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
       var prev = arr.map(function(i){ return {id:i.id, text:i.text, done:i.done, cat:i.cat}; });
       var row = arr.filter(function(i){ return i.id === sid; })[0];
       if(!row) return;
-      var next = PACK_CAT_MAP[sel.value] ? sel.value : '';
+      var sl = LIST_MAP[slk] || {catMap:{}};
+      var next = sl.catMap[sel.value] ? sel.value : '';
       if(next === row.cat) return;
       row.cat = next;
-      if(next) lastPackCat = next;
+      if(next) lastCat[slk] = next;
       render();
       save(function(){ state.lists[slk] = prev; },
-           'Moved to ' + (next ? PACK_CAT_MAP[next].label : 'Not sorted'));
+           'Moved to ' + (next ? sl.catMap[next].label : 'Not sorted'));
+      return;
+    }
+
+    var rate = e.target.closest ? e.target.closest('[data-act="rate"]') : null;
+    if(rate && canEdit){
+      var cur = rate.getAttribute('data-cur');
+      var prev = JSON.parse(JSON.stringify(state.rates || {}));
+      var n = parseFloat(rate.value.replace(/\s/g, '').replace(',', '.'));
+      if(isFinite(n) && n > 0) state.rates[cur] = String(n);
+      else delete state.rates[cur];
+      render();
+      save(function(){ state.rates = prev; },
+           state.rates[cur] ? cur + ' rate saved' : cur + ' rate cleared');
       return;
     }
 
@@ -2720,7 +3918,9 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     if(!box || !canEdit) return;
     var lk = box.getAttribute('data-list'), iid = box.getAttribute('data-id');
     var items = state.lists[lk] || [];
-    var was = items.map(function(i){ return {id:i.id, text:i.text, done:i.done}; });
+    var was = items.map(function(i){
+      var c = {}; for(var k in i){ if(i.hasOwnProperty(k)) c[k] = i[k]; } return c;
+    });
     var hit = items.filter(function(i){ return i.id === iid; })[0];
     if(!hit) return;
     hit.done = box.checked;
@@ -2740,8 +3940,9 @@ textarea{resize:vertical;min-height:76px;line-height:1.5}
     var catSel = form.querySelector('.prep-cat');
     var row = {id: uid(), text: text, done: false};
     if(catSel){
-      row.cat = PACK_CAT_MAP[catSel.value] ? catSel.value : '';
-      if(row.cat) lastPackCat = row.cat;
+      var al = LIST_MAP[lk] || {catMap:{}};
+      row.cat = al.catMap[catSel.value] ? catSel.value : '';
+      if(row.cat) lastCat[lk] = row.cat;
     }
     var was = (state.lists[lk] || []).slice();
     state.lists[lk] = was.concat([row]);
